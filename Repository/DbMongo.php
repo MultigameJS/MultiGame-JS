@@ -4,10 +4,12 @@ namespace App\Repository;
 
 use App\Config\Mongo;
 use MongoDB\BSON\ObjectId;
+use MongoDB\Collection;
+use MongoDB\Database;
 
-class BaseMongo extends Mongo
+class DbMongo extends Mongo
 {
-    private \MongoDB\Database $db;
+    private Database $db;
     private array $collections;
 
     /**
@@ -30,7 +32,7 @@ class BaseMongo extends Mongo
      * @return \MongoDB\Collection
      * @throws Exception Si l'alias n'existe pas.
      */
-    public function getCollection(string $alias): \MongoDB\Collection 
+    public function getCollection(string $alias): Collection 
     {
         if (!isset($this->collections[$alias])) {
             throw new \Exception("La collection avec le nom '{$alias}' n'existe pas.");

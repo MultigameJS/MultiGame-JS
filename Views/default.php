@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
-    <link href="<?php if(isset($link)){echo $link;}?>" rel="stylesheet">
-    <link href="<?php if(isset($links)){echo $links;}?>" rel="stylesheet">
+    <link href="/assets/css/default.css" rel="stylesheet">
+    <link href="/assets/css/<?php if(isset($css)){echo $css;}?>.css" rel="stylesheet">
+    <link href="/assets/css/<?php if(isset($css2)){echo $css2;}?>.css" rel="stylesheet">
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>

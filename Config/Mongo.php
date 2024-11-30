@@ -3,12 +3,13 @@
 namespace App\Config;
 
 use MongoDB\Client;
+use MongoDB\Database;
 
 class Mongo
 {
     private static ?Mongo $instance = null;
     private Client $client;
-    private \MongoDB\Database $db;
+    private Database $db;
 
    /**
      * Initializes the MongoBase instance.
@@ -52,7 +53,7 @@ class Mongo
      * Retourne la base de données MongoDB.
      * @return \MongoDB\Database
      */
-    public function getDatabase(): \MongoDB\Database 
+    public function getDatabase(): Database 
     {
         return $this->db;
     }

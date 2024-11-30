@@ -11,15 +11,17 @@ document.querySelectorAll('form').forEach(function(form) {
         })
         .then(function(response) {
             if (response.ok) {
-                return response.json();
+                return response.json().then(jsonResponse => jsonResponse);
             } else {
                 return response.json().then(err => { throw err; });
             }
         })
         .then(function(jsonResponse) {
             // Cacher le message d'erreur en cas de succès
-            const errorMessageContainer = document.getElementById('error-message');
-            errorMessageContainer.style.display = 'none';
+            let errorMessageContainer = document.getElementById('error-message');
+            let successMessageContainer = document.getElementById('success-message');
+            errorMessageContainer.style.display = 'none'; 
+            successMessageContainer.style.display = 'block';
 
             form.reset();
             

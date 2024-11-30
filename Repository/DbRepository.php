@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Config\Db;
 
-abstract class BaseRepository
+abstract class DbRepository
 {
     protected $table;
     private $db;
