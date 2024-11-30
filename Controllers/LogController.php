@@ -31,4 +31,10 @@ class LogController extends Controller
             $loginService->login($data);
         }
     }
+
+    public function logout()
+    {
+        session_destroy();
+        header('Location: /');
+    }
 }
