@@ -16,7 +16,6 @@ class LogController extends Controller
      */
     public function index()
     {
-        // Render the login view
         $this->render('login/index');
     }
 

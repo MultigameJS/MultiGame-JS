@@ -15,6 +15,7 @@ class UserModel extends Model
     private $is_admin;
     private $is_banned;
     private $is_verified;
+    private $id_role;
 
     /**
      * Get the value of id
@@ -94,14 +95,14 @@ class UserModel extends Model
     /**
      * Get the value of creat_time
      */
-    public function getCreatTime() {
+    public function getCreat_Time() {
         return $this->creat_time;
     }
 
     /**
      * Set the value of creat_time
      */
-    public function setCreatTime($creat_time): self {
+    public function setCreat_Time($creat_time): self {
         $this->creat_time = $creat_time;
         return $this;
     }
@@ -109,14 +110,14 @@ class UserModel extends Model
     /**
      * Get the value of update_time
      */
-    public function getUpdateTime() {
+    public function getUpdate_Time() {
         return $this->update_time;
     }
 
     /**
      * Set the value of update_time
      */
-    public function setUpdateTime($update_time): self {
+    public function setUpdate_Time($update_time): self {
         $this->update_time = $update_time;
         return $this;
     }
@@ -124,14 +125,14 @@ class UserModel extends Model
     /**
      * Get the value of last_login
      */
-    public function getLastLogin() {
+    public function getLast_Login() {
         return $this->last_login;
     }
 
     /**
      * Set the value of last_login
      */
-    public function setLastLogin($last_login): self {
+    public function setLast_Login($last_login): self {
         $this->last_login = $last_login;
         return $this;
     }
@@ -139,14 +140,14 @@ class UserModel extends Model
     /**
      * Get the value of is_admin
      */
-    public function getIsAdmin() {
+    public function getIs_Admin() {
         return $this->is_admin;
     }
 
     /**
      * Set the value of is_admin
      */
-    public function setIsAdmin($is_admin): self {
+    public function setIs_Admin($is_admin): self {
         $this->is_admin = $is_admin;
         return $this;
     }
@@ -154,14 +155,14 @@ class UserModel extends Model
     /**
      * Get the value of is_banned
      */
-    public function getIsBanned() {
+    public function getIs_Banned() {
         return $this->is_banned;
     }
 
     /**
      * Set the value of is_banned
      */
-    public function setIsBanned($is_banned): self {
+    public function setIs_Banned($is_banned): self {
         $this->is_banned = $is_banned;
         return $this;
     }
@@ -169,15 +170,30 @@ class UserModel extends Model
     /**
      * Get the value of is_verified
      */
-    public function getIsVerified() {
+    public function getIs_Verified() {
         return $this->is_verified;
     }
 
     /**
      * Set the value of is_verified
      */
-    public function setIsVerified($is_verified): self {
+    public function setIs_Verified($is_verified): self {
         $this->is_verified = $is_verified;
+        return $this;
+    }
+
+    /**
+     * Get the value of id_role
+     */
+    public function getId_Role() {
+        return $this->id_role;
+    }
+
+    /**
+     * Set the value of id_role
+     */
+    public function setId_Role($id_role): self {
+        $this->id_role = $id_role;
         return $this;
     }
 }

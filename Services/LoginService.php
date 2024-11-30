@@ -17,11 +17,11 @@ class LoginService
             exit();
         }
 
-        $LoginRepository = new UserRepository();
-        $user = $LoginRepository->findBy([ 'email' => $email]);
+        $userRepository = new UserRepository();
+        $user = $userRepository->search($email);
 
         // Vérifier si l'utilisateur est confirmé
-        if ($user && $user->is_confirmed == '0') {
+        if ($user && $user->is_verified == '0') {
             http_response_code(403);
             echo json_encode(["status" => "error", "message" => "Veuillez confirmer votre adresse email avant de vous connecter."]);
             exit();
@@ -30,7 +30,6 @@ class LoginService
         if ($user && password_verify($password, $user->password)) {
             $_SESSION['id'] = $user->id;
             $_SESSION['name'] = $user->name;
-            $_SESSION['firstname'] = $user->firstname;
             $_SESSION['email'] = $user->email;
             $_SESSION['role'] = $user->role;
 

@@ -6,8 +6,14 @@
 
 #success-message{
     display: none;
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
 }
 
 #error-message{
     display: none;
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
 }

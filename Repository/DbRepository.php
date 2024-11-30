@@ -86,6 +86,21 @@ abstract class DbRepository
         return $this->req("SELECT * FROM " . $this->table . " WHERE " . $listeChamps, $valeurs)->fetchAll();
     }
 
+    public function findOneBy(array $criteres)
+    {
+        $champs = [];
+        $valeurs = [];
+
+        foreach ($criteres as $champ => $valeur) {
+            $champs[] = "$champ = ?";
+            $valeurs[] = $valeur;
+        }
+
+        $listeChamps = implode(' AND ', $champs);
+
+        return $this->req("SELECT * FROM " . $this->table . " WHERE " . $listeChamps, $valeurs)->fetch();
+    }
+
     /**
      * Updates an existing entry in the database by its ID.
      *

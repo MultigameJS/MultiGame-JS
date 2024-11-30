@@ -7,48 +7,40 @@ use App\Repository\UserRepository;
 
 class RegisterService
 {
-    public function register()
+    public function register($data)
     {
         header('Content-Type: application/json');
-        $name = $_POST['name'];
-        $firstname = $_POST['firstname'];
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        $password = $_POST['password'];
-        $confirmPassword = $_POST['confirmPassword'];
-        $id_role = 2;
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             http_response_code(400);
             echo json_encode(["status" => "error", "message" => "Email invalide."]);
             exit();
         }
 
-        if ($password !== $confirmPassword) {
+        if ($data['password'] !== $data['confirmPassword']) {
             http_response_code(400);
             echo json_encode(["status" => "error", "message" => "Les mots de passe ne correspondent pas."]);
             exit();
         } else {
-            $password = password_hash($password, PASSWORD_DEFAULT);
+            $password = password_hash($data['password'], PASSWORD_DEFAULT);
         }
 
         // Génération du token de confirmation
         $token = bin2hex(random_bytes(32));
 
-        // Hydrater et enregistrer l'utilisateur avec le token
         $data = [
-            'name' => $name,
-            'firstname' => $firstname,
-            'email' => $email,
+            'name' => $data['name'],
+            'email' => $data['email'],
             'password' => $password,
-            'confirmed_token' => $token,
-            'is_confirmed' => 0,
-            'id_role' => $id_role
+            'token' => $token,
+            'id_role' => $data['id_role'] ?? 2,
         ];
+        // Hydrater et enregistrer l'utilisateur avec le token
         $UsersModel = new UserModel();
         $UsersModel->hydrate($data);
         if ($UsersModel = (new UserRepository())->create($data)) {
             // Envoi de l'email de confirmation
-            $this->sendConfirmationEmail($email, $token);
+            $this->sendConfirmationEmail($data['email'], $token);
 
             http_response_code(200);
             echo json_encode(["status" => "success", "message" => "Un email de confirmation a été envoyé."]);
@@ -65,7 +57,7 @@ class RegisterService
             // Contenu de l'email
             $to = $email;
             $Subject = 'Confirmation de votre inscription';
-            $confirmationLink = "https://lesptitsplats-ee9a18fc681e.herokuapp.com/login/confirm/" . $token;
+            $confirmationLink = "http://localhost:8080/register/confirm/" . $token;
             $Body = "Bonjour,<br>
                 <br>
                 Merci pour votre inscription.<br>

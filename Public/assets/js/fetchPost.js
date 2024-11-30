@@ -21,13 +21,17 @@ document.querySelectorAll('form').forEach(function(form) {
             let errorMessageContainer = document.getElementById('error-message');
             let successMessageContainer = document.getElementById('success-message');
             errorMessageContainer.style.display = 'none'; 
-            successMessageContainer.style.display = 'block';
+            successMessageContainer.style.display = 'none';
 
             form.reset();
             
             if (jsonResponse.redirect) {
                 window.location.href = jsonResponse.redirect; // Redirection si demandée
             }
+            if (jsonResponse.status === "success") {
+                successMessageContainer.style.display = 'block';
+                successMessageContainer.textContent = jsonResponse.message;
+            }            
         })
         .catch(function(error) {
             // Afficher l'erreur dans le conteneur d'erreurs
