@@ -2,7 +2,6 @@
 
 namespace App\Config;
 
-use App\Controllers\LoginController;
 use App\Controllers\MainController;
 
 class Main
@@ -41,7 +40,7 @@ class Main
         $params = isset($_GET['p']) ? explode('/', filter_var($_GET['p'], FILTER_SANITIZE_URL)) : [];
 
         if (isset($params[0]) && $params[0] != '') {
-            $controllerName = '\\App\\controllers\\' . ucfirst(array_shift($params)) . 'Controller';
+            $controllerName = '\\App\\Controllers\\' . ucfirst(array_shift($params)) . 'Controller';
 
             if (class_exists($controllerName)) {
                 $controller = new $controllerName();

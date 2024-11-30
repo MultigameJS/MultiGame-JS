@@ -12,8 +12,11 @@ services:
     depends_on:
       - db
       - mongo
+    volumes:
+      - .:/var/www/html  # Montre le dossier local dans le conteneur
     networks:
       - app-network
+
 
   db:
     image: mariadb:10.11

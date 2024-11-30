@@ -16,7 +16,7 @@ RUN pecl install mongodb && docker-php-ext-enable mongodb
 RUN a2enmod rewrite
 
 # Configurer Apache pour pointer vers le dossier public
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's|/var/www/html|/var/www/html/Public|g' /etc/apache2/sites-available/000-default.conf
 
 # Définir les fichiers par défaut recherchés par Apache
 RUN echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf

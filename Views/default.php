@@ -24,11 +24,11 @@
                 <ul class="navbar-nav ms-auto">
                     <?php if(isset($_SESSION['id'])): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/deconect/index" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">Déconnexion</a>
+                        <a class="nav-link" href="/log/logout" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">Déconnexion</a>
                     </li>
                     <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Connexion</a>
+                        <a class="nav-link" href="/log">Connexion</a>
                     </li>
                     <?php endif; ?>
                 </ul>
