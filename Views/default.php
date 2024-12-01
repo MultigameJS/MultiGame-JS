@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
     <link href="/assets/css/default.css" rel="stylesheet">
     <link href="/assets/css/<?php if(isset($css)){echo $css;}?>.css" rel="stylesheet">
-    <link href="/assets/css/<?php if(isset($css2)){echo $css2;}?>.css" rel="stylesheet">
+    <link href="/assets/css/<?php if(isset($style)){echo $style;}?>.css" rel="stylesheet">
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
@@ -45,8 +45,8 @@
         <h3 class="text-center">&copy Copyright</h3>
     </footer>
     
-    <script src="<?php if(isset($jeux)){echo $jeux;}?>"></script>
-    <script src="<?php if(isset($script)){echo $script;}?>"></script>
+    <script src="/assets/js/<?php if(isset($game)){echo $game;}?>.js"></script>
+    <script src="/assets/js/<?php if(isset($script)){echo $script;}?>.js"></script>
     <script src="/assets/js/fetchPost.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
