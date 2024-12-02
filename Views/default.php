@@ -10,8 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
     <link href="/assets/css/default.css" rel="stylesheet">
-    <link href="/assets/css/<?php if(isset($css)){echo $css;}?>.css" rel="stylesheet">
-    <link href="/assets/css/<?php if(isset($style)){echo $style;}?>.css" rel="stylesheet">
+    <?php if(isset($css)): ?>
+    <link href="/assets/css/<?= $css ?>.css" rel="stylesheet">
+    <?php endif; ?>
+    <?php if(isset($style)): ?>
+    <link href="/assets/css/<?= $style ?>.css" rel="stylesheet">
+    <?php endif; ?>
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
@@ -48,8 +52,12 @@
         <h3 class="text-center">&copy Copyright</h3>
     </footer>
     
-    <script src="/assets/js/<?php if(isset($game)){echo $game;}?>.js"></script>
-    <script src="/assets/js/<?php if(isset($script)){echo $script;}?>.js"></script>
+    <?php if(isset($game)): ?>
+    <script type="module" src="/assets/js/<?= $game ?>.js"></script>
+    <?php endif; ?>
+    <?php if(isset($script)): ?>
+    <script src="/assets/js/<?= $script ?>.js"></script>
+    <?php endif; ?>
     <script src="/assets/js/fetchPost.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
