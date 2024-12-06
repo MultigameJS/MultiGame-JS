@@ -103,7 +103,7 @@
                 <hr>
                 <h6><strong>Bonus pour les séries de mots trouvés</strong></h6>
                 <p>
-                    Trouver plusieurs mots à la suite sans perdre octroie un bonus exponentiel :
+                    Trouver plusieurs mots à la suite afin d'obtenir un bonus exponentiel :
                 </p>
                 <ul>
                     <li>2 mots à la suite : +20 points.</li>
@@ -117,15 +117,15 @@
                 <hr>
                 <h6><strong>Exemple de calcul</strong></h6>
                 <p>
-                    Un joueur devine un mot de 5 lettres avec 1 erreur :
+                    Un joueur devine un mot de 5 lettres avec 1 erreur:
                 </p>
                 <ul>
-                    <li>Lettres correctes : 4 × 10 = +40 points.</li>
+                    <li>Lettres correctes : 4 x 10 = +40 points.</li>
                     <li>Erreur : -5 points.</li>
                     <li>Total pour ce mot : **+35 points**.</li>
                 </ul>
                 <p>
-                    Enchaînant avec 3 mots trouvés à la suite, il obtient :
+                    Enchaînant avec 3 mots trouvés à la suite, il obtient:
                 </p>
                 <ul>
                     <li>Points des mots : 35 + 50 + 45 = +130 points.</li>
