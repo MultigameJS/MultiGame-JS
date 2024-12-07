@@ -1,0 +1,33 @@
+*{
+    background: linear-gradient(90deg, #1a1a1a, #3a3a3a);
+}
+
+.acceuil {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+h1{
+color: #ff007f;
+}
+
+p{
+color: #ffcc00;
+}
+
+.cn a{
+    background: linear-gradient(90deg, #ff007f, #ffcc00); /* Dégradé vibrant */
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.cn a :hover{
+    background: linear-gradient(90deg, #ffcc00, #ff007f); /* Inverse le dégradé */
+    transform: translateY(-3px); /* Légère élévation */
+    color: #fff;
+}

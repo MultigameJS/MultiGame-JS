@@ -19,24 +19,30 @@
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-secondary">
+<nav class="navbar navbar-expand-lg">
         <div class="navtop container-fluid">
-            <a class="logo d-block" href="/"><img src="#" alt="LOGO"></a>
+            <!-- Logo -->
+            <a class="logo d-block" href="/">
+                <img src="/assets/images/logo.png" alt="LOGO">
+            </a>
+
+            <!-- Toggle button for mobile view -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Navbar content -->
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Jeux</a>
-                    </li>
+                    <!-- Authenticated user links -->
                     <?php if(isset($_SESSION['id'])): ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="/log/logout" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">Déconnexion</a>
+                        <a class="nav-link btn-connexion" href="/log/logout" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">Déconnexion</a>
                     </li>
                     <?php else: ?>
+                    <!-- Guest links -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/log">Connexion</a>
+                        <a class="nav-link btn-connexion" href="/log">Connexion</a>
                     </li>
                     <?php endif; ?>
                 </ul>
@@ -48,16 +54,25 @@
         <?= $contenu ?>
     </main>
 
-    <footer class="mt-7">
-        <h3 class="text-center">&copy Copyright</h3>
-    </footer>
-    
-    <?php if(isset($game)): ?>
-    <script type="module" src="/assets/js/<?= $game ?>.js"></script>
-    <?php endif; ?>
-    <?php if(isset($script)): ?>
-    <script src="/assets/js/<?= $script ?>.js"></script>
-    <?php endif; ?>
+    <footer class="footer-gaming text-center text-white py-4">
+    <div class="container">
+        <!-- Texte principal -->
+        <h3>&copy; 2025 MultiGame-JS. Tous droits réservés.</h3>
+        <p>Créé avec passion par la promotion  Studi DevWeb Full Stack Mars 2025.</p>
+
+        <!-- Liens CGU, RGPD, Mentions légales -->
+        <div class="legal-links mt-4">
+            <a href="/cgu" class="legal-link">CGU</a>
+            <span>|</span>
+            <a href="/rgpd" class="legal-link">RGPD</a>
+            <span>|</span>
+            <a href="/mentions-legales" class="legal-link">Mentions légales</a>
+        </div>
+    </div>
+</footer>
+
+    <script src="/assets/js/<?php if(isset($game)){echo $game;}?>.js"></script>
+    <script src="/assets/js/<?php if(isset($script)){echo $script;}?>.js"></script>
     <script src="/assets/js/fetchPost.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
