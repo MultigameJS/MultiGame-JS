@@ -1,0 +1,368 @@
+/* Général */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #93c5f8;
+}
+#animated-title {
+    text-align: center;
+}
+/* Navbar styles */
+.navbar {
+    padding: 10px 20px;
+    background-color: #0d365c; /* Couleur de fond */
+}
+
+.navbar-nav .nav-link {
+    padding: 10px 15px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: white;
+}
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+    color: white;
+}
+.navbar .navbar-brand {
+    color: white;
+}
+.navbar-nav .nav-link:hover {
+    background-color: #058682;
+    color: white;
+    border-radius: 5px;
+}
+/*bordure icone blanc*/
+.navbar .navbar-toggler {
+    border: 1px solid white;
+}
+/* icône blanc */
+.navbar .navbar-toggler-icon {
+    filter: invert(1); 
+}
+
+/*centrer les liens dans la navbar */
+.navbar-nav {
+    margin: auto;
+}
+/*sous titre */
+.dropdown-item {
+    font-size: 0.8rem;
+    color: white;
+    background-color: #058682;
+}
+
+/* modal regles du jeu */
+.modal-body h6 {
+    color: #058682; /* Couleur des sous-titres */
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.modal-body ul {
+    margin-left: 20px; /* Indentation pour les listes */
+}
+
+.modal-body ul li {
+    margin-bottom: 10px; /* Espacement entre les éléments */
+}
+
+.btn-primary {
+    background-color: #058682; /* Couleur de fond au survol */
+    border-color: #0d365c; /* Couleur de la bordure au survol */
+}
+
+/* Zone principale */
+.main {
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 1;
+}
+
+.main h1 {
+    margin-bottom: 20px;
+}
+
+/* Sablier */
+.hourglass-container {
+    position: relative;
+    width: 350px; /* Augmentation de la largeur */
+    height: 350px; /* Augmentation de la hauteur */
+    border: 3px solid #333;
+    border-radius: 20px;
+    margin: 20px auto;
+    background: #fff; /* Conteneur blanc par défaut */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* L'eau remplit depuis le bas */
+}
+
+.hourglass-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%; /* Vide au départ */
+    background: #058682; /* Couleur de l'eau */
+    transition: height 0.5s ease-in-out;
+    z-index: 1; /* Derrière l'image de fin */
+}
+
+/* Image de fin de partie */
+#endgame-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* Remplit entièrement la largeur */
+    height: 100%; /* Remplit entièrement la hauteur */
+    object-fit: contain; /* S'assure que l'image s'ajuste parfaitement */
+    display: none; /* Cachée par défaut */
+    z-index: 2; /* Devant le remplissage */
+}
+
+
+@keyframes fadeInOut {
+    0% {
+        transform: scale(1);
+        color: #999; /* Gris clair */
+    }
+    50% {
+        transform: scale(1.2); /* Zoom temporaire */
+        color: #666; /* Gris moyen */
+    }
+    100% {
+        transform: scale(1);
+        color: #333; /* Gris foncé */
+    }
+}
+
+/*zones des scores */
+.scoreboard {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #058682;
+    background-color: #f0f8ff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Zone des lettres */
+.letters {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.letters button {
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid #051424;
+    background-color: #058682;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    color: white;
+}
+
+.letters button:hover {
+    background-color: #073130;
+    color: white;
+}
+
+.letters button.disabled {
+    background-color: #ddd;
+    color: #0d365c;
+    cursor: not-allowed;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Boutons des thèmes */
+.theme-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 100%;
+}
+
+.theme-button {
+    flex: 1 1 120px;
+    max-width: 120px;
+    height:70px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #0d365c;
+    background-color: #058682;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-button:hover {
+    background-color: #0d365c;
+}
+
+/* Zone des messages */
+.messages, .instructions{
+    font-size: 24px; /* Texte plus grand */
+    font-weight: bold; /* Texte en gras */
+    color: #555;
+    text-align: center;
+    margin-top: 20px; /* Espacement avec les autres éléments */
+    background-color: #f8f9fa; /* Fond clair */
+    padding: 15px; /* Espacement intérieur */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    border: solid 2px #051424; /* Bordure fine */
+}
+
+.messages.success {
+    color: #058682; /* Vert pour les réussites */
+}
+
+.messages.error {
+    color: #f44336; /* Rouge pour les erreurs */
+}
+
+.messages.info {
+    color: #051424; /* Bleu pour les informations */
+}
+
+
+
+
+/* Bouton "Recommencer" */
+.restart-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #0d365c;
+    color: white;
+    border: none;
+    cursor: pointer;
+    animation: pulse 2s infinite;
+    margin-top: 30px;
+    border-radius: 20px;
+    border: 2px solid #058682;
+}
+
+.restart-btn:hover {
+    background-color: #058682;
+    border: 2px solid #051424;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Zone d'affichage du mot */
+.word-display {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espacement entre les cubes */
+    margin-bottom: 20px;
+}
+
+/* Style des cubes */
+.cube {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    perspective: 1000px; /* Nécessaire pour l'effet 3D */
+}
+
+.cube-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.cube.flip .cube-inner {
+    transform: rotateY(180deg); /* Effet de retournement */
+}
+
+/* Faces des cubes */
+.cube-front,
+.cube-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid #051424;
+    border-radius: 5px;
+}
+
+/* Face avant (underscore) */
+.cube-front {
+    background-color: #0d365c;
+    color: white;
+    transform: rotateY(0deg);
+}
+
+/* Face arrière (lettre) */
+.cube-back {
+    background-color: #058682;
+    color: white;
+    transform: rotateY(180deg);
+}
+
+@media (max-width: 400px) {
+   
+}
+@media (max-width: 768px) {
+    .letters {
+        grid-template-columns: repeat(7, 1fr); /* 7 lettres par ligne */
+    }
+    #animated-title {
+        font-size: 1.5em;
+    }
+}
+
+/* Clavier pour les petits écrans (5 lettres par ligne) */
+@media (max-width: 480px) {
+    .letters {
+        grid-template-columns: repeat(5, 1fr); /* 5 lettres par ligne */
+    }
+    #animated-title {
+        font-size: 1.2em;
+    }
+    .cube {
+        width: 40px;
+        height: 40px;
+    }
+    .letters button {
+        font-size: 14px;
+    }
+    .hourglass-container {
+        width: 280px; /* Augmentation de la largeur */
+        height: 142px; /* Augmentation de la hauteur */
+    } 
+    .letters button {
+        font-size: 16px;
+    }
+    
+}
