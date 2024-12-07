@@ -4,7 +4,7 @@ $css = 'acceuil';
 ?>
 
 <section id="home-intro" class="text-center p-5 ">
-    <div class="container cn">
+    <div class="container cn pb-3">
         <h1 class="display-4">Bienvenue sur MultiGame-JS</h1>
         <p class="lead mt-4">
             MultiGame-JS est une plateforme de jeux créée avec passion en collaboration avec la promotion
