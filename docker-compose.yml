@@ -1,57 +1,61 @@
-version: "3.8"
+version: "3.8"  # Version de Docker Compose
 
+# Définition des services
 services:
   app:
     build:
       context: .
-    container_name: my-php-container
+    container_name: my-php-container  # Nom du conteneur
     ports:
-      - "8080:80"  # Accéder à l'application via localhost:8080
+      - "8080:80"                     # Accéder à l'application via localhost:8080
     env_file:
-      - .env       # Charger les variables d'environnement
+      - .env                          # Charger les variables d'environnement
     depends_on:
-      - db
-      - mongo
+      - db                            # Dépendances du service
+      - mongo                         # Dépendances du service       
     volumes:
-      - .:/var/www/html  # Montre le dossier local dans le conteneur
+      - .:/var/www/html               # Montre le dossier local dans le conteneur
     networks:
-      - app-network
+      - app-network                   # Utiliser le réseau app-network
 
-
+  # Configuration du service MariaDB
   db:
-    image: mariadb:10.11
-    container_name: my-db-container
+    image: mariadb:10.11                            # Image de MariaDB    
+    container_name: my-db-container                 # Nom du conteneur
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}   # Mot de passe root
+      MYSQL_DATABASE: ${MYSQL_DATABASE}             # Nom de la base de données
+      MYSQL_USER: ${MYSQL_USER}                     # Nom d'utilisateur
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}             # Mot de passe de l'utilisateur
     ports:
-      - "3306:3306"
+      - "3306:3306"                                 # Accéder à la base de données via localhost:3306
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql                      # Stocker les données de la base de données dans un volume
     networks:
-      - app-network
+      - app-network                                 # Utiliser le réseau app-network
 
+  # Configuration du service MongoDB
   mongo:
-    image: mongo:6.0
-    container_name: my-mongo-container
-    restart: always
+    image: mongo:6.0                                              # Image de MongoDB
+    container_name: my-mongo-container                            # Nom du conteneur
+    restart: always                                               # Redémarrer le conteneur en cas d'erreur 
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}   # Nom d'utilisateur root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}   # Mot de passe root
     ports:
-      - "27017:27017"
+      - "27017:27017"                                             # Accéder à la base de données via localhost:27017   
     volumes:
-      - mongo_data:/data/db
+      - mongo_data:/data/db                                       # Stocker les données de la base de données dans un volume
     networks:
-      - app-network
+      - app-network                                               # Utiliser le réseau app-network
 
+# Configuration des réseaux
 networks:
   app-network:
-    driver: bridge
+    driver: bridge    # Utiliser le driver bridge pour le réseau
 
-volumes:
-  db_data:
-  mongo_data:
+# Configuration des volumes
+volumes:          # Stocker les données de la base de données dans un volume
+  db_data:        # Nom du volume
+  mongo_data:     # Nom du volume

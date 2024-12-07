@@ -1,0 +1,52 @@
+.game {
+    height: 90vh; /* Hauteur fixe de la section */
+    display: flex; /* Centre le contenu */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    background-color: #000; /* Fond noir pour un style gaming */
+    overflow: hidden; /* Empêche le débordement */
+}
+
+#gameCanvas {
+    width: 100%; /* Ajuste la largeur */
+    height: 100%; /* Ajuste la hauteur à 100% de la section */
+    max-height: 100%; /* Empêche le débordement vertical */
+}
+
+#score, #level, #game-over {
+    position: absolute;
+    z-index: 10; /* Assure que les éléments restent visibles au-dessus du canvas */
+    color: #fff;
+    font-family: 'Press Start 2P', cursive; /* Style rétro gaming */
+}
+
+#score {
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#level {
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+#game-over {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
+    padding: 20px;
+    border-radius: 10px;
+    display: none; /* Masqué par défaut */
+}

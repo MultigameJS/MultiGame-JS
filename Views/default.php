@@ -10,8 +10,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
     <link href="/assets/css/default.css" rel="stylesheet">
-    <link href="/assets/css/<?php if(isset($css)){echo $css;}?>.css" rel="stylesheet">
-    <link href="/assets/css/<?php if(isset($style)){echo $style;}?>.css" rel="stylesheet">
+    <?php if(isset($css)): ?>
+    <link href="/assets/css/<?= $css ?>.css" rel="stylesheet">
+    <?php endif; ?>
+    <?php if(isset($style)): ?>
+    <link href="/assets/css/<?= $style ?>.css" rel="stylesheet">
+    <?php endif; ?>
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
@@ -19,7 +23,7 @@
         <div class="navtop container-fluid">
             <!-- Logo -->
             <a class="logo d-block" href="/">
-                <img src="/assets/images/logo.png" alt="LOGO">
+                <img src="/assets/images/logoMultigame.webp" alt="LOGO">
             </a>
 
             <!-- Toggle button for mobile view -->

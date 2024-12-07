@@ -1,6 +1,7 @@
 /* Style général pour le formulaire */
 section {
-    min-height: 100vh;
+    min-height: 71.4vh;
+    background-color: #fff;
     color: #fff;
     display: flex;
     align-items: center;
