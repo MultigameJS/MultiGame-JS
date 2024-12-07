@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 // Chargement des thèmes depuis un fichier JSON
-fetch('themes.json')
+fetch('/assets/js/hack_my_world/theme/themes.json')
     .then((response) => response.json())
     .then((data) => {
         themes = data.themes; // Charge la liste des thèmes dans la variable globale

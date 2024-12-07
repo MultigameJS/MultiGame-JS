@@ -134,7 +134,7 @@ $css = "hack_my_world/style";
 
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="themesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" href="#" id="themesDropdown json" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Thèmes
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="themesDropdown">
@@ -188,5 +188,5 @@ $css = "hack_my_world/style";
 
 </html>
 <?php
-$script = "hack_my_world/index";
+$script = "hack_my_world/script";
 ?>
