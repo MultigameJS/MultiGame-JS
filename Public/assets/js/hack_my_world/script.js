@@ -56,10 +56,10 @@ fetch('/assets/js/hack_my_world/theme/themes.json')
 
 document.addEventListener("DOMContentLoaded", () => {
     // Chargement des sons pour le jeu
-    successSound = new Audio("assets/sounds/good.mp3");
-    failSound = new Audio("assets/sounds/fail.mp3");
-    victorySound = new Audio("assets/sounds/victory.mp3");
-    gameOverSound = new Audio("assets/sounds/gameover.mp3");
+    successSound = new Audio("assets/sounds/hack_my_world/good.mp3");
+    failSound = new Audio("assets/sounds/hack_my_world/fail.mp3");
+    victorySound = new Audio("assets/sounds/hack_my_world/victory.mp3");
+    gameOverSound = new Audio("assets/sounds/hack_my_world/gameover.mp3");
 
     // Bouton "Recommencer" réaffiche les thèmes et réinitialise le jeu
     const restartButton = document.getElementById("restart-btn");
@@ -243,7 +243,7 @@ function handleLetterClick(letter, button) {
         failSound.currentTime = 0;
         failSound.play();
 
-        const errorMessage = errorMessages[errors - 1] || "Oups ! Mauvaise réponse !";
+        const errorMessage = errorMessages[errors - 1] || "Oups! Mauvaise réponse !";
         updateMessage(errorMessage, "error");
 
         if (errors === maxErrors) {
@@ -287,7 +287,7 @@ function endGame(isWin) {
     const hourglassFill = document.getElementById("hourglass-fill");
     const endGameImage = document.getElementById("endgame-image");
     const sound = isWin ? victorySound : gameOverSound;
-    const image = isWin ? "assets/images/victory.webp" : "assets/images/loose.webp";
+    const image = isWin ? "assets/images/hack_my_world/victory.webp" : "assets/images/hack_my_world/loose.webp";
 
     hourglassFill.style.height = "100%";
     hourglassFill.style.backgroundColor = "#fff";
@@ -297,7 +297,7 @@ function endGame(isWin) {
     sound.currentTime = 0;
     sound.play();
 
-    const message = isWin ? "Félicitations, vous avez gagné !" : `Vous avez perdu... Le mot était : "${currentWord}".`;
+    const message = isWin ? "Félicitations, vous avez gagné !" : `Vous avez perdu... Le mot était : "${currentWord}".`;
     updateMessage(message, isWin ? "success" : "error");
 }
 
