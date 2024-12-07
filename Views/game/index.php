@@ -9,7 +9,7 @@ $css = 'game';
         <!-- Card Jeu 1 -->
         <div class="col">
             <div class="card custom-card">
-                <img src="/assets/images/spaceinvender.png" class="card-img-top" alt="Jeu 1">
+                <img src="/assets/images/spaceinvender/spaceinvender.png" class="card-img-top" alt="Jeu 1">
                 <div class="card-body">
                     <h5 class="card-title">Space Invider</h5>
                     <p class="card-text">Plongez dans une aventure palpitante et relevez des défis incroyables !</p>
