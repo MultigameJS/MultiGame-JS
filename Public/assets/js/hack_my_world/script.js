@@ -7,6 +7,8 @@ let errors = 0; // Compteur des erreurs
 let themes = []; // Liste des thèmes
 let currentTheme = ""; // Thème sélectionné
 let currentWord = ""; // Mot à deviner
+let playerPoints = 0; // Points accumulés par le joueur
+let streak = 0; // Série de mots trouvés à la suite
 
 // Messages de réussite
 const successMessages = [
@@ -56,10 +58,10 @@ fetch('/assets/js/hack_my_world/theme/themes.json')
 
 document.addEventListener("DOMContentLoaded", () => {
     // Chargement des sons pour le jeu
-    successSound = new Audio("assets/sounds/hack_my_world/good.mp3");
-    failSound = new Audio("assets/sounds/hack_my_world/fail.mp3");
-    victorySound = new Audio("assets/sounds/hack_my_world/victory.mp3");
-    gameOverSound = new Audio("assets/sounds/hack_my_world/gameover.mp3");
+    successSound = new Audio("/assets/sounds/hack_my_world/good.mp3");
+    failSound = new Audio("/assets/sounds/hack_my_world/fail.mp3");
+    victorySound = new Audio("/assets/sounds/hack_my_world/victory.mp3");
+    gameOverSound = new Audio("/assets/sounds/hack_my_world/gameover.mp3");
 
     // Bouton "Recommencer" réaffiche les thèmes et réinitialise le jeu
     const restartButton = document.getElementById("restart-btn");
@@ -125,13 +127,22 @@ function selectTheme(themeIndex) {
 }
 
 
+
 // Initialisation du jeu
 function initializeGame(word) {
+    // Réinitialise les éléments visuels et les compteurs
     resetHourglass(); // Réinitialise le sablier
     resetEndGameDisplay(); // Réinitialise l'affichage de fin
     generateWordCubes(word); // Génère les cubes pour afficher le mot à deviner
     generateAlphabetButtons(); // Génère les boutons pour chaque lettre de l'alphabet
-    updateMessage(`Thème : ${currentTheme}`); // Affiche un message de bienvenue
+
+    // Réinitialise les points pour la nouvelle partie si souhaité
+    playerPoints = 0; // Réinitialise les points à 0 pour la partie
+    streak = 0; // Réinitialise la série à 0
+    updateScore(); // Met à jour l'affichage des points
+
+    // Affiche un message de bienvenue
+    updateMessage(`Thème : ${currentTheme}. Trouvez le mot pour commencer !`, "info");
 }
 
 // Réinitialisation du sablier
@@ -225,32 +236,46 @@ function generateAlphabetButtons() {
 }
 
 // Gestion du clic sur une lettre
+// Gestion du clic sur une lettre
 function handleLetterClick(letter, button) {
+    // Désactive le bouton pour éviter de cliquer plusieurs fois sur la même lettre
     button.disabled = true;
     button.classList.add("disabled");
 
-    stopCurrentSounds();
+    stopCurrentSounds(); // Arrête les sons en cours
 
     if (isLetterInWord(letter)) {
-        revealLetterInWord(letter);
+        // Lettre correcte
+        revealLetterInWord(letter); // Révèle les positions de la lettre dans le mot
+        playerPoints += 10; // Ajoute 10 points pour une lettre correcte
+        updateScore(); // Met à jour l'affichage des points
         successSound.currentTime = 0;
-        successSound.play();
+        successSound.play(); // Joue le son de réussite
 
+        // Affiche un message de réussite aléatoire
         const randomSuccessMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
         updateMessage(randomSuccessMessage, "success");
-    } else {
-        updateHourglass();
-        failSound.currentTime = 0;
-        failSound.play();
 
-        const errorMessage = errorMessages[errors - 1] || "Oups! Mauvaise réponse !";
+    } else {
+        // Lettre incorrecte
+        updateHourglass(); // Met à jour le sablier
+        playerPoints -= 5; // Pénalise le joueur de 5 points pour une erreur
+        if (playerPoints < 0) playerPoints = 0; // Empêche un score négatif
+        updateScore(); // Met à jour l'affichage des points
+        failSound.currentTime = 0;
+        failSound.play(); // Joue le son d'erreur
+
+        // Affiche un message d'erreur correspondant au nombre d'erreurs commises
+        const errorMessage = errorMessages[errors - 1] || "Oups ! Mauvaise réponse !";
         updateMessage(errorMessage, "error");
 
+        // Vérifie si le joueur a atteint le nombre maximum d'erreurs
         if (errors === maxErrors) {
             updateMessage(`Vous avez perdu... Le mot était : "${currentWord}".`, "error");
         }
     }
 }
+
 
 // Vérifie si une lettre est correcte
 function isLetterInWord(letter) {
@@ -281,24 +306,46 @@ function isWordComplete() {
 }
 
 
+
 // Gestion de la fin de partie
 function endGame(isWin) {
-    stopCurrentSounds();
+    stopCurrentSounds(); // Arrête les sons en cours
+
+    // Références aux éléments visuels
     const hourglassFill = document.getElementById("hourglass-fill");
     const endGameImage = document.getElementById("endgame-image");
     const sound = isWin ? victorySound : gameOverSound;
-    const image = isWin ? "assets/images/hack_my_world/victory.webp" : "assets/images/hack_my_world/loose.webp";
+    const image = isWin ? "/assets/images/hack_my_world/victory.webp" : "/assets/images/hack_my_world/loose.webp";
 
+    // Met à jour le sablier et affiche l'image de fin
     hourglassFill.style.height = "100%";
     hourglassFill.style.backgroundColor = "#fff";
     endGameImage.src = image;
     endGameImage.style.display = "block";
 
     sound.currentTime = 0;
-    sound.play();
+    sound.play(); // Joue le son de victoire ou de défaite
 
-    const message = isWin ? "Félicitations, vous avez gagné !" : `Vous avez perdu... Le mot était : "${currentWord}".`;
-    updateMessage(message, isWin ? "success" : "error");
+    // Gestion des points en fonction du résultat
+    if (isWin) {
+        playerPoints += 50; // Ajoute 50 points pour avoir gagné
+        streak++; // Augmente la série
+        const streakBonus = Math.pow(2, streak - 1) * 20; // Bonus exponentiel
+        playerPoints += streakBonus; // Ajoute le bonus
+        updateScore(); // Met à jour l'affichage des points
+
+        // Message de victoire avec bonus de série
+        const message = `Félicitations, vous avez gagné ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`;
+        updateMessage(message, "success");
+    } else {
+        // Réinitialise la série en cas de défaite
+        streak = 0;
+        updateScore(); // Met à jour l'affichage des points
+
+        // Message de défaite
+        const message = `Vous avez perdu... Le mot était : "${currentWord}".`;
+        updateMessage(message, "error");
+    }
 }
 
 // Arrête les sons en cours
@@ -319,4 +366,9 @@ function updateMessage(text, type = "info") {
     const messages = document.getElementById("messages");
     messages.textContent = text;
     messages.className = `messages ${type}`;
+}
+
+function updateScore() {
+    const scoreElement = document.getElementById("player-score");
+    scoreElement.textContent = playerPoints; // Met à jour le score affiché
 }
