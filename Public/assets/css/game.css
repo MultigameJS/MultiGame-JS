@@ -1,0 +1,54 @@
+.custom-card {
+    max-width: 18rem; /* Limite la largeur des cards */
+    margin: 0 auto;   /* Centre les cards */
+}
+
+.custom-card {
+    background: linear-gradient(135deg, #1a1a1a, #3a3a3a); /* Dégradé sombre pour le fond */
+    border: 2px solid rgba(255, 0, 127, 0.6); /* Bordure lumineuse */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Ombre subtile */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #fff; /* Texte en blanc */
+}
+
+/* Effet lumineux au survol */
+.custom-card:hover {
+    transform: scale(1.05); /* Légère mise en avant */
+    box-shadow: 0 8px 16px rgba(255, 0, 127, 0.8); /* Ombre lumineuse */
+    border-color: #ff007f; /* Accentuation de la bordure */
+}
+
+/* Style pour le titre des cards */
+.custom-card .card-title {
+    font-family: 'Press Start 2P', cursive; /* Police rétro */
+    color: #ffcc00; /* Couleur lumineuse */
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.8); /* Effet lumineux sur le texte */
+}
+
+/* Style pour le texte des cards */
+.custom-card .card-text {
+    font-size: 0.9rem;
+    color: #bfbfbf;
+}
+
+/* Boutons des cards */
+.custom-card .btn-primary {
+    background: linear-gradient(90deg, #ff007f, #ffcc00); /* Dégradé vibrant */
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.custom-card .btn-primary:hover {
+    background: linear-gradient(90deg, #ffcc00, #ff007f); /* Inverse le dégradé */
+    transform: translateY(-3px); /* Légère élévation */
+    color: #fff;
+}
+
+/* Ajustement de l'image */
+.custom-card img {
+    border-radius: 10px 10px 0 0; /* Coins arrondis en haut */
+}
