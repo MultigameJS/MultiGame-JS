@@ -1,7 +1,7 @@
 /* Style général pour le formulaire */
 section {
-    min-height: 100vh;
-    background: linear-gradient(90deg, #1a1a1a, #3a3a3a); /* Dégradé sombre */
+    min-height: 71.4vh;
+    background-color: #fff;
     color: #fff;
     display: flex;
     align-items: center;

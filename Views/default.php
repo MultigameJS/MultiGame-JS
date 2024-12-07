@@ -23,7 +23,7 @@
         <div class="navtop container-fluid">
             <!-- Logo -->
             <a class="logo d-block" href="/">
-                <img src="/assets/images/logo.png" alt="LOGO">
+                <img src="/assets/images/logoMultigame.webp" alt="LOGO">
             </a>
 
             <!-- Toggle button for mobile view -->
