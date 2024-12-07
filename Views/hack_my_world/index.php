@@ -1,6 +1,6 @@
 <?php
 $css = "hack_my_world/style";
-$script = "hack_my_world/index";
+
 ?>
     <!-- Menu horizontal -->
     <nav class="navbar navbar-expand-lg ">
@@ -169,7 +169,7 @@ $script = "hack_my_world/index";
         </div>
 
         <div id="themes-container" class="theme-buttons-container">
-            <!-- Les boutons des thèmes seront générés ici -->
+           
         </div>
 
         <div id="hourglass-container" class="hourglass-container">
@@ -187,3 +187,6 @@ $script = "hack_my_world/index";
 </body>
 
 </html>
+<?php
+$script = "hack_my_world/index";
+?>
