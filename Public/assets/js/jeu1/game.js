@@ -4,7 +4,7 @@ import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/l
 
 // Initialisation de la scène
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x87ceeb); // Bleu ciel
+scene.background = new THREE.Color(0x87ceeb);
 
 // Initialisation de la caméra
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -33,22 +33,38 @@ const gravity = -0.1; // Gravité
 let velocityY = 0; // Vitesse verticale
 const keysPressed = {}; // Suivi des touches
 
+// Chronomètre
+let startTime = null;
+let lapTime = null;
+let isChronometerRunning = false;
+let isLapComplete = false; // Indique si le tour est terminé
+let isControlEnabled = true; // Indique si les contrôles sont actifs
+let isGameOver = false; // Indique si la partie est terminée
+
+// Ligne d’arrivée
+let finishLine = null;
+
+// Barrière
+let barrier = null;
+let isBarrierActive = false; // Indique si la barrière est active
+let isCarInFinishZone = false; // Indique si la voiture est dans la zone d’arrivée
+
+// Référence au div du chronomètre
+const chronoDiv = document.getElementById('chrono');
+
 // Charger le circuit
 const circuitLoader = new GLTFLoader();
 circuitLoader.load(
-    '/assets/js/jeu1/models/circuit.glb', // Chemin vers le fichier GLB
+    '/assets/js/jeu1/models/circuit.glb',
     (gltf) => {
         circuit = gltf.scene;
 
-        // Ajuster l'échelle, la position et la rotation du circuit
         circuit.scale.set(1000, 1000, 1000);
         circuit.position.set(1, 0.6, 1);
         circuit.rotation.set(0, 0, 0);
 
-        // Ajouter le circuit à la scène
         scene.add(circuit);
 
-        // Parcourir les sous-objets pour détecter les colliders
         circuit.traverse((child) => {
             if (child.isMesh) {
                 const box = new THREE.Box3().setFromObject(child);
@@ -56,7 +72,26 @@ circuitLoader.load(
             }
         });
 
-        console.log("Terrain chargé avec colliders.");
+        // Ajouter une ligne d’arrivée (boîte virtuelle)
+        const finishLineGeometry = new THREE.BoxGeometry(10, 5, 1);
+        const finishLineMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+        finishLine = new THREE.Mesh(finishLineGeometry, finishLineMaterial);
+        finishLine.position.set(287, 2.5, 120); // Positionner la ligne d'arrivée sur le circuit
+        finishLine.rotation.set(0, 1.7, 0);
+        finishLine.scale.set(3, 2, 0.01);
+        finishLine.visible = false; // Cacher la ligne d'arrivée visuellement
+        scene.add(finishLine);
+
+        // Ajouter une barrière
+        const barrierGeometry = new THREE.BoxGeometry(10, 5, 1);
+        const barrierMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+        barrier = new THREE.Mesh(barrierGeometry, barrierMaterial);
+        barrier.position.set(287, 2.5, 120); // Positionner la barrière sur la ligne d’arrivée
+        barrier.rotation.set(0, 1.7, 0);
+        barrier.scale.set(3, 2, 0.1);
+        scene.add(barrier);
+
+        console.log("Terrain et ligne d’arrivée chargés.");
     },
     undefined,
     (error) => {
@@ -71,15 +106,11 @@ carLoader.load(
     (fbx) => {
         car = fbx;
 
-        // Position initiale de la voiture
         car.position.set(285, 10, 122);
         car.rotation.set(0, 1.8, 0);
         car.scale.set(0.01, 0.01, 0.01);
 
-        // Ajouter la voiture à la scène
         scene.add(car);
-
-        // Initialiser la boîte englobante de la voiture
         carBox = new THREE.Box3().setFromObject(car);
 
         console.log("Voiture chargée.");
@@ -102,53 +133,52 @@ window.addEventListener('keyup', (event) => {
 function animate() {
     requestAnimationFrame(animate);
 
-    if (car && circuit) {
+    if (car && circuit && finishLine && barrier) {
         let movement = 0;
-        const previousPosition = car.position.clone(); // Enregistrer la position précédente
+        const previousPosition = car.position.clone();
 
         // Appliquer la gravité
         velocityY += gravity;
         car.position.y += velocityY;
 
-        // Détection du sol via le Raycaster
         const raycaster = new THREE.Raycaster();
         raycaster.set(car.position.clone().add(new THREE.Vector3(0, 5, 0)), new THREE.Vector3(0, -1, 0));
         const intersects = raycaster.intersectObjects(circuit.children, true);
 
-        if (intersects.length > 0) {
+        if (intersects.length > 2) {
             const groundY = intersects[0].point.y;
             if (car.position.y <= groundY + 0.5) {
                 car.position.y = groundY + 0.5;
-                velocityY = 0; // Stopper la chute
+                velocityY = 0;
             }
         }
 
-        // Déplacement de la voiture
-        if (keysPressed['arrowup'] || keysPressed['z']) {
-            car.position.z += 0.7 * Math.cos(car.rotation.y);
-            car.position.x += 0.7 * Math.sin(car.rotation.y);
-            movement = 1;
-        }
-        if (keysPressed['arrowdown'] || keysPressed['s']) {
-            car.position.z -= 0.7 * Math.cos(car.rotation.y);
-            car.position.x -= 0.7 * Math.sin(car.rotation.y);
-            movement = -1;
+        if (isControlEnabled && !isGameOver) {
+            // Déplacement de la voiture
+            if (keysPressed['arrowup'] || keysPressed['z']) {
+                car.position.z += 0.7 * Math.cos(car.rotation.y);
+                car.position.x += 0.7 * Math.sin(car.rotation.y);
+                movement = 1;
+            }
+            if (keysPressed['arrowdown'] || keysPressed['s']) {
+                car.position.z -= 0.7 * Math.cos(car.rotation.y);
+                car.position.x -= 0.7 * Math.sin(car.rotation.y);
+                movement = -1;
+            }
+
+            // Rotation de la voiture
+            if (movement !== 0) {
+                if (keysPressed['arrowleft'] || keysPressed['q']) {
+                    car.rotation.y += 0.05;
+                }
+                if (keysPressed['arrowright'] || keysPressed['d']) {
+                    car.rotation.y -= 0.05;
+                }
+            }
         }
 
-        // Rotation de la voiture
-        if (movement !== 0) {
-            if (keysPressed['arrowleft'] || keysPressed['q']) {
-                car.rotation.y += 0.05;
-            }
-            if (keysPressed['arrowright'] || keysPressed['d']) {
-                car.rotation.y -= 0.05;
-            }
-        }
-
-        // Mise à jour de la boîte englobante de la voiture
         carBox.setFromObject(car);
 
-        // Détection des collisions avec les éléments du terrain
         let collisionDetected = false;
         for (const { box } of terrainColliders) {
             if (carBox.intersectsBox(box)) {
@@ -157,14 +187,48 @@ function animate() {
                 break;
             }
         }
-
-        // Si une collision est détectée, annuler le déplacement
         if (collisionDetected) {
             car.position.copy(previousPosition);
         }
 
-        // Mise à jour de la caméra
-        const cameraOffset = new THREE.Vector3(0, 3, -7);
+        const finishBox = new THREE.Box3().setFromObject(finishLine);
+        const barrierBox = new THREE.Box3().setFromObject(barrier);
+
+        // Vérifier si la voiture est dans la zone de la ligne d’arrivée
+        if (carBox.intersectsBox(finishBox)) {
+            isCarInFinishZone = true;
+        } else {
+            if (isCarInFinishZone) {
+                // La voiture quitte la zone, activer la barrière
+                isBarrierActive = true;
+                barrier.material.color.set(0xff0000); // Change la couleur de la barrière pour indiquer qu’elle est active
+                console.log("Barrière activée !");
+            }
+            isCarInFinishZone = false;
+        }
+
+        // Vérifier les collisions avec la barrière si elle est active
+        if (isBarrierActive && carBox.intersectsBox(barrierBox)) {
+            console.log('Collision avec la barrière détectée');
+            car.position.copy(previousPosition); // Empêche la voiture de traverser la barrière
+            isControlEnabled = false; // Désactiver les contrôles
+            isChronometerRunning = false; // Arrêter le chronomètre
+            isGameOver = true; // Indiquer que la partie est terminée
+            lapTime = (performance.now() - startTime) / 1000; // Calculer le temps final
+            chronoDiv.textContent = `Collision avec la barrière. Temps : ${lapTime.toFixed(2)}s`;
+        }
+
+        if (!isChronometerRunning && movement !== 0 && !isLapComplete && !isGameOver) {
+            startTime = performance.now();
+            isChronometerRunning = true;
+            chronoDiv.textContent = "Temps : 0.00s";
+        }
+
+        if (isChronometerRunning && !isGameOver) {
+            const currentTime = (performance.now() - startTime) / 1000;
+            chronoDiv.textContent = `Temps : ${currentTime.toFixed(2)}s`;
+        }
+
         const offsetDirection = new THREE.Vector3(
             -Math.sin(car.rotation.y),
             0,
@@ -179,5 +243,4 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-// Lancer l'animation
 animate();

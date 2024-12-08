@@ -12,3 +12,11 @@ body {
     align-items: center;
     background: #000;
 }
+
+#chrono {
+    position: absolute; 
+    top: 50px; 
+    left: 10px; 
+    font-size: 24px; 
+    color: black
+}
