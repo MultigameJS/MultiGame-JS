@@ -1,3 +1,4 @@
+console.log("Hack My World - Script chargé !");
 // Instances globales des sons
 let successSound, failSound, victorySound, gameOverSound;
 
@@ -142,7 +143,7 @@ function initializeGame(word) {
     updateScore(); // Met à jour l'affichage des points
 
     // Affiche un message de bienvenue
-    updateMessage(`Thème : ${currentTheme}. Trouvez le mot pour commencer !`, "info");
+    updateMessage(`Thème : ${currentTheme}. Choisir une lettre !`, "info");
 }
 
 // Réinitialisation du sablier
@@ -326,6 +327,9 @@ function endGame(isWin) {
     sound.currentTime = 0;
     sound.play(); // Joue le son de victoire ou de défaite
 
+    // Désactive les boutons des lettres
+    disableAllLetters();
+
     // Gestion des points en fonction du résultat
     if (isWin) {
         playerPoints += 50; // Ajoute 50 points pour avoir gagné
@@ -337,6 +341,9 @@ function endGame(isWin) {
         // Message de victoire avec bonus de série
         const message = `Félicitations, vous avez gagné ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`;
         updateMessage(message, "success");
+
+        // Afficher le modal pour enregistrer le score
+        saveScore(playerPoints, streak);
     } else {
         // Réinitialise la série en cas de défaite
         streak = 0;
@@ -346,6 +353,15 @@ function endGame(isWin) {
         const message = `Vous avez perdu... Le mot était : "${currentWord}".`;
         updateMessage(message, "error");
     }
+}
+
+// Désactiver tous les boutons des lettres
+function disableAllLetters() {
+    const letterButtons = document.querySelectorAll(".letter-button");
+    letterButtons.forEach((button) => {
+        button.disabled = true;
+        button.classList.add("disabled");
+    });
 }
 
 // Arrête les sons en cours

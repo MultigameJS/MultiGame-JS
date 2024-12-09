@@ -1,6 +1,5 @@
 <?php
 $css = "hack_my_world/style";
-
 ?>
     <!-- Menu horizontal -->
     <nav class="navbar navbar-expand-lg ">
@@ -154,16 +153,16 @@ $css = "hack_my_world/style";
             </div>
         </div>
     </nav>
-
-    <!-- Zone principale -->
-    <main class="main">
        <!-- Zone des instructions -->
-<div id="instructions" class="instructions">
-    Cliquez sur un thème pour commencer le jeu.
+
+  <!-- Champ CSRF caché -->
+<input type="hidden" id="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">     
+<div>
+    <p id="instructions" class="instructions">Cliquez sur un thème pour commencer le jeu.</p>
+    <p id="word-display" class="word-display"></p>
 </div> <br>
 
-        <div id="word-display" class="word-display"></div>
-        
+        <div id="messages" class="messages">Bonne Chance !</div>
         <div id="scoreboard" class="scoreboard">
             Points : <span id="player-score">0</span>
         </div>
@@ -179,14 +178,27 @@ $css = "hack_my_world/style";
 
         <div class="letters"></div>
 
-        <div id="messages" class="messages">Affichage des étapes et messages de réussites ou d'échecs.</div>
-
         <button id="restart-btn" class="restart-btn" aria-label="Recommencer la partie">Recommencer</button>
-    </main>
-
-</body>
-
-</html>
+        
+        <div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scoreModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="scoreModalBody">
+                <!-- Contenu dynamique -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?php
 $script = "hack_my_world/script";
+$scripts = "hack_my_world/hack_my_world";
 ?>
+
+

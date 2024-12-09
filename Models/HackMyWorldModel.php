@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-class ScoreModel extends Model
+class HackMyWorldModel extends Model
 {
     private $id;
     private $id_user;
     private $score;
     private $created_at;
+    private $streak;
 
 
     /**
@@ -86,6 +87,26 @@ class ScoreModel extends Model
     public function setCreated_at($created_at)
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of streak
+     */ 
+    public function getStreak()
+    {
+        return $this->streak;
+    }
+
+    /**
+     * Set the value of streak
+     *
+     * @return  self
+     */ 
+    public function setStreak($streak)
+    {
+        $this->streak = $streak;
 
         return $this;
     }
