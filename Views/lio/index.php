@@ -6,5 +6,7 @@ $css = 'lio';
     <div id="level">Level: 1</div>
     <div id="game-over">Game Over! Cliquez pour rejouer.</div>
     <canvas id="gameCanvas"></canvas>
-    <script src="/assets/js/lio.js"></script>
+    <?php
+    $script= 'lio'
+    ?>
 </section>
