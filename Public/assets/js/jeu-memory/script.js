@@ -178,5 +178,5 @@ function startGame() {
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.btn-easy').addEventListener('click', () => selectLevel('easy'));
     document.querySelector('.btn-medium').addEventListener('click', () => selectLevel('medium'));
-    document.querySelector('.btn-hard').addEventListener('click', () => selectLevel('hard'));
+    document.querySelector('.btn-hard').addEventListener('click', () => selectLevel('hard'));  
 });
