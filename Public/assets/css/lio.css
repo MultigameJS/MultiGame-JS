@@ -6,7 +6,8 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    background-color: #000; /* Fond noir pour un style gaming */
+    background-image: url(/assets/images/jake-weirick-Q_RBVFFXR_g-unsplash.jpg);
+    background-size: cover;
     overflow: hidden; /* Empêche le débordement */
 }
 
@@ -26,7 +27,7 @@
 #score {
     top: 10px;
     left: 10px;
-    background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    background: #fff ;/* Fond semi-transparent */
     padding: 5px 10px;
     border-radius: 5px;
 }
@@ -34,7 +35,7 @@
 #level {
     top: 10px;
     right: 10px;
-    background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    background: #fff; /* Fond semi-transparent */
     padding: 5px 10px;
     border-radius: 5px;
 }
