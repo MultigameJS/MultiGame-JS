@@ -160,11 +160,6 @@ function animate() {
                 car.position.x += 0.7 * Math.sin(car.rotation.y);
                 movement = 1;
             }
-            if (keysPressed['arrowdown'] || keysPressed['s']) {
-                car.position.z -= 0.7 * Math.cos(car.rotation.y);
-                car.position.x -= 0.7 * Math.sin(car.rotation.y);
-                movement = -1;
-            }
 
             // Rotation de la voiture
             if (movement !== 0) {
