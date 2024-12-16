@@ -1,6 +1,7 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
 import { FBXLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/FBXLoader.js";
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
+import { saveScore } from "/assets/js/racing/saveScore.js";
 
 // Initialisation de la scène
 const scene = new THREE.Scene();
@@ -52,10 +53,15 @@ let isCarInFinishZone = false; // Indique si la voiture est dans la zone d’arr
 // Référence au div du chronomètre
 const chronoDiv = document.getElementById('chrono');
 
+// Référence au bouton de redémarrage
+const restartButton = document.getElementById('restart-button');
+
+const user = document.getElementById('id');
+
 // Charger le circuit
 const circuitLoader = new GLTFLoader();
 circuitLoader.load(
-    '/assets/js/jeu1/models/circuit.glb',
+    '/assets/js/racing/models/circuit.glb',
     (gltf) => {
         circuit = gltf.scene;
 
@@ -89,6 +95,7 @@ circuitLoader.load(
         barrier.position.set(287, 2.5, 120); // Positionner la barrière sur la ligne d’arrivée
         barrier.rotation.set(0, 1.7, 0);
         barrier.scale.set(3, 2, 0.1);
+        barrier.visible = false; // Cacher la barrière visuellement
         scene.add(barrier);
 
         console.log("Terrain et ligne d’arrivée chargés.");
@@ -102,7 +109,7 @@ circuitLoader.load(
 // Charger la voiture
 const carLoader = new FBXLoader();
 carLoader.load(
-    '/assets/js/jeu1/models/car.fbx',
+    '/assets/js/racing/models/car.fbx',
     (fbx) => {
         car = fbx;
 
@@ -153,11 +160,38 @@ function animate() {
             }
         }
 
+        if (car && car.position.y < -10) { // Si la voiture tombe sous le sol
+            isControlEnabled = false;     // Désactiver les contrôles
+            isGameOver = true;            // Marquer la partie comme terminée
+            chronoDiv.textContent = 'La voiture est tombée. Cliquez sur Restart.';
+            restartButton.style.display = 'block'; // Afficher le bouton Restart
+
+            restartButton.addEventListener('click', () => {
+                // Réinitialiser les variables de jeu
+                isControlEnabled = true;
+                isGameOver = false;
+                isChronometerRunning = false;
+                isLapComplete = false;
+                startTime = 0;
+                lapTime = 0;
+                isBarrierActive = false;
+            
+                // Réinitialiser la position de la voiture
+                car.position.set(285, 1, 122);
+                car.rotation.set(0, 1.8, 0);
+                velocityY = 0;
+            
+                // Réinitialiser l'interface utilisateur
+                chronoDiv.textContent = "Temps : 0.00s";
+                restartButton.style.display = 'none';
+            });
+        }        
+
         if (isControlEnabled && !isGameOver) {
             // Déplacement de la voiture
             if (keysPressed['arrowup'] || keysPressed['z']) {
-                car.position.z += 0.7 * Math.cos(car.rotation.y);
-                car.position.x += 0.7 * Math.sin(car.rotation.y);
+                car.position.z += 1 * Math.cos(car.rotation.y);
+                car.position.x += 1 * Math.sin(car.rotation.y);
                 movement = 1;
             }
 
@@ -210,7 +244,33 @@ function animate() {
             isChronometerRunning = false; // Arrêter le chronomètre
             isGameOver = true; // Indiquer que la partie est terminée
             lapTime = (performance.now() - startTime) / 1000; // Calculer le temps final
-            chronoDiv.textContent = `Collision avec la barrière. Temps : ${lapTime.toFixed(2)}s`;
+            chronoDiv.textContent = `Temps : ${lapTime.toFixed(2)}s`;
+            restartButton.style.display = 'block'; // Afficher le bouton Restart
+            if (user) {
+                let id_user = document.getElementById('id')?.textContent;
+                let score = document.getElementById('chrono')?.textContent?.replace("Temps : ", "");
+                let csrf = document.getElementById('csrf')?.textContent;
+                saveScore(id_user, score, csrf); // Enregistrer le score
+            }
+            restartButton.addEventListener('click', () => {
+                // Réinitialiser les variables de jeu
+                isControlEnabled = true;
+                isGameOver = false;
+                isChronometerRunning = false;
+                isLapComplete = false;
+                startTime = 0;
+                lapTime = 0;
+                isBarrierActive = false;
+            
+                // Réinitialiser la position de la voiture
+                car.position.set(285, 1, 122);
+                car.rotation.set(0, 1.8, 0);
+                velocityY = 0;
+            
+                // Réinitialiser l'interface utilisateur
+                chronoDiv.textContent = "Temps : 0.00s";
+                restartButton.style.display = 'none';
+            });
         }
 
         if (!isChronometerRunning && movement !== 0 && !isLapComplete && !isGameOver) {

@@ -18,5 +18,19 @@ body {
     top: 50px; 
     left: 10px; 
     font-size: 24px; 
-    color: black
+    color: rgb(255, 0, 0)
+}
+
+#restart-button {
+    position: absolute;
+    display: none;
+    top: 50%;
+    right: 50%;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+}
+
+#id {
+    display : none;
 }
