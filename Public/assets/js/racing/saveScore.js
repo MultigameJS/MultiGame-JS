@@ -1,6 +1,5 @@
-export function saveScore(id, score) {
+export function saveScore(id, score, csrf) {
     if (!id || !score) {
-        console.error("ID utilisateur ou score manquant.");
         return;
     }
 
@@ -11,7 +10,8 @@ export function saveScore(id, score) {
         },
         body: JSON.stringify([
             ["id_user", id],
-            ["score", score]
+            ["score", score],
+            ["csrf_token", csrf]
         ]) // Tableau sérialisé en JSON
     })
     .then(response => {

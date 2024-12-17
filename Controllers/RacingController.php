@@ -38,9 +38,16 @@ class RacingController extends Controller
         }
 
         // Vérifier les champs requis
-        if (!isset($_PUT['id_user'], $_PUT['score'])) {
+        if (!isset($_PUT['id_user'], $_PUT['score'], $_PUT['csrf_token'])) {
             http_response_code(400); // Mauvaise requête
             echo json_encode(['status' => 'error', 'message' => 'Champs manquants']);
+            return;
+        }
+
+        // Vérification du CSRF token
+        if (!isset($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_PUT['csrf_token'])) {
+            http_response_code(403); // Non autorisé
+            echo json_encode(['status' => 'error', 'message' => 'Jeton CSRF invalide']);
             return;
         }
 
