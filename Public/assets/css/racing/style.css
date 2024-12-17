@@ -6,16 +6,17 @@ body {
 
 #game-container {
     width: 100vw;
-    height: 90vh;
+    height: 70vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #000;
+    margin-bottom: 22px;
 }
 
 #chrono {
     position: absolute; 
-    top: 55px; 
+    top: 120px; 
     left: 10px; 
     font-size: 24px; 
     color: rgb(255, 0, 0)
@@ -23,7 +24,7 @@ body {
 
 #bestScore {
     position: absolute; 
-    top: 60px; 
+    top: 120px; 
     right: 10px; 
     font-size: 24px; 
     color: rgb(255, 0, 0)

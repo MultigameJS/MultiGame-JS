@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+main {
+    min-height: 58.2vh; /* Hauteur de la barre de navigation */
+}
+
 #success-message{
     display: none;
     background-color: #4CAF50;

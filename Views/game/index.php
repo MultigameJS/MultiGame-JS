@@ -21,11 +21,11 @@ $css = 'game';
         <!-- Card Jeu 2 -->
         <div class="col">
             <div class="card custom-card">
-                <img src="/assets/images/jeu2-thumbnail.jpg" class="card-img-top" alt="Jeu 2">
+                <img src="/assets/images/racing/racing.webp" class="card-img-top" alt="Jeu 2">
                 <div class="card-body">
-                    <h5 class="card-title">Jeu 2 - Arcade</h5>
-                    <p class="card-text">Revivez les classiques de l'arcade dans ce jeu rapide et addictif.</p>
-                    <a href="/jeu2" class="btn btn-primary">Jouer</a>
+                    <h5 class="card-title">Racing</h5>
+                    <p class="card-text">Une course contre la montre à grade vitesse.</p>
+                    <a href="/racing" class="btn btn-primary">Jouer</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<div id="game-container"></div>
+
 <div id="ui-container">
   <div id="chrono">Temps : 0.00s</div>
   <?php if(isset($_SESSION['id'])): ?>
@@ -8,10 +8,11 @@
       <?php endforeach; ?>
     </div>
   <?php endif; ?>
+  </div>
+  <div>
+    <button id="restart-button" class="btn btn-danger">Restart</button>
 </div>
-<div>
-  <button id="restart-button" class="btn btn-danger">Restart</button>
-</div>
+<div id="game-container"></div>
 <div id="error-message"></div>
 <?php
 $game = "racing/game";

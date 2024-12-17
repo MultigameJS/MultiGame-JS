@@ -8,12 +8,12 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87ceeb);
 
 // Initialisation de la caméra
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight * 1.2, 0.1, 1000);
 camera.position.set(0, 10, 20);
 
 // Initialisation du rendu
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight * 0.75);
 document.getElementById('game-container').appendChild(renderer.domElement);
 
 // Lumières
