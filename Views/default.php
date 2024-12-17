@@ -16,6 +16,7 @@
     <?php if(isset($style)): ?>
     <link href="/assets/css/<?= $style ?>.css" rel="stylesheet">
     <?php endif; ?>
+    <script src="https://cdn.jsdelivr.net/npm/ammo.js/builds/ammo.wasm.js"></script>
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
