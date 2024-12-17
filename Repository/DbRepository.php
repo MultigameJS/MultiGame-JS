@@ -17,6 +17,12 @@ abstract class DbRepository
      *
      * @return PDOStatement|false Returns a PDOStatement object on success, or false on failure.
      */
+
+     public function __construct()
+    {
+        // Utilise l'instance de la classe Db pour la connexion PDO
+        $this->db = Db::getInstance();
+    }
     public function create($data)
     {
         $champs = [];

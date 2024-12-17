@@ -239,10 +239,9 @@ body {
 }
 
 
-
-
 /* Bouton "Recommencer" */
 .restart-btn {
+    display: block;
     padding: 10px 20px;
     font-size: 18px;
     background-color: #0d365c;
@@ -250,9 +249,9 @@ body {
     border: none;
     cursor: pointer;
     animation: pulse 2s infinite;
-    margin-top: 30px;
     border-radius: 20px;
     border: 2px solid #058682;
+    margin: 20px auto;
 }
 
 .restart-btn:hover {

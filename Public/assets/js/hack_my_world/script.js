@@ -236,7 +236,7 @@ function generateAlphabetButtons() {
     }
 }
 
-// Gestion du clic sur une lettre
+
 // Gestion du clic sur une lettre
 function handleLetterClick(letter, button) {
     // Désactive le bouton pour éviter de cliquer plusieurs fois sur la même lettre
@@ -246,10 +246,11 @@ function handleLetterClick(letter, button) {
     stopCurrentSounds(); // Arrête les sons en cours
 
     if (isLetterInWord(letter)) {
-        // Lettre correcte
-        revealLetterInWord(letter); // Révèle les positions de la lettre dans le mot
+       
         score += 10; // Ajoute 10 points pour une lettre correcte
         updateScore(); // Met à jour l'affichage des points
+         // Lettre correcte
+        revealLetterInWord(letter);
         successSound.currentTime = 0;
         successSound.play(); // Joue le son de réussite
 
@@ -337,22 +338,26 @@ function endGame(isWin) {
         const streakBonus = Math.pow(2, streak - 1) * 20; // Bonus exponentiel
         score += streakBonus; // Ajoute le bonus
         updateScore(); // Met à jour l'affichage des points
-
+    
         // Message de victoire avec bonus de série
         const message = `Félicitations, vous avez gagné ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`;
         updateMessage(message, "success");
+        console.log("Score envoyé :", score);
+        console.log("Streak envoyé :", streak);
+        
+        // Enregistrer le score côté serveur
+        saveScoreToServer(score, streak);
 
-        // Afficher le modal pour enregistrer le score
-        saveScore(score, streak);
     } else {
         // Réinitialise la série en cas de défaite
         streak = 0;
         updateScore(); // Met à jour l'affichage des points
-
+    
         // Message de défaite
         const message = `Vous avez perdu... Le mot était : "${currentWord}".`;
         updateMessage(message, "error");
     }
+    
 }
 
 // Désactiver tous les boutons des lettres
