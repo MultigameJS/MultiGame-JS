@@ -156,7 +156,7 @@ $css = "hack_my_world/style";
        <!-- Zone des instructions -->
 
   <!-- Champ CSRF caché -->
-<input type="hidden" id="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">     
+  <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">   
 <div>
     <p id="instructions" class="instructions">Cliquez sur un thème pour commencer le jeu.</p>
     <p id="word-display" class="word-display"></p>

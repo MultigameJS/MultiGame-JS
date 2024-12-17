@@ -8,7 +8,7 @@ let errors = 0; // Compteur des erreurs
 let themes = []; // Liste des thèmes
 let currentTheme = ""; // Thème sélectionné
 let currentWord = ""; // Mot à deviner
-let playerPoints = 0; // Points accumulés par le joueur
+let score = 0; // Points accumulés par le joueur
 let streak = 0; // Série de mots trouvés à la suite
 
 // Messages de réussite
@@ -138,7 +138,7 @@ function initializeGame(word) {
     generateAlphabetButtons(); // Génère les boutons pour chaque lettre de l'alphabet
 
     // Réinitialise les points pour la nouvelle partie si souhaité
-    playerPoints = 0; // Réinitialise les points à 0 pour la partie
+    score = 0; // Réinitialise les points à 0 pour la partie
     streak = 0; // Réinitialise la série à 0
     updateScore(); // Met à jour l'affichage des points
 
@@ -248,7 +248,7 @@ function handleLetterClick(letter, button) {
     if (isLetterInWord(letter)) {
         // Lettre correcte
         revealLetterInWord(letter); // Révèle les positions de la lettre dans le mot
-        playerPoints += 10; // Ajoute 10 points pour une lettre correcte
+        score += 10; // Ajoute 10 points pour une lettre correcte
         updateScore(); // Met à jour l'affichage des points
         successSound.currentTime = 0;
         successSound.play(); // Joue le son de réussite
@@ -260,8 +260,8 @@ function handleLetterClick(letter, button) {
     } else {
         // Lettre incorrecte
         updateHourglass(); // Met à jour le sablier
-        playerPoints -= 5; // Pénalise le joueur de 5 points pour une erreur
-        if (playerPoints < 0) playerPoints = 0; // Empêche un score négatif
+        score -= 5; // Pénalise le joueur de 5 points pour une erreur
+        if (score < 0) score = 0; // Empêche un score négatif
         updateScore(); // Met à jour l'affichage des points
         failSound.currentTime = 0;
         failSound.play(); // Joue le son d'erreur
@@ -332,18 +332,18 @@ function endGame(isWin) {
 
     // Gestion des points en fonction du résultat
     if (isWin) {
-        playerPoints += 50; // Ajoute 50 points pour avoir gagné
+        score += 50; // Ajoute 50 points pour avoir gagné
         streak++; // Augmente la série
         const streakBonus = Math.pow(2, streak - 1) * 20; // Bonus exponentiel
-        playerPoints += streakBonus; // Ajoute le bonus
+        score += streakBonus; // Ajoute le bonus
         updateScore(); // Met à jour l'affichage des points
 
         // Message de victoire avec bonus de série
-        const message = `Félicitations, vous avez gagné ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`;
+        const message = `Félicitations, vous avez gagné ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`;
         updateMessage(message, "success");
 
         // Afficher le modal pour enregistrer le score
-        saveScore(playerPoints, streak);
+        saveScore(score, streak);
     } else {
         // Réinitialise la série en cas de défaite
         streak = 0;
@@ -386,5 +386,5 @@ function updateMessage(text, type = "info") {
 
 function updateScore() {
     const scoreElement = document.getElementById("player-score");
-    scoreElement.textContent = playerPoints; // Met à jour le score affiché
+    scoreElement.textContent = score; // Met à jour le score affiché
 }
