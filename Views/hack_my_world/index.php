@@ -13,6 +13,10 @@ $css = "hack_my_world/style";
                 <li class="nav-item">
                     <a class="nav-link active" href="/main/index">Retour page d'Accueil</a>
                 </li>
+                <li class="nav-item">
+                    <button id="best-scores-button" class="btn btn-link nav-link">Meilleurs Scores</button>
+                </li>
+
                 <!-- Bouton pour ouvrir la modale -->
                 <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#rulesModal">Règles du jeu</a>
 
@@ -204,4 +208,3 @@ $css = "hack_my_world/style";
 </div>
 
 <script type="module" src="/assets/js/hack_my_world/main.js"></script>
-

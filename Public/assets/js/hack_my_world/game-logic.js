@@ -1,189 +1,176 @@
-// Ce fichier contient la logique principale du jeu (gestion des lettres, conditions de victoire, etc.).
+// game-logic.js - Gestion de la logique du jeu
 
-// Variables globales pour gérer l'état du jeu
-let currentWord = ""; // Mot à deviner
-let score = 0; // Score actuel du joueur
-let streak = 0; // Série actuelle de mots trouvés à la suite
-let errors = 0; // Nombre d'erreurs actuelles
-const maxErrors = 6; // Nombre maximal d'erreurs autorisées
+import { playErrorSound, playVictorySound } from './sounds.js';
+import { updateMessage, updateScore } from './utils.js';
+import { saveScoreToServer } from './scores.js';
+
+let currentWord = "";
+let discoveredLetters = [];
+let errors = 0;
+let score = 0;
+const maxErrors = 6;
 
 /**
- * Initialise une nouvelle partie avec le mot donné.
+ * Initialise le jeu avec un thème et un mot sélectionné.
+ * @param {string} theme - Le nom du thème sélectionné.
  * @param {string} word - Le mot à deviner.
  */
-export function initializeGame(word) {
-    currentWord = word; // Définit le mot actuel
-    resetGame(); // Réinitialise les compteurs et visuels
-    generateWordCubes(word); // Génère les cubes pour le mot
-    generateAlphabetButtons(); // Génère les boutons pour les lettres
-    updateScore(0); // Réinitialise le score
-    updateMessage(`Le jeu commence ! Mot à deviner dans le thème sélectionné.`, "info");
-}
+export function initializeGame(theme, word) {
+    currentWord = word;
+    discoveredLetters = Array(word.length).fill(false);
+    errors = 0;
+    score = 0;
 
-/**
- * Réinitialise le jeu pour une nouvelle partie.
- */
-function resetGame() {
-    score = 0; // Remet le score à zéro
-    streak = 0; // Réinitialise la série
-    errors = 0; // Réinitialise les erreurs
-    resetHourglass(); // Réinitialise l'état du sablier
-    resetEndGameDisplay(); // Réinitialise l'affichage de fin de partie
-}
+    updateScore(score);
+    updateMessage(`Thème : ${theme}. Devinez le mot !`, "info");
 
-/**
- * Réinitialise l'affichage du sablier.
- */
-export function resetHourglass() {
-    const hourglassFill = document.getElementById("hourglass-fill");
-    if (hourglassFill) {
-        hourglassFill.style.height = "0%"; // Vide le sablier
-        hourglassFill.style.backgroundColor = "#058682"; // Couleur initiale
-    }
-}
-
-/**
- * Réinitialise l'affichage de fin de partie (image de victoire ou défaite).
- */
-export function resetEndGameDisplay() {
-    const endGameImage = document.getElementById("endgame-image");
-    if (endGameImage) {
-        endGameImage.src = ""; // Vide l'image
-        endGameImage.style.display = "none"; // Cache l'image
-    }
+    generateWordDisplay(word);
+    generateAlphabetButtons();
+    resetHourglass();
 }
 
 /**
  * Génère les cubes représentant les lettres du mot à deviner.
  * @param {string} word - Le mot à deviner.
  */
-function generateWordCubes(word) {
+function generateWordDisplay(word) {
     const wordDisplay = document.getElementById("word-display");
-    if (wordDisplay) {
-        wordDisplay.innerHTML = ""; // Vide l'affichage actuel
+    if (!wordDisplay) return;
 
-        word.split("").forEach((char, index) => {
-            const cube = document.createElement("div");
-            cube.classList.add("cube");
-            cube.dataset.index = index;
-
-            const cubeInner = document.createElement("div");
-            cubeInner.classList.add("cube-inner");
-
-            const front = document.createElement("div");
-            front.classList.add("cube-front");
-            front.textContent = "_"; // Placeholder pour les lettres
-
-            const back = document.createElement("div");
-            back.classList.add("cube-back");
-            back.textContent = char.toUpperCase(); // Lettre réelle
-
-            cubeInner.appendChild(front);
-            cubeInner.appendChild(back);
-            cube.appendChild(cubeInner);
-            wordDisplay.appendChild(cube); // Ajoute le cube au conteneur
-        });
-    }
+    wordDisplay.innerHTML = "";
+    word.split("").forEach((char, index) => {
+        const cube = document.createElement("div");
+        cube.className = "cube";
+        cube.dataset.index = index;
+        cube.innerHTML = `
+            <div class="cube-inner">
+                <div class="cube-front">_</div>
+                <div class="cube-back">${char}</div>
+            </div>`;
+        wordDisplay.appendChild(cube);
+    });
 }
 
 /**
- * Génère les boutons de l'alphabet pour que le joueur puisse sélectionner une lettre.
+ * Génère les boutons de l'alphabet.
  */
 function generateAlphabetButtons() {
-    const container = document.querySelector(".letters");
-    if (container) {
-        container.innerHTML = ""; // Vide les boutons actuels
+    const lettersContainer = document.querySelector(".letters");
+    if (!lettersContainer) return;
 
-        for (let i = 65; i <= 90; i++) {
-            const letter = String.fromCharCode(i); // Convertit le code ASCII en lettre
-            const button = document.createElement("button");
-            button.textContent = letter;
-            button.className = "letter-button";
+    lettersContainer.innerHTML = "";
 
-            // Ajoute un gestionnaire de clic pour chaque bouton
-            button.addEventListener("click", () => handleLetterClick(letter, button));
-            container.appendChild(button);
-        }
+    for (let i = 65; i <= 90; i++) {
+        const letter = String.fromCharCode(i);
+        const button = document.createElement("button");
+        button.className = "letter-button";
+        button.textContent = letter;
+
+        button.addEventListener("click", () => handleLetterClick(letter, button));
+
+        lettersContainer.appendChild(button);
     }
 }
 
 /**
  * Gère le clic sur une lettre.
- * @param {string} letter - La lettre cliquée.
- * @param {HTMLButtonElement} button - Le bouton cliqué.
+ * @param {string} letter - La lettre sélectionnée.
+ * @param {HTMLElement} button - Le bouton correspondant.
  */
 export function handleLetterClick(letter, button) {
-    if (!currentWord) return; // Vérifie que le mot est défini
-
-    button.disabled = true; // Désactive le bouton pour éviter plusieurs clics
+    button.disabled = true;
+    button.classList.add("disabled");
 
     if (currentWord.includes(letter)) {
-        revealLetterInWord(letter); // Révèle la lettre dans le mot
-        score += 10; // Ajoute des points pour une lettre correcte
+        revealLetter(letter);
+        score += 10;
         updateScore(score);
-        updateMessage(`Bien joué ! La lettre '${letter}' est correcte.`, "success");
+        updateMessage(`Bonne réponse : ${letter} !`, "success");
     } else {
-        errors += 1; // Incrémente les erreurs
-        updateHourglass(); // Met à jour l'affichage du sablier
-        score = Math.max(0, score - 5); // Réduit le score (minimum 0)
-        updateScore(score);
-        updateMessage(`Oups ! La lettre '${letter}' est incorrecte.`, "error");
+        errors++;
+        playErrorSound();
+        updateHourglass();
+        updateMessage(`Mauvaise réponse : ${letter}.`, "error");
+        if (errors >= maxErrors) handleEndGame(false);
     }
 
-    // Vérifie les conditions de fin de partie
-    if (isWordComplete()) {
-        endGame(true);
-    } else if (errors >= maxErrors) {
-        endGame(false);
-    }
+    if (isWordComplete()) handleEndGame(true);
 }
 
 /**
- * Révèle les occurrences d'une lettre correcte dans le mot.
- * @param {string} letter - La lettre correcte.
+ * Révèle les lettres trouvées dans le mot.
+ * @param {string} letter - La lettre correcte trouvée.
  */
-function revealLetterInWord(letter) {
+function revealLetter(letter) {
     const cubes = document.querySelectorAll(".cube");
+
     currentWord.split("").forEach((char, index) => {
         if (char === letter) {
+            discoveredLetters[index] = true;
             const cube = cubes[index];
-            if (cube) cube.classList.add("flip"); // Applique l'effet de retournement
+            if (cube) cube.classList.add("flip");
         }
     });
 }
 
 /**
- * Vérifie si toutes les lettres du mot ont été découvertes.
- * @returns {boolean} - True si le mot est complété, sinon False.
+ * Vérifie si le mot est entièrement découvert.
+ * @returns {boolean} - Retourne true si le mot est complet.
  */
 function isWordComplete() {
-    const cubes = document.querySelectorAll(".cube");
-    return Array.from(cubes).every((cube) => cube.classList.contains("flip"));
+    return discoveredLetters.every((letter) => letter);
 }
 
 /**
- * Gère la fin de la partie.
- * @param {boolean} isWin - True si le joueur a gagné, sinon False.
+ * Gère la fin de partie (victoire ou défaite).
+ * @param {boolean} isWin - Indique si le joueur a gagné.
  */
-function endGame(isWin) {
+export function handleEndGame(isWin) {
     if (isWin) {
-        streak += 1; // Incrémente la série en cas de victoire
-        score += 50; // Bonus de victoire
-        updateMessage(`Félicitations ! Vous avez trouvé le mot. Série : ${streak}.`, "success");
+        playVictorySound();
+        score += 50;
+        saveScoreToServer(score, discoveredLetters.filter(Boolean).length);
+        updateMessage(`Félicitations ! Vous avez trouvé le mot !`, "success");
     } else {
         updateMessage(`Dommage ! Le mot était : ${currentWord}.`, "error");
     }
 
-    disableAllLetters(); // Désactive tous les boutons des lettres
+    disableAllLetters();
 }
 
 /**
- * Désactive tous les boutons de lettres après la fin de la partie.
+ * Désactive tous les boutons de lettres.
  */
-export function disableAllLetters() {
+function disableAllLetters() {
     const buttons = document.querySelectorAll(".letter-button");
     buttons.forEach((button) => {
         button.disabled = true;
         button.classList.add("disabled");
     });
+}
+
+/**
+ * Réinitialise le sablier.
+ */
+function resetHourglass() {
+    const hourglassFill = document.getElementById("hourglass-fill");
+    if (hourglassFill) {
+        hourglassFill.style.height = "0%";
+        hourglassFill.style.backgroundColor = "#058682";
+    }
+}
+
+/**
+ * Met à jour le sablier en fonction du nombre d'erreurs.
+ */
+function updateHourglass() {
+    const hourglassFill = document.getElementById("hourglass-fill");
+    if (hourglassFill) {
+        const fillHeight = (errors / maxErrors) * 100;
+        hourglassFill.style.height = `${fillHeight}%`;
+
+        if (errors >= maxErrors) {
+            hourglassFill.style.backgroundColor = "#f44336";
+        }
+    }
 }
