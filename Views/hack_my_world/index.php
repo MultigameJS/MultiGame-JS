@@ -202,7 +202,6 @@ $css = "hack_my_world/style";
         </div>
     </div>
 </div>
-<?php
-$script = "hack_my_world/script";
-$scripts = "hack_my_world/hack_my_world";
-?>
+
+<script type="module" src="/assets/js/hack_my_world/main.js"></script>
+
