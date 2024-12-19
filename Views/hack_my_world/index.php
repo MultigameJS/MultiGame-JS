@@ -188,7 +188,25 @@ $css = "hack_my_world/style";
 
 <div class="letters"></div>
 
-<button id="restart-btn" class="restart-btn" aria-label="Recommencer la partie">Recommencer</button>
+<button id="restart-btn" class="restart-btn" aria-label="Recommencer la partie">Jouer</button>
+<div class="modal fade" id="restartModal" tabindex="-1" aria-labelledby="restartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="restartModalLabel">Que voulez-vous faire ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-score">Votre score actuel : 0.</p>
+                <p>Vous pouvez continuer avec un autre thème ou recommencer une nouvelle partie.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="continue-game" data-bs-dismiss="modal">Continuer</button>
+                <button type="button" class="btn btn-danger" id="restart-game">Recommencer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -207,4 +225,9 @@ $css = "hack_my_world/style";
     </div>
 </div>
 
-<script type="module" src="/assets/js/hack_my_world/main.js"></script>
+
+<?php
+
+$script = "hack_my_world/script";
+$scripts = "hack_my_world/hack_my_world";
+?>
