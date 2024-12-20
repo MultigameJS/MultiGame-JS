@@ -14,8 +14,9 @@ $css = "hack_my_world/style";
                     <a class="nav-link active" href="/main/index">Retour page d'Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <button id="best-scores-button" class="btn btn-link nav-link">Meilleurs Scores</button>
+                    <button id="show-score-btn" class="btn btn-link nav-link">Voir mon score</button>
                 </li>
+
 
                 <!-- Bouton pour ouvrir la modale -->
                 <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#rulesModal">Règles du jeu</a>
@@ -81,7 +82,7 @@ $css = "hack_my_world/style";
                     <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#pointsModal">Règles des Points</a>
 
                     <!-- Modale des règles des points -->
-                    <div class="modal fade" id="pointsModal" tabindex="-1" aria-labelledby="pointsModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="pointsModal" tabindex="-1" aria-labelledby="pointsModalLabel" aria-hidden="true" >
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -171,10 +172,10 @@ $css = "hack_my_world/style";
 <div id="scoreboard" class="scoreboard">
     Points : <span id="player-score">0</span>
 </div>
-<div id="sound-controls">
-    <label for="volume-control">Volume :</label>
-    <input type="range" id="volume-control" min="0" max="1" step="0.1" value="1">
-    <button id="mute-toggle">🔊</button>
+<div id="sound-controls" class="d-flex justify-content-center align-items-center my-5">
+<label for="volume-control" class="me-2 volume">Volume :</label>
+    <input type="range" id="volume-control" class="form-range w-50" min="0" max="1" step="0.1" value="1">
+    <button id="mute-toggle" class="btn btn-outline-secondary ms-2">🔊</button>
 </div>
 
 <div id="themes-container" class="theme-buttons-container">
@@ -210,7 +211,7 @@ $css = "hack_my_world/style";
 </div>
 
 
-<div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true">
+<div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -226,7 +227,7 @@ $css = "hack_my_world/style";
         </div>
     </div>
 </div>
-<div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true">
+<div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -240,7 +241,23 @@ $css = "hack_my_world/style";
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scoreModalLabel">Votre meilleur score</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="scoreModalBody">
+                <!-- Le contenu du score sera mis à jour ici -->
+                Chargement...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
 

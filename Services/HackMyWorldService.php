@@ -13,9 +13,7 @@ class HackMyWorldService
         $this->repository = new HackMyWorldRepository();
     }
 
-    /**
-     * Sauvegarder le score d'un joueur.
-     */
+    // Sauvegarder le score d'un joueur
     public function saveScore($userId, $score, $streak)
     {
         error_log("Score reçu : " . $score);
@@ -23,7 +21,6 @@ class HackMyWorldService
 
         // Étape 1 : Récupérer le meilleur score existant de l'utilisateur
         $bestScore = $this->repository->getBestScore($userId);
-        $bestScore = !empty($bestScore) ? $bestScore[0] : null;
 
         // Étape 2 : Comparer les scores
         if (!$bestScore || $score > $bestScore->score) { 
@@ -36,7 +33,7 @@ class HackMyWorldService
             ];
 
             if ($bestScore) {
-                // Mise à jour si un meilleur score existe déjà
+                // Mise à jour si un score existe déjà
                 $this->repository->updateScore($bestScore->id, $data);
             } else {
                 // Insérer un nouveau score
@@ -54,7 +51,7 @@ class HackMyWorldService
         return [
             'status' => 'info',
             'message' => 'Votre score n\'est pas meilleur que le précédent.',
-            'score' => $bestScore ? $bestScore->score : null
+            'score' => $bestScore->score ?? null
         ];
     }
 }

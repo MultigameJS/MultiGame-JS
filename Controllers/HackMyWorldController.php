@@ -7,11 +7,9 @@ use App\Services\HackMyWorldService;
 
 class HackMyWorldController extends Controller
 {
-
-    //affiche la page du jeu
+    // Affiche la page du jeu
     public function index()
     {
-       
         $this->render('hack_my_world/index');
     }
 
@@ -57,20 +55,31 @@ class HackMyWorldController extends Controller
         echo json_encode($response);
     }
 
+    // Récupérer le meilleur score
+    public function getBestScore()
+    {
+        // Démarrer la session si elle n'est pas active
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
-//recupere le meilleur score
-public function getBestScore()
-{
-    if (!isset($_SESSION['user_id'])) {
-        echo json_encode(['status' => 'error', 'message' => 'Utilisateur non connecté']);
-        return;
+        // Vérifier si l'utilisateur est connecté
+        if (!isset($_SESSION['id'])) {
+            http_response_code(403);
+            echo json_encode(['status' => 'error', 'message' => 'Utilisateur non connecté']);
+            return;
+        }
+
+        // Récupérer le meilleur score
+        $userId = $_SESSION['id'];
+        $repository = new HackMyWorldRepository();
+        $bestScore = $repository->getBestScore($userId);
+
+        // Retourner le meilleur score ou null si aucun score trouvé
+        echo json_encode([
+            'status' => 'success',
+            'score' => $bestScore->score ?? null,
+            'streak' => $bestScore->streak ?? null,
+        ]);
     }
-
-    $userId = $_SESSION['user_id'];
-    $repository = new HackMyWorldRepository();
-    $bestScore = $repository->getBestScore($userId);
-
-    echo json_encode($bestScore);
-}
-
 }

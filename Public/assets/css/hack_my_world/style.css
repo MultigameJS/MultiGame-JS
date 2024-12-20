@@ -70,7 +70,25 @@ body {
     background-color: #058682; /* Couleur de fond au survol */
     border-color: #0d365c; /* Couleur de la bordure au survol */
 }
+label {
+    color: black;
+    font-weight: bold;
 
+
+}
+
+.form-range::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Supprime le style par défaut */
+    appearance: none;
+    width: 20px; /* Largeur du bouton */
+    height: 20px; /* Hauteur du bouton */
+    background: #058682; /* Couleur du bouton (bleu par défaut Bootstrap) */
+}
+.btn-outline-secondary{
+    color: white;
+    background-color: #058682;
+    border-color: #0d365c;
+}
 /* Zone principale */
 .main {
     padding: 20px;

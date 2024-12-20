@@ -79,7 +79,30 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+document.getElementById("show-score-btn").addEventListener("click", function () {
+    fetch('/HackMyWorld/getBestScore', {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success' && data.score !== null) {
+                document.getElementById("scoreModalBody").textContent =
+                    `Score : ${data.score} points (Série : ${data.streak}).`;
+            } else {
+                document.getElementById("scoreModalBody").textContent =
+                    "Aucun score enregistré pour le moment.";
+            }
 
+            // Affiche la modale
+            const scoreModal = new bootstrap.Modal(document.getElementById("scoreModal"));
+            scoreModal.show();
+        })
+        .catch(error => {
+            console.error("Erreur lors de la récupération du score :", error);
+            document.getElementById("scoreModalBody").textContent =
+                "Impossible de récupérer votre score pour le moment.";
+        });
+});
 
 
 //afficher les themes avec le theme actuel grisé
