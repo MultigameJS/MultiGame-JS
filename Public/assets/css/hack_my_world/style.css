@@ -234,7 +234,6 @@ label {
 .messages, .instructions{
     font-size: 24px; /* Texte plus grand */
     font-weight: bold; /* Texte en gras */
-    color: #555;
     text-align: center;
     margin-top: 20px; /* Espacement avec les autres éléments */
     background-color: #f8f9fa; /* Fond clair */
@@ -253,8 +252,36 @@ label {
 }
 
 .messages.info {
-    color: #051424; /* Bleu pour les informations */
+    color: black;
 }
+
+/* Animation de fade-in */
+/* Animation de fond lumineux */
+@keyframes glowingBackground {
+    0% { background-color: #f0ad4e; }
+    50% { background-color: #ff9500; }
+    100% { background-color: #f0ad4e; }
+}
+
+/* Effet de vibration (shake) */
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+    100% { transform: translateX(0); }
+}
+
+/* Classe d'animation avec fond lumineux et vibration */
+.message-animated {
+    animation: fadeIn 1s ease-out, bounce 1s ease-in-out 0.5s, pulse 1s ease-in-out 1s infinite, glowingBackground 1.5s ease-in-out infinite, shake 0.5s ease-in-out;  /* Ajout de l'animation de fond lumineux et de vibration */
+    color: black;  /* Couleur du texte pour plus de visibilité */
+    font-weight: bold;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8); /* Effet de lumière autour du texte */
+    padding: 10px;  /* Ajout d'un peu d'espace autour du texte */
+    border-radius: 5px;  /* Arrondir les bords pour un effet plus doux */
+}
+
 
 
 /* Bouton "Recommencer" */

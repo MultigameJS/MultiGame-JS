@@ -62,14 +62,13 @@ document.addEventListener("DOMContentLoaded", () => {
     victorySound = new Audio("/assets/sounds/hack_my_world/victory.mp3");
     gameOverSound = new Audio("/assets/sounds/hack_my_world/gameover.mp3");
 
-    // Bouton "Recommencer" réaffiche les thèmes et réinitialise le jeu
-    const restartButton = document.getElementById("restart-btn");
-    restartButton.addEventListener("click", () => {
+    document.getElementById("restart-btn").addEventListener("click", () => {
+        resetGame(); // Réinitialise l'état du jeu
         const themesContainer = document.getElementById("themes-container");
         themesContainer.style.display = "flex"; // Réaffiche les thèmes
         displayThemes(); // Recharge les boutons des thèmes
     });
-
+    
     // Ajoute des événements aux liens des thèmes dans le menu
     document.querySelectorAll("#submenu2 .subtitle").forEach((link) => {
         link.addEventListener("click", (e) => {
@@ -103,7 +102,6 @@ document.getElementById("show-score-btn").addEventListener("click", function () 
                 "Impossible de récupérer votre score pour le moment.";
         });
 });
-
 
 //afficher les themes avec le theme actuel grisé
 function displayThemesWithGrayedOut() {
@@ -181,7 +179,6 @@ function selectTheme(themeIndex) {
     initializeGame(currentWord); // Démarre la partie sans réinitialiser le score
 }
 
-
 // Initialisation du jeu
 function initializeGame(word) {
     // Réinitialise les éléments visuels et les compteurs
@@ -206,6 +203,23 @@ function resetEndGameDisplay() {
     const endGameImage = document.getElementById("endgame-image");
     endGameImage.src = ""; // Vide l'image de fin
     endGameImage.style.display = "none"; // Cache l'image de fin
+}
+
+function resetAlphabetButtons() {
+    const lettersContainer = document.querySelector(".letters");
+    const letterButtons = lettersContainer.querySelectorAll(".letter-button");
+    
+    // Réactiver les boutons des lettres
+    letterButtons.forEach(button => {
+        button.disabled = false;
+        button.classList.remove("disabled");
+    });
+}
+
+// Fonction pour réinitialiser l'affichage des mots
+function resetWordDisplay() {
+    const wordDisplay = document.getElementById("word-display");
+    wordDisplay.innerHTML = ""; // Vide le conteneur des mots (les cubes)
 }
 
 // Mise à jour du sablier en cas d'erreur
@@ -283,7 +297,6 @@ function generateAlphabetButtons() {
     }
 }
 
-
 // Gestion du clic sur une lettre
 function handleLetterClick(letter, button) {
     // Désactive le bouton pour éviter de cliquer plusieurs fois sur la même lettre
@@ -325,7 +338,6 @@ function handleLetterClick(letter, button) {
     }
 }
 
-
 // Vérifie si une lettre est correcte
 function isLetterInWord(letter) {
     return currentWord.includes(letter);
@@ -354,38 +366,38 @@ function isWordComplete() {
     return !document.querySelectorAll(".cube:not(.flip):not([data-index='-'])").length;
 }
 
-
-
 // Gestion de la fin de partie
 function endGame(isWin) {
-    stopCurrentSounds();
+    stopCurrentSounds();  // Arrêter tous les sons en cours
 
     const hourglassFill = document.getElementById("hourglass-fill");
     const endGameImage = document.getElementById("endgame-image");
-    const sound = isWin ? victorySound : gameOverSound;
-    const image = isWin ? "/assets/images/hack_my_world/victory.webp" : "/assets/images/hack_my_world/loose.webp";
+    const sound = isWin ? victorySound : gameOverSound;  // Choisir le son en fonction de la victoire ou de la défaite
+    const image = isWin ? "/assets/images/hack_my_world/victory.webp" : "/assets/images/hack_my_world/loose.webp";  // Choisir l'image de fin
 
+    // Mise à jour de l'affichage de l'heure de sable et de l'image de fin
     hourglassFill.style.height = "100%";
-    hourglassFill.style.backgroundColor = "#fff";
+    hourglassFill.style.backgroundColor = "#fff";  // Change la couleur du sablier
     endGameImage.src = image;
-    endGameImage.style.display = "block";
+    endGameImage.style.display = "block";  // Affiche l'image de fin
 
     sound.currentTime = 0;
-    sound.play();
+    sound.play();  // Joue le son de fin
 
-    disableAllLetters();
+    disableAllLetters();  // Désactive tous les boutons des lettres
 
+    // Si la partie est gagnée
     if (isWin) {
         score += 50; // Ajoute 50 points pour avoir gagné
-        streak++;
-        const streakBonus = Math.pow(2, streak - 1) * 20; // Bonus exponentiel
+        streak++;  // Augmente la série de victoires
+        const streakBonus = Math.pow(2, streak - 1) * 20; // Bonus exponentiel pour la série
         score += streakBonus;
 
-        console.log("Score après victoire :", score);
-        console.log("Série actuelle :", streak);
-
-        updateScore();
+        updateScore();  // Met à jour l'affichage du score
         updateMessage(`Félicitations ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`, "success");
+
+        // Ajout du message pour choisir un nouveau thème
+        updateMessage("Choisissez un nouveau thème pour continuer à jouer.", "info");  // <-- Nouveau message
 
         // Affiche la modale pour continuer ou arrêter
         const continueModal = new bootstrap.Modal(document.getElementById("continueModal"));
@@ -396,30 +408,40 @@ function endGame(isWin) {
         const continueButton = document.getElementById("continue-btn");
         const stopButton = document.getElementById("stop-btn");
 
-        continueButton.replaceWith(continueButton.cloneNode(true));
-        stopButton.replaceWith(stopButton.cloneNode(true));
+        continueButton.replaceWith(continueButton.cloneNode(true));  // Clone les boutons pour supprimer les anciens événements
+        stopButton.replaceWith(stopButton.cloneNode(true));  // Clone les boutons pour supprimer les anciens événements
 
         // Gestion des boutons dans la modale
         document.getElementById("continue-btn").addEventListener("click", () => {
             console.log("Bouton 'Continuer' cliqué.");
-            continueModal.hide();
-            displayThemesWithGrayedOut();
+            continueModal.hide(); // Cache la modale
+        
+            // Affiche le message une fois la modale fermée
+            updateMessage("Choisissez un nouveau thème pour continuer à jouer.", "info");
+        
+            displayThemesWithGrayedOut(); // Réaffiche les thèmes avec les boutons grisés si nécessaire
         });
-
+        
         document.getElementById("stop-btn").addEventListener("click", () => {
             console.log("Bouton 'Arrêter' cliqué. Score :", score, "Streak :", streak);
-            continueModal.hide();
+            continueModal.hide(); // Cache la modale
+        
+            // Enregistre le score et réinitialise la série si nécessaire
             saveScoreToServer(score, streak);
         });
 
-        continueModal.show();
-    } else {
-        streak = 0; // Réinitialise la série
+        continueModal.show();  // Affiche la modale pour continuer ou arrêter
+    }
+    else {
+        // Si la partie est perdue
+        streak = 0;  // Réinitialise la série
         console.log("Défaite : série réinitialisée.");
-        updateScore();
-        updateMessage(`Vous avez perdu... Le mot était : "${currentWord}".`, "error");
+        updateScore();  // Met à jour le score
+        updateMessage(`Vous avez perdu... Le mot était : "${currentWord}".`, "error");  // Affiche le message de défaite
     }
 }
+
+
 
 
 // Désactiver tous les boutons des lettres
@@ -444,11 +466,37 @@ function stopCurrentSounds() {
     gameOverSound.currentTime = 0;
 }
 
+// Fonction pour réinitialiser l'état du jeu
+function resetGame() {
+    // Réinitialiser les variables globales
+    errors = 0;
+    score = 0;
+    streak = 0;
+    currentTheme = "";
+    currentWord = "";
+    
+    // Réinitialiser les éléments visuels
+    updateScore(); // Réinitialise l'affichage du score
+    updateMessage("Bienvenue dans le jeu ! Choisissez un thème pour commencer.", "info");
+    resetHourglass(); // Réinitialise le sablier
+    resetEndGameDisplay(); // Réinitialise l'image de fin
+    resetAlphabetButtons(); // Réinitialise les boutons des lettres
+    resetWordDisplay(); // Réinitialise les cubes des mots
+
+    // Réactiver les thèmes déjà joués
+    displayThemesWithGrayedOut(); // Recharge les thèmes et réactive ceux qui sont disponibles
+}
+
 // Mise à jour des messages
 function updateMessage(text, type = "info") {
     const messages = document.getElementById("messages");
     messages.textContent = text;
-    messages.className = `messages ${type}`;
+    messages.className = `messages ${type} message-animated`;  // Ajouter la classe d'animation
+
+    // Réinitialiser l'animation après qu'elle soit terminée
+    setTimeout(() => {
+        messages.classList.remove('message-animated');  // Supprimer l'animation après 1.5 secondes
+    }, 1500); // Durée totale de l'animation (1 seconde pour l'animation de fondu et 0.5 seconde pour le rebond)
 }
 
 function updateScore() {
