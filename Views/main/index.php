@@ -2,6 +2,6 @@
 
 <div class="game-thumbnail">
     <a href="/HackMyWorld/index">
-        <img src="/assets/images/hack_my_world/hack_my_word_thumbnail.jpg" alt="Hack My Word">
+        <img src="/assets/images/hack_my_world/logo.jpg" alt="Hack My World" >
     </a>
 </div>

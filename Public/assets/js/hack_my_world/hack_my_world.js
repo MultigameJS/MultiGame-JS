@@ -99,6 +99,8 @@ function saveScoreToServer(score, streak) {
                 console.log('Réponse du serveur :', data);
                 if (data.status === 'success') {
                     showScoreModal('Score enregistré', `Nouveau meilleur score enregistré : ${totalScore}`);
+                    // Appeler la fonction de confettis après l'enregistrement du score
+                    launchConfetti();
                 } else {
                     showScoreModal('Erreur', `Une erreur est survenue lors de l'enregistrement : ${data.message}`);
                 }
@@ -137,6 +139,27 @@ function getBestScore() {
             showModal('Erreur', 'Impossible de récupérer votre meilleur score.');
             console.error('Erreur:', error);
         });
+}
+
+function launchConfetti() {
+    // Configuration des confettis
+    const duration = 5 * 1000; // Durée de l'animation en millisecondes (5 secondes)
+    const end = Date.now() + duration;
+
+    (function frame() {
+        confetti({
+            particleCount: 5, // Nombre de confettis à chaque émission
+            angle: 60, // Angle de l'éclatement
+            spread: 55, // Écartement des confettis
+            origin: { x: Math.random(), y: Math.random() }, // Origine aléatoire pour l'éclatement
+            colors: ['#ff0', '#0f0', '#00f', '#f00'], // Couleurs des confettis
+            shapes: ['circle', 'square'], // Formes des confettis
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame); // Répéter jusqu'à la fin
+        }
+    })();
 }
 
 function showModal(title, message) {
