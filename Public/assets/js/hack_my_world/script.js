@@ -1,7 +1,3 @@
-
-// Instances globales des sons
-let successSound, failSound, victorySound, gameOverSound;
-
 // Variables globales pour le jeu
 const maxErrors = 6; // Nombre maximum d'erreurs autorisées
 let errors = 0; // Compteur des erreurs
@@ -84,6 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+
+
 //afficher les themes avec le theme actuel grisé
 function displayThemesWithGrayedOut() {
     const themesContainer = document.getElementById("themes-container");
@@ -111,9 +109,8 @@ function displayThemesWithGrayedOut() {
         themesContainer.appendChild(button);
     });
 
-    themesContainer.style.display = "flex";
+    themesContainer.style.display = "flex"; // Réafficher les thèmes
 }
-
 
 // Afficher les thèmes disponibles
 function displayThemes() {
@@ -361,6 +358,9 @@ function endGame(isWin) {
         const streakBonus = Math.pow(2, streak - 1) * 20; // Bonus exponentiel
         score += streakBonus;
 
+        console.log("Score après victoire :", score);
+        console.log("Série actuelle :", streak);
+
         updateScore();
         updateMessage(`Félicitations ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`, "success");
 
@@ -369,26 +369,34 @@ function endGame(isWin) {
         document.getElementById("current-score").textContent = score;
         document.getElementById("current-streak").textContent = streak;
 
-        // Bouton "Continuer"
+        // Nettoie les événements précédents des boutons
+        const continueButton = document.getElementById("continue-btn");
+        const stopButton = document.getElementById("stop-btn");
+
+        continueButton.replaceWith(continueButton.cloneNode(true));
+        stopButton.replaceWith(stopButton.cloneNode(true));
+
+        // Gestion des boutons dans la modale
         document.getElementById("continue-btn").addEventListener("click", () => {
+            console.log("Bouton 'Continuer' cliqué.");
             continueModal.hide();
-            displayThemesWithGrayedOut(); // Affiche les thèmes avec celui utilisé grisé
+            displayThemesWithGrayedOut();
         });
 
-        // Bouton "Arrêter"
         document.getElementById("stop-btn").addEventListener("click", () => {
+            console.log("Bouton 'Arrêter' cliqué. Score :", score, "Streak :", streak);
             continueModal.hide();
-            saveScoreToServer(score, streak); // Enregistre le score
+            saveScoreToServer(score, streak);
         });
 
         continueModal.show();
     } else {
         streak = 0; // Réinitialise la série
+        console.log("Défaite : série réinitialisée.");
         updateScore();
         updateMessage(`Vous avez perdu... Le mot était : "${currentWord}".`, "error");
     }
 }
-
 
 
 // Désactiver tous les boutons des lettres

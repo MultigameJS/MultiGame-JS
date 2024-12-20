@@ -14,7 +14,7 @@
         },
         {
             "name": "Logiciels de développeur",
-            "words": ["vscode", "intellij", "github", "gitlab", "docker", "figma", "eclipse", "sublimeText", "notepad++", "webstorm", "pycharm", "postman", "slack", "jenkins", "visualStudio", "aws", "azure", "terraform", "jira", "confluence"]
+            "words": ["vscode", "intellij", "github", "gitlab", "docker", "figma", "eclipse", "sublimeText", "notepad", "webstorm", "pycharm", "postman", "slack", "jenkins", "visualStudio", "aws", "azure", "terraform", "jira", "confluence"]
         },
         {
             "name": "Veille technologique",
