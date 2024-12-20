@@ -37,42 +37,55 @@ if (successSound && failSound && victorySound && gameOverSound) {
     console.error("Les sons ne sont pas initialisés correctement.");
 }
 
-
-
 function saveScoreToServer(score, streak) {
     const csrfToken = document.getElementById('csrf_token').value;
 
-    console.log('Score envoyé :', score); // Ajout pour déboguer
-    console.log('Streak envoyé :', streak);
-
-    fetch('/HackMyWorld/saveScore', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            score: score,         // Vérifiez que c’est bien la variable mise à jour
-            streak: streak,
-            csrf_token: csrfToken
-        })
+    fetch('/HackMyWorld/getBestScore', {
+        method: 'GET',
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Réponse du serveur :', data);
-        if (data.status === 'success') {
-            alert('Score enregistré avec succès : ' + data.score);
+        const bestScore = data.score || 0; // Meilleur score enregistré
+        const previousScore = data.previousScore || 0; // Score cumulé précédemment (si disponible)
+        const totalScore = previousScore + score; // Cumul du score
+
+        if (totalScore > bestScore) {
+            // Enregistre le score cumulé si c'est un nouveau meilleur score
+            fetch('/HackMyWorld/saveScore', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    score: totalScore,
+                    streak: streak,
+                    csrf_token: csrfToken
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Réponse du serveur :', data);
+                if (data.status === 'success') {
+                    alert('Nouveau meilleur score enregistré : ' + totalScore);
+                } else {
+                    alert('Erreur : ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Erreur réseau lors de l\'enregistrement :', error);
+                alert('Une erreur est survenue lors de l\'enregistrement du score.');
+            });
         } else {
-            alert('Erreur : ' + data.message);
+            // Sinon, informe l'utilisateur que le score est inchangé
+            alert('Score actuel inférieur ou égal au meilleur score. Non enregistré.');
         }
     })
     .catch(error => {
-        console.error('Erreur réseau :', error);
-        alert('Une erreur est survenue lors de l\'enregistrement du score.');
+        console.error('Erreur réseau lors de la vérification du meilleur score :', error);
+        alert('Impossible de vérifier le meilleur score. Réessayez plus tard.');
     });
 }
 
-
-// Fonction pour récupérer le meilleur score
 function getBestScore() {
     fetch('/HackMyWorld/getBestScore', {
         method: 'GET',
@@ -94,7 +107,6 @@ function getBestScore() {
         });
 }
 
-// Fonction pour afficher le modal Bootstrap
 function showModal(title, message) {
     const modalTitle = document.getElementById('scoreModalLabel');
     const modalBody = document.getElementById('scoreModalBody');

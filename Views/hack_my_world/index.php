@@ -189,24 +189,26 @@ $css = "hack_my_world/style";
 <div class="letters"></div>
 
 <button id="restart-btn" class="restart-btn" aria-label="Recommencer la partie">Jouer</button>
-<div class="modal fade" id="restartModal" tabindex="-1" aria-labelledby="restartModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal" id="continueModal" tabindex="-1">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="restartModalLabel">Que voulez-vous faire ?</h5>
+                <h5 class="modal-title">Continuer ou arrêter ?</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p id="modal-score">Votre score actuel : 0.</p>
-                <p>Vous pouvez continuer avec un autre thème ou recommencer une nouvelle partie.</p>
+                <p>Vous avez gagné ce mot ! Votre score actuel est de <span id="current-score"></span> points avec une série de <span id="current-streak"></span>.</p>
+                <p>Si vous continuez et perdez, votre score sera remis à zéro.</p>
+                <p>Voulez-vous tenter de trouver un autre mot pour obtenir un bonus exponentiel ?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="continue-game" data-bs-dismiss="modal">Continuer</button>
-                <button type="button" class="btn btn-danger" id="restart-game">Recommencer</button>
+                <button type="button" class="btn btn-primary" id="continue-btn">Continuer</button>
+                <button type="button" class="btn btn-secondary" id="stop-btn">Arrêter</button>
             </div>
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="scoreModal" tabindex="-1" aria-labelledby="scoreModalLabel" aria-hidden="true">
     <div class="modal-dialog">

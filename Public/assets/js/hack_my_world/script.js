@@ -1,4 +1,4 @@
-console.log("Hack My World - Script chargé !");
+
 // Instances globales des sons
 let successSound, failSound, victorySound, gameOverSound;
 
@@ -10,6 +10,7 @@ let currentTheme = ""; // Thème sélectionné
 let currentWord = ""; // Mot à deviner
 let score = 0; // Points accumulés par le joueur
 let streak = 0; // Série de mots trouvés à la suite
+let usedThemes = []; // Liste des thèmes déjà joués
 
 // Messages de réussite
 const successMessages = [
@@ -47,6 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+
 // Chargement des thèmes depuis un fichier JSON
 fetch('/assets/js/hack_my_world/theme/themes.json')
     .then((response) => response.json())
@@ -82,6 +84,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+//afficher les themes avec le theme actuel grisé
+function displayThemesWithGrayedOut() {
+    const themesContainer = document.getElementById("themes-container");
+
+    if (!themesContainer) {
+        console.error("Le conteneur des thèmes est introuvable !");
+        return;
+    }
+
+    themesContainer.innerHTML = ""; // Nettoyage des thèmes
+
+    themes.forEach((theme, index) => {
+        const button = document.createElement("button");
+        button.textContent = theme.name;
+        button.className = "theme-button";
+
+        // Désactiver les thèmes déjà joués
+        if (usedThemes.includes(theme.name)) {
+            button.disabled = true;
+            button.classList.add("grayed-out");
+        } else {
+            button.addEventListener("click", () => selectTheme(index));
+        }
+
+        themesContainer.appendChild(button);
+    });
+
+    themesContainer.style.display = "flex";
+}
+
+
 // Afficher les thèmes disponibles
 function displayThemes() {
     const themesContainer = document.querySelector(".theme-buttons-container");
@@ -100,15 +133,17 @@ function displayThemes() {
 function selectTheme(themeIndex) {
     const themesContainer = document.getElementById("themes-container");
     if (!themesContainer) {
-        console.error("L'élément themes-container est introuvable !");
+        console.error("Le conteneur des thèmes est introuvable !");
         return;
     }
 
-    // Masquer les thèmes
     themesContainer.style.display = "none";
 
-    // Récupérer le thème sélectionné
     currentTheme = themes[themeIndex].name;
+    if (!usedThemes.includes(currentTheme)) {
+        usedThemes.push(currentTheme);
+    }
+
     const words = themes[themeIndex].words;
 
     if (!words || words.length === 0) {
@@ -116,17 +151,15 @@ function selectTheme(themeIndex) {
         return;
     }
 
-    currentWord = words[Math.floor(Math.random() * words.length)].toUpperCase(); // Mot aléatoire
+    currentWord = words[Math.floor(Math.random() * words.length)].toUpperCase();
 
-    // Afficher le thème sélectionné dans les instructions
     const instructions = document.getElementById("instructions");
     if (instructions) {
         instructions.textContent = `Thème sélectionné : ${currentTheme}`;
     }
 
-    initializeGame(currentWord); // Initialise le jeu avec le mot sélectionné
+    initializeGame(currentWord); // Démarre la partie sans réinitialiser le score
 }
-
 
 
 // Initialisation du jeu
@@ -136,14 +169,8 @@ function initializeGame(word) {
     resetEndGameDisplay(); // Réinitialise l'affichage de fin
     generateWordCubes(word); // Génère les cubes pour afficher le mot à deviner
     generateAlphabetButtons(); // Génère les boutons pour chaque lettre de l'alphabet
-
-    // Réinitialise les points pour la nouvelle partie si souhaité
-    score = 0; // Réinitialise les points à 0 pour la partie
-    streak = 0; // Réinitialise la série à 0
     updateScore(); // Met à jour l'affichage des points
-
-    // Affiche un message de bienvenue
-    updateMessage(`Thème : ${currentTheme}. Choisir une lettre !`, "info");
+    updateMessage(`Thème : ${currentTheme}. Choisir une lettre !`, "info");// message de bienvenue
 }
 
 // Réinitialisation du sablier
@@ -311,54 +338,58 @@ function isWordComplete() {
 
 // Gestion de la fin de partie
 function endGame(isWin) {
-    stopCurrentSounds(); // Arrête les sons en cours
+    stopCurrentSounds();
 
-    // Références aux éléments visuels
     const hourglassFill = document.getElementById("hourglass-fill");
     const endGameImage = document.getElementById("endgame-image");
     const sound = isWin ? victorySound : gameOverSound;
     const image = isWin ? "/assets/images/hack_my_world/victory.webp" : "/assets/images/hack_my_world/loose.webp";
 
-    // Met à jour le sablier et affiche l'image de fin
     hourglassFill.style.height = "100%";
     hourglassFill.style.backgroundColor = "#fff";
     endGameImage.src = image;
     endGameImage.style.display = "block";
 
     sound.currentTime = 0;
-    sound.play(); // Joue le son de victoire ou de défaite
+    sound.play();
 
-    // Désactive les boutons des lettres
     disableAllLetters();
 
-    // Gestion des points en fonction du résultat
     if (isWin) {
         score += 50; // Ajoute 50 points pour avoir gagné
-        streak++; // Augmente la série
+        streak++;
         const streakBonus = Math.pow(2, streak - 1) * 20; // Bonus exponentiel
-        score += streakBonus; // Ajoute le bonus
-        updateScore(); // Met à jour l'affichage des points
-    
-        // Message de victoire avec bonus de série
-        const message = `Félicitations, vous avez gagné ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`;
-        updateMessage(message, "success");
-        console.log("Score envoyé :", score);
-        console.log("Streak envoyé :", streak);
-        
-        // Enregistrer le score côté serveur
-        saveScoreToServer(score, streak);
+        score += streakBonus;
 
+        updateScore();
+        updateMessage(`Félicitations ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`, "success");
+
+        // Affiche la modale pour continuer ou arrêter
+        const continueModal = new bootstrap.Modal(document.getElementById("continueModal"));
+        document.getElementById("current-score").textContent = score;
+        document.getElementById("current-streak").textContent = streak;
+
+        // Bouton "Continuer"
+        document.getElementById("continue-btn").addEventListener("click", () => {
+            continueModal.hide();
+            displayThemesWithGrayedOut(); // Affiche les thèmes avec celui utilisé grisé
+        });
+
+        // Bouton "Arrêter"
+        document.getElementById("stop-btn").addEventListener("click", () => {
+            continueModal.hide();
+            saveScoreToServer(score, streak); // Enregistre le score
+        });
+
+        continueModal.show();
     } else {
-        // Réinitialise la série en cas de défaite
-        streak = 0;
-        updateScore(); // Met à jour l'affichage des points
-    
-        // Message de défaite
-        const message = `Vous avez perdu... Le mot était : "${currentWord}".`;
-        updateMessage(message, "error");
+        streak = 0; // Réinitialise la série
+        updateScore();
+        updateMessage(`Vous avez perdu... Le mot était : "${currentWord}".`, "error");
     }
-    
 }
+
+
 
 // Désactiver tous les boutons des lettres
 function disableAllLetters() {
