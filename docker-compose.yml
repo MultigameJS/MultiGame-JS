@@ -27,7 +27,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}                     # Nom d'utilisateur
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}             # Mot de passe de l'utilisateur
     ports:
-      - "3306:3306"                                 # Accéder à la base de données via localhost:3306
+      - "3307:3306"                                 # Accéder à la base de données via localhost:3307 pour éviter les conflits de port (Baylo). A changer sur la dev.
     volumes:
       - db_data:/var/lib/mysql                      # Stocker les données de la base de données dans un volume
     networks:
