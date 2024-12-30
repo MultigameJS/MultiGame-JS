@@ -4,6 +4,14 @@ body {
     font-family: Arial, sans-serif;
 }
 
+#comment {
+    position: absolute;
+    bottom: 100px;
+    right: 10px;
+    font-size: 24px;
+    color: rgb(255, 0, 0);
+}
+
 #game-container {
     width: 100vw;
     height: 70vh;

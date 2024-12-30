@@ -22,7 +22,8 @@ class DbMongo extends Mongo
 
         // Configuration des collections
         $this->collections = [
-            'actu' => 'actu'
+            'actu' => 'actu',
+            'Racing' => 'Racing'
         ];
     }
 

@@ -24,7 +24,7 @@ RUN echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf
 # Copier Composer à partir de l'image officielle
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Définir le répertoire de travail
+# Définir le répertoire de travail dans le dossier racine
 WORKDIR /var/www/html
 
 # Copier les fichiers nécessaires pour composer

@@ -1,0 +1,9 @@
+.delete-comment {
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.delete-comment:hover {
+    color: darkred;
+}

@@ -5,6 +5,9 @@
     <div>
       <?php foreach($racing as $score): ?>
         <h3 id="bestScore">Meilleur score : <?= $score->score ?></h3>
+        <div>
+          <a href="/racing/comment" id="comment">Commentaire</a>
+        </div>
       <?php endforeach; ?>
     </div>
   <?php endif; ?>
@@ -14,6 +17,7 @@
 </div>
 <div id="game-container"></div>
 <div id="error-message"></div>
+
 <?php
 $game = "racing/game";
 $css = "racing/style";

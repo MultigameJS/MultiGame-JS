@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Repository\DbMongo;
 use App\Repository\RacingRepository;
+use App\Repository\UserRepository;
 use App\Services\RacingService;
 
 class RacingController extends Controller
@@ -66,6 +68,37 @@ class RacingController extends Controller
         } catch (\Exception $e) {
             error_log('Erreur interne : ' . $e->getMessage());
             echo json_encode(['status' => 'error', 'message' => 'Erreur lors de l\'enregistrement']);
+        }
+    }
+
+    public function comment()
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $data = $_POST;
+            $racingService = new RacingService();
+            $racingService->comment($data);
+        }
+
+        $commentRepository = new DbMongo();
+        $comments = $commentRepository->findAll('Racing');
+
+        $usersRepository = new UserRepository();
+        $users = $usersRepository->findBy(['id' => $_SESSION['id']]);
+        if($users){
+            $name = $users[0]->name;
+        }
+
+        $this->render('racing/comment', [
+            'comments' => $comments,
+            'name' => $name
+        ]);
+    }
+
+    public function deleteComment()
+    {
+        if($_SERVER['REQUEST_METHOD'] === 'DELETE'){
+            $racingService = new RacingService();
+            $racingService->deleteComment();
         }
     }
 }

@@ -38,6 +38,15 @@ class Mongo
     }
 
     /**
+     * Retourne la base de données MongoDB.
+     * @return \MongoDB\Database
+     */
+    public function getDatabase(): Database 
+    {
+        return $this->db;
+    }
+
+    /**
      * Retourne l'instance unique de Mongo.
      * @return Mongo
      */
@@ -49,12 +58,5 @@ class Mongo
         return self::$instance;
     }
 
-    /**
-     * Retourne la base de données MongoDB.
-     * @return \MongoDB\Database
-     */
-    public function getDatabase(): Database 
-    {
-        return $this->db;
-    }
+    
 }
