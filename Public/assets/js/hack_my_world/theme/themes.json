@@ -1,8 +1,33 @@
 {
     "themes": [
+
+        {
+            "name": "personnage disney",
+            "words": [ "Mickey-Mouse","Minnie-Mouse","Donald-Duck","Dingo","Pluto","Simba","Ariel", "Aladdin","Jasmine","Mulan", "Blanche-Neige", "Cendrillon","Belle", "Elsa", "Anna", "Vaiana", "Peter-Pan", "Winnie-l-Ourson","Rox","Rouky"]
+        },
+
+        {
+            "name": "aliments",
+            "words": [ "Pomme","Banane","Riz","Poulet","Pain","Fromage","Tomate","Carotte","Poisson","Lait", "oeuf","Pates","Chocolat","Salade","Yogourt", "Poivron", "Steak","Avocat","Orange","Noix"]
+        },
+
+        {
+            "name": "pays",
+            "words": ["France","Allemagne","Espagne","Italie","Royaume-Uni","Etats-Unis","Canada","Bresil","Argentine", "Chine","Japon","Inde","Australie","Mexique","Russie","Afrique-du-Sud","Coree-du-Sud","Arabie-Saoudite","Egypte","Turquie"]
+        },
+
         {
             "name": "Métiers de l'informatique",
             "words": ["Developpeur","Analyste","Architecte","Concepteur","Integrateur","Consultant","Testeur","Responsable","DevOps","Webmaster","Ingenieur","Programmeur","Technicien","ChefProjet","Cybercriminologue","Infographiste","Redacteur","Formateur","ScrumMaster","Entrepreneur"]
+        },
+        {
+            "name": "animaux",
+            "words": ["Lion","Tigre","Elephant","Giraffe","Zebre","Panda","Kangourou","Koala","Dauphin","Requin","Aigle","Serpent","Tortue","Loup","Rhinoceros","Hippopotame","Ours-polaire","Pingouin","Chameau","Paon"]
+
+        },
+        {
+            "name": "sport",
+            "words": ["Football","Basketball","Tennis","Natation","Athletisme","Rugby","Cyclisme","Boxe","Escrime","Judo","Golf","Handball","Volleyball","Baseball","Hockey-sur-glace","Badminton","Surf","Ski-alpin","Snowboard","Karate"]
         },
         {
             "name": "Vocabulaire informatique",
