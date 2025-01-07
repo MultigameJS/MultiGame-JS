@@ -1,0 +1,69 @@
+{
+    "themes": [
+
+        {
+            "name": "personnage disney",
+            "words": [ "Mickey-Mouse","Minnie-Mouse","Donald-Duck","Dingo","Pluto","Simba","Ariel", "Aladdin","Jasmine","Mulan", "Blanche-Neige", "Cendrillon","Belle", "Elsa", "Anna", "Vaiana", "Peter-Pan", "Winnie-l-Ourson","Rox","Rouky"]
+        },
+
+        {
+            "name": "aliments",
+            "words": [ "Pomme","Banane","Riz","Poulet","Pain","Fromage","Tomate","Carotte","Poisson","Lait", "oeuf","Pates","Chocolat","Salade","Yogourt", "Poivron", "Steak","Avocat","Orange","Noix"]
+        },
+
+        {
+            "name": "pays",
+            "words": ["France","Allemagne","Espagne","Italie","Royaume-Uni","Etats-Unis","Canada","Bresil","Argentine", "Chine","Japon","Inde","Australie","Mexique","Russie","Afrique-du-Sud","Coree-du-Sud","Arabie-Saoudite","Egypte","Turquie"]
+        },
+
+        {
+            "name": "Métiers de l'informatique",
+            "words": ["Developpeur","Analyste","Architecte","Concepteur","Integrateur","Consultant","Testeur","Responsable","DevOps","Webmaster","Ingenieur","Programmeur","Technicien","ChefProjet","Cybercriminologue","Infographiste","Redacteur","Formateur","ScrumMaster","Entrepreneur"]
+        },
+        {
+            "name": "animaux",
+            "words": ["Lion","Tigre","Elephant","Giraffe","Zebre","Panda","Kangourou","Koala","Dauphin","Requin","Aigle","Serpent","Tortue","Loup","Rhinoceros","Hippopotame","Ours-polaire","Pingouin","Chameau","Paon"]
+
+        },
+        {
+            "name": "sport",
+            "words": ["Football","Basketball","Tennis","Natation","Athletisme","Rugby","Cyclisme","Boxe","Escrime","Judo","Golf","Handball","Volleyball","Baseball","Hockey-sur-glace","Badminton","Surf","Ski-alpin","Snowboard","Karate"]
+        },
+        {
+            "name": "Vocabulaire informatique",
+            "words": ["Algorithme","Securite","Systeme","Donnees","Binaire","Hebergement","Virtualisation","Processeur","Memoire","Reseau","Stockage","Cryptographie","Interface","Logiciel","Serveur","Application","Multitache","Debugging","Optimisation","Compression"]
+        },
+        {
+            "name": "Langages informatiques",
+            "words": ["JavaScript","Python","PHP","Ruby","Kotlin","Swift","Java","CSharp","TypeScript","GoLang","HTML","CSS","SQL","Bash","Perl","Scala","Rust","Dart","RLang","Matlab","lua"]
+        },
+        {
+            "name": "Logiciels de développeur",
+            "words": ["vscode", "intellij", "github", "gitlab", "docker", "figma", "eclipse", "sublimeText", "notepad", "webstorm", "pycharm", "postman", "slack", "jenkins", "visualStudio", "aws", "azure", "terraform", "jira", "confluence"]
+        },
+        {
+            "name": "Veille technologique",
+            "words": ["medium", "stackoverflow", "devto", "hackernews", "reddit", "techcrunch", "wired", "githubblog", "arstechnica", "theverge", "zdnet", "mashable", "engadget", "venturebeat", "digitaltrends", "slashdot", "readwrite", "gizmodo", "infoworld", "sciencedaily"]
+        },
+        {
+            "name": "Les fonctions de JavaScript",
+            "words": ["map", "filter", "reduce", "foreach", "sort", "splice", "slice", "push", "pop", "shift", "unshift", "find", "findindex", "includes", "join", "split", "concat", "reverse", "every", "some"]
+        },
+        {
+            "name": "Cybersécurité",
+            "words": ["phishing", "firewall", "malware", "ransomware", "antivirus", "trojan", "spyware", "ddos", "bruteForce", "keylogger", "penetrationTest", "vulnerability", "encryption", "zeroDay", "honeypot", "socialengineering", "sqlinjection", "xss", "exploit", "backdoor"]
+        },
+        {
+            "name": "Propriétés HTML",
+            "words": ["id", "class", "style", "href", "src", "alt", "title", "lang", "charset", "name", "content", "rel", "target", "type", "placeholder", "value", "checked", "disabled", "readonly", "autocomplete"]
+        },
+        {
+            "name": "Propriétés CSS",
+            "words": ["color", "background-color", "font-size", "font-family", "text-align", "margin", "padding", "border", "width", "height", "display", "position", "top", "left", "right", "bottom", "overflow", "z-index", "box-shadow", "transition"]
+        },
+        {
+            "name": "SQL et NoSQL",
+            "words": ["select", "insert", "update", "delete", "where", "join", "group by", "order by", "having", "index", "schema", "primary key", "foreign key", "table", "row", "column", "database", "document", "collection", "query"]
+        }
+    ]
+}

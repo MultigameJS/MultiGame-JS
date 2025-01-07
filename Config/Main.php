@@ -19,8 +19,11 @@ class Main
         session_start();
 
         // Générer le token CSRF si absent de la session
-        if (empty($_SESSION['csrf_token'])) {
-            $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Stocke directement le jeton haché
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
         }
 
         $uri = $_SERVER['REQUEST_URI'];

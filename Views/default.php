@@ -3,15 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Arcadia est un zoo dans la fôret de Brocéliande en bretagne venez découvrir nos habitats et leurs animaux">
+    <meta name="description" content="multigame est une plateforme de jeu en ligne">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="/assets/images/manette-de-jeu.png" type="image/x-icon">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
     <link href="/assets/css/default.css" rel="stylesheet">
-    <link href="/assets/css/<?php if(isset($css)){echo $css;}?>.css" rel="stylesheet">
-    <link href="/assets/css/<?php if(isset($style)){echo $style;}?>.css" rel="stylesheet">
+    <?php if(isset($css)): ?>
+    <link href="/assets/css/<?= $css ?>.css" rel="stylesheet">
+    <?php endif; ?>
+    <?php if(isset($style)): ?>
+    <link href="/assets/css/<?= $style ?>.css" rel="stylesheet">
+    <?php endif; ?>
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
@@ -23,6 +30,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Jeux</a>
+                    </li>
                     <?php if(isset($_SESSION['id'])): ?>
                     <li class="nav-item">
                         <a class="nav-link" href="/log/logout" onclick="return confirm('Êtes-vous sûr de vouloir vous déconnecter ?');">Déconnexion</a>
@@ -45,8 +55,15 @@
         <h3 class="text-center">&copy Copyright</h3>
     </footer>
     
-    <script src="/assets/js/<?php if(isset($game)){echo $game;}?>.js"></script>
-    <script src="/assets/js/<?php if(isset($script)){echo $script;}?>.js"></script>
+    <?php if(isset($game)): ?>
+    <script type="module" src="/assets/js/<?= $game ?>.js"></script>
+    <?php endif; ?>
+    <?php if(isset($script)): ?>
+    <script src="/assets/js/<?= $script ?>.js"></script>
+    <?php endif; ?>
+    <?php if(isset($scripts)): ?>
+    <script src="/assets/js/<?= $scripts ?>.js"></script>
+    <?php endif; ?>
     <script src="/assets/js/fetchPost.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
