@@ -242,6 +242,10 @@ label {
     background-color: #0d365c;
 }
 
+.grayed-out {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 /* Zone des messages */
 .messages, .instructions{
     font-size: 24px; /* Texte plus grand */
