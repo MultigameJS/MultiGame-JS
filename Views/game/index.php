@@ -26,17 +26,9 @@ $css = 'game';
             <div class="card custom-card">
                 <img src="/assets/images/racing/racing.webp" class="card-img-top" alt="Jeu 2">
                 <div class="card-body">
-<<<<<<< HEAD
-                    <h5 class="card-title text-center">Jeu 2 - Arcade</h5>
-                    <p class="card-text text-center">Revivez les classiques de l'arcade dans ce jeu rapide et addictif.</p>
-                    <div class="d-flex justify-content-center">
-                        <a href="/jeu2" class="btn btn-primary">Jouer</a>
-                    </div>
-=======
                     <h5 class="card-title">Racing</h5>
                     <p class="card-text">Une course contre la montre à grade vitesse.</p>
                     <a href="/racing" class="btn btn-primary">Jouer</a>
->>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
                 </div>
             </div>
         </div>
@@ -55,11 +47,4 @@ $css = 'game';
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-
-</section>
-<script src="/assets/js/Flapibird/lio.js"></script>
-<script src="/assets/js/game.js"></script>
-=======
 </main>
->>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00

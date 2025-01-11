@@ -11,11 +11,7 @@ $css = 'acceuil';
             <strong> STUDI DevWeb Full Stack Mars 2025</strong>. Ce site a pour objectif de vous offrir une expérience unique en regroupant
             des jeux multiples et variés, conçus pour tous les amateurs de divertissement et de programmation.
         </p>
-<<<<<<< HEAD
         <img class="acceuil img-fluid" src="/assets/images/logoMultigame.webp" alt="image acceuil">
-=======
-        <img class="acceuil img-fluid" src="/assets/images/logo/logoMultigame.webp" alt="image acceuil">
->>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
         <p class="mt-3">
             Que vous soyez fan de jeux d'arcade, de stratégie ou encore de réflexion, vous trouverez ici de quoi vous amuser et relever de nombreux défis.
             Alors, prêt à explorer et à jouer ? Parcourez notre collection de jeux et profitez d'une expérience ludique et captivante !

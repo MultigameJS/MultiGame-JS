@@ -9,22 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="/assets/css/default.css" rel="stylesheet">
-<<<<<<< HEAD
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Press+Start+2P&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
-=======
->>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
     <?php if(isset($css)): ?>
     <link href="/assets/css/<?= $css ?>.css" rel="stylesheet">
     <?php endif; ?>
     <?php if(isset($style)): ?>
     <link href="/assets/css/<?= $style ?>.css" rel="stylesheet">
     <?php endif; ?>
-<<<<<<< HEAD
-=======
-    <script src="https://cdn.jsdelivr.net/npm/ammo.js/builds/ammo.wasm.js"></script>
->>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
@@ -32,11 +25,7 @@
         <div class="navtop container-fluid">
             <!-- Logo -->
             <a class="logo d-block" href="/">
-<<<<<<< HEAD
                 <img src="/assets/images/logoMultigame.webp" alt="LOGO">
-=======
-                <img src="/assets/images/logo/logoMultigame.webp" alt="LOGO">
->>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
             </a>
 
             <!-- Toggle button for mobile view -->
