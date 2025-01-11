@@ -1,53 +1,38 @@
-.game {
-    height: 90vh; /* Hauteur fixe de la section */
-    display: flex; /* Centre le contenu */
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #70c5ce;
+    font-family: Arial, sans-serif;
+}
+canvas {
+    display: none; 
+    background-color: #70c5ce;
+}
+#startForm {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0;
-    padding: 0;
-    background-image: url(/assets/images/jake-weirick-Q_RBVFFXR_g-unsplash.jpg);
-    background-size: cover;
-    overflow: hidden; /* Empêche le débordement */
+    height: 100vh;
+    background-color: #70c5ce;
 }
-
-#gameCanvas {
-    width: 100%; /* Ajuste la largeur */
-    height: 100%; /* Ajuste la hauteur à 100% de la section */
-    max-height: 100%; /* Empêche le débordement vertical */
-}
-
-#score, #level, #game-over {
-    position: absolute;
-    z-index: 10; /* Assure que les éléments restent visibles au-dessus du canvas */
-    color: #fff;
-    font-family: 'Press Start 2P', cursive; /* Style rétro gaming */
-}
-
-#score {
-    top: 10px;
-    left: 10px;
-    background: #fff ;/* Fond semi-transparent */
-    padding: 5px 10px;
+#startForm input {
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    border: none;
     border-radius: 5px;
+    outline: none;
 }
-
-#level {
-    top: 10px;
-    right: 10px;
-    background: #fff; /* Fond semi-transparent */
-    padding: 5px 10px;
+#startForm button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
-
-#game-over {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
-    padding: 20px;
-    border-radius: 10px;
-    display: none; /* Masqué par défaut */
+#startForm button:hover {
+    background-color: #218838;
 }

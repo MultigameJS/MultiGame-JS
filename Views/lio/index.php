@@ -1,12 +1,15 @@
 <?php
 $css = 'lio';
 ?>
-<section class="game">
-    <div id="score">Score: 0</div>
-    <div id="level">Level: 1</div>
-    <div id="game-over">Game Over! Cliquez pour rejouer.</div>
-    <canvas id="gameCanvas"></canvas>
-    <?php
-    $script= 'lio'
-    ?>
-</section>
+<div id="startForm">
+    <h1>Bienvenue dans Flappy Bird !</h1>
+    <p>Entrez votre pseudo pour commencer :</p>
+    <form action="/LioController/saveScore" method="POST">
+        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+        <input type="text" id="playerName" name="pseudo" placeholder="Votre pseudo" required />
+        <button type="button" id="startGameButton">Commencer</button>
+    </form>
+</div>
+<canvas id="gameCanvas"></canvas>
+
+<script src="/assets/js/Flapibird/lio.js"></script>

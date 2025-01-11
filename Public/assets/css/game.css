@@ -1,29 +1,44 @@
-.custom-card {
-    max-width: 18rem; /* Limite la largeur des cards */
-    margin: 0 auto;   /* Centre les cards */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
+main {
+    flex: 1;
+}
 .custom-card {
-    background: linear-gradient(135deg, #1a1a1a, #3a3a3a); /* Dégradé sombre pour le fond */
-    border: 2px solid rgba(255, 0, 127, 0.6); /* Bordure lumineuse */
-    border-radius: 10px; /* Coins arrondis */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Ombre subtile */
+    max-width: 20rem;
+    margin: 0 auto;
+}
+
+h1{
+    color: #ff007f;
+
+}
+.custom-card {
+    background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+    border: 2px solid rgba(255, 0, 127, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: #fff; /* Texte en blanc */
+    color: #fff;
 }
 
 /* Effet lumineux au survol */
 .custom-card:hover {
-    transform: scale(1.05); /* Légère mise en avant */
-    box-shadow: 0 8px 16px rgba(255, 0, 127, 0.8); /* Ombre lumineuse */
-    border-color: #ff007f; /* Accentuation de la bordure */
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(255, 0, 127, 0.8);
+    border-color: #ff007f;
 }
 
 /* Style pour le titre des cards */
 .custom-card .card-title {
-    font-family: 'Press Start 2P', cursive; /* Police rétro */
-    color: #ffcc00; /* Couleur lumineuse */
-    text-shadow: 0 0 5px rgba(255, 204, 0, 0.8); /* Effet lumineux sur le texte */
+    font-family: 'Press Start 2P', cursive;
+    color: #ffcc00;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.8);
 }
 
 /* Style pour le texte des cards */
@@ -34,21 +49,25 @@
 
 /* Boutons des cards */
 .custom-card .btn-primary {
-    background: linear-gradient(90deg, #ff007f, #ffcc00); /* Dégradé vibrant */
+    background: linear-gradient(90deg, #ff007f, #ffcc00);
     border: none;
     color: #000;
     font-weight: bold;
     text-transform: uppercase;
+    font-family: 'Press Start 2P', cursive;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
+.card-body button {
+    display: inline-block;
+}
 .custom-card .btn-primary:hover {
-    background: linear-gradient(90deg, #ffcc00, #ff007f); /* Inverse le dégradé */
-    transform: translateY(-3px); /* Légère élévation */
+    background: linear-gradient(90deg, #ffcc00, #ff007f);
+    transform: translateY(-3px);
     color: #fff;
 }
 
 /* Ajustement de l'image */
 .custom-card img {
-    border-radius: 10px 10px 0 0; /* Coins arrondis en haut */
+    border-radius: 10px 10px 0 0;
 }

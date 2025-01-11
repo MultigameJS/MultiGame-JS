@@ -6,10 +6,12 @@ img {
 
 h1{
 color: #ff007f;
+font-family: "Roboto Serif", serif;
 }
 
 p{
 color: #ffcc00;
+font-family: "Roboto Serif", serif;
 }
 
 .cn{
@@ -22,15 +24,29 @@ color: #ffcc00;
     background: linear-gradient(90deg, #ff007f, #ffcc00);
     border: none;
     color: #000;
-    font-weight: bold;
-    text-transform: uppercase;
     padding: 8px 15px;
+    text-transform: uppercase;
     border-radius: 5px;
     transition: background 0.3s ease, transform 0.3s ease;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .cn a :hover{
     background: linear-gradient(90deg, #ffcc00, #ff007f);
     transform: translateY(-3px);
     color: #fff;
+}
+
+@media (max-width: 768px) {
+    .cn a {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cn a {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
 }

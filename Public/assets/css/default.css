@@ -20,12 +20,12 @@
 .navbar {
     position: relative;
     z-index: 1000;
-    background: linear-gradient(90deg, #1a1a1a, #3a3a3a); /* Dégradé sombre */
-    border-bottom: 3px solid #ff007f; /* Ligne lumineuse */
+    background: linear-gradient(90deg, #1a1a1a, #3a3a3a);
+    border-bottom: 3px solid #ff007f;
 }
 
 .navbar .logo img {
-    max-height: 100px; /* Taille ajustée du logo */
+    max-height: 100px;
 }
 
 .navbar .navbar-nav .nav-link {
@@ -35,22 +35,26 @@
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
+.nav-item a{
+    font-family: 'Press Start 2P', cursive;
+}
+
 .navbar .navbar-nav .nav-link:hover {
-    color: #ffcc00; /* Couleur lumineuse au survol */
-    transform: scale(1.1); /* Légère mise en avant */
+    color: #ffcc00;
+    transform: scale(1.1);
 }
 
 .navbar .navbar-toggler {
-    background-color: #ff007f; /* Bouton mobile stylé */
+    background-color: #ff007f;
 }
 
 .navbar .navbar-toggler-icon {
-    filter: invert(1); /* Icône en blanc */
+    filter: invert(1);
 }
 
 /* Bouton Connexion ou Déconnexion */
 .navbar .nav-link.btn-connexion {
-    background: linear-gradient(90deg, #ff007f, #ffcc00); /* Dégradé vibrant */
+    background: linear-gradient(90deg, #ff007f, #ffcc00);
     border: none;
     color: #000;
     font-weight: bold;
@@ -61,39 +65,41 @@
 }
 
 .navbar .nav-link.btn-connexion:hover {
-    background: linear-gradient(90deg, #ffcc00, #ff007f); /* Inverse le dégradé */
-    transform: translateY(-3px); /* Légère élévation */
+    background: linear-gradient(90deg, #ffcc00, #ff007f);
+    transform: translateY(-3px);
     color: #fff;
 }
 
 /* Footer  */
 .footer-gaming {
-    background: linear-gradient(90deg, #1a1a1a, #3a3a3a); /* Dégradé sombre */
-    border-top: 3px solid #ff007f; /* Ligne lumineuse en haut */
-    padding: 10px 0; /* Réduction de la hauteur grâce à moins de padding */
+    background: linear-gradient(90deg, #1a1a1a, #3a3a3a);
+    border-top: 3px solid #ff007f;
+    padding: 10px 0;
 }
 
-.footer-gaming h3 {
-    font-family: 'Press Start 2P', cursive; /* Police rétro */
-    font-size: 1.2rem; /* Taille légèrement réduite */
-    margin-bottom: 5px; /* Réduction de la marge inférieure */
+.container h3 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
 }
 
 .footer-gaming p {
-    font-size: 0.8rem; /* Texte plus petit */
-    margin-bottom: 0; /* Évite les marges inutiles */
-    color: #bfbfbf; /* Couleur légèrement atténuée */
+    font-size: 0.8rem;
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 0;
+    color: #bfbfbf;
 }
 
 
 .footer-gaming .legal-links {
-    font-size: 0.8rem; /* Réduction de la taille du texte */
-    margin-top: 10px; /* Légère séparation avec le contenu principal */
+    font-size: 0.8rem;
+    margin-top: 10px;
 }
 
 .footer-gaming .legal-link {
     color: #ff007f;
     text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
     font-weight: bold;
     transition: color 0.3s ease, text-shadow 0.3s ease;
 }
@@ -105,5 +111,5 @@
 
 .footer-gaming .legal-links span {
     color: #fff;
-    margin: 0 5px; /* Espacement réduit autour des séparateurs */
+    margin: 0 5px;
 }

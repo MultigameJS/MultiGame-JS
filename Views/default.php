@@ -8,8 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
     <link href="/assets/css/default.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Press+Start+2P&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
     <?php if(isset($css)): ?>
     <link href="/assets/css/<?= $css ?>.css" rel="stylesheet">
     <?php endif; ?>
@@ -58,7 +60,7 @@
     <div class="container">
         <!-- Texte principal -->
         <h3>&copy; 2025 MultiGame-JS. Tous droits réservés.</h3>
-        <p>Créé avec passion par la promotion  Studi DevWeb Full Stack Mars 2025.</p>
+        <p class="mt-2">Créé avec passion par la promotion  Studi DevWeb Full Stack Mars 2025.</p>
 
         <!-- Liens CGU, RGPD, Mentions légales -->
         <div class="legal-links mt-4">
