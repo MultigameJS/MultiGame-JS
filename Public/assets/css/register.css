@@ -1,19 +1,20 @@
 /* Style général pour le formulaire */
 section {
-    min-height: 100vh;
+    min-height: 71.4vh;
+    background-color: #fff;
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Press Start 2P', cursive; /* Police rétro */
+    font-family: 'Press Start 2P', cursive;
 }
 
 /* Container principal */
 .ct{
-    background: rgba(0, 0, 0, 0.8); /* Fond semi-transparent */
-    border: 2px solid #ff007f; /* Bordure lumineuse */
-    border-radius: 15px; /* Coins arrondis */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8); /* Ombre pour effet de profondeur */
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #ff007f;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
     padding: 30px;
 }
 
@@ -26,8 +27,8 @@ h2 {
 
 /* Champs de formulaire */
 .form-control {
-    background: rgba(255, 255, 255, 0.1); /* Fond semi-transparent */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Bordure légère */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     border-radius: 8px;
     padding: 10px;
@@ -35,14 +36,14 @@ h2 {
 }
 
 .form-control:focus {
-    background: rgba(255, 255, 255, 0.2); /* Accentuation au focus */
+    background: rgba(255, 255, 255, 0.2);
     border-color: #ff007f;
     box-shadow: 0 0 5px #ff007f;
 }
 
 /* Boutons */
 .btn {
-    background: linear-gradient(90deg, #ff007f, #ffcc00); /* Dégradé vibrant */
+    background: linear-gradient(90deg, #ff007f, #ffcc00);
     border: none;
     color: #000;
     font-weight: bold;
@@ -53,8 +54,8 @@ h2 {
 }
 
 .btn:hover {
-    background: linear-gradient(90deg, #ffcc00, #ff007f); /* Inverse le dégradé */
-    transform: translateY(-3px); /* Légère élévation */
+    background: linear-gradient(90deg, #ffcc00, #ff007f);
+    transform: translateY(-3px);
     color: #fff;
 }
 
@@ -78,7 +79,7 @@ h2 {
     margin-top: 15px;
     padding: 10px;
     border-radius: 5px;
-    display: none; /* Cacher par défaut */
+    display: none; 
 }
 
 #error-messages {
