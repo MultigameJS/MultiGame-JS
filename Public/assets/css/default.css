@@ -1,6 +1,13 @@
 *{
     margin: 0;
     padding: 0;
+<<<<<<< HEAD
+=======
+}
+
+main {
+    min-height: 58.2vh; /* Hauteur de la barre de navigation */
+>>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
 }
 
 #success-message{

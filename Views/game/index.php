@@ -8,7 +8,7 @@ $css = 'game';
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     <div class="col">
             <div class="card custom-card">
-                <img src="/assets/images/spaceinvender.png" class="card-img-top" alt="Jeu 1">
+                <img src="/assets/images/spaceinvender/spaceinvender.png" class="card-img-top" alt="Jeu 1">
                 <div class="card-body">
                     <h5 class="card-title text-center">Flapi Bird</h5>
                     <p class="card-text text-center">Plongez dans une aventure palpitante et relevez des défis incroyables !</p>
@@ -24,13 +24,19 @@ $css = 'game';
 
         <div class="col">
             <div class="card custom-card">
-                <img src="/assets/images/jeu2-thumbnail.jpg" class="card-img-top" alt="Jeu 2">
+                <img src="/assets/images/racing/racing.webp" class="card-img-top" alt="Jeu 2">
                 <div class="card-body">
+<<<<<<< HEAD
                     <h5 class="card-title text-center">Jeu 2 - Arcade</h5>
                     <p class="card-text text-center">Revivez les classiques de l'arcade dans ce jeu rapide et addictif.</p>
                     <div class="d-flex justify-content-center">
                         <a href="/jeu2" class="btn btn-primary">Jouer</a>
                     </div>
+=======
+                    <h5 class="card-title">Racing</h5>
+                    <p class="card-text">Une course contre la montre à grade vitesse.</p>
+                    <a href="/racing" class="btn btn-primary">Jouer</a>
+>>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
                 </div>
             </div>
         </div>
@@ -49,7 +55,11 @@ $css = 'game';
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 
 </section>
 <script src="/assets/js/Flapibird/lio.js"></script>
 <script src="/assets/js/game.js"></script>
+=======
+</main>
+>>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00

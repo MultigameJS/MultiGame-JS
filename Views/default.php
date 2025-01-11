@@ -9,15 +9,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="/assets/css/default.css" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Press+Start+2P&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+=======
+>>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
     <?php if(isset($css)): ?>
     <link href="/assets/css/<?= $css ?>.css" rel="stylesheet">
     <?php endif; ?>
     <?php if(isset($style)): ?>
     <link href="/assets/css/<?= $style ?>.css" rel="stylesheet">
     <?php endif; ?>
+<<<<<<< HEAD
+=======
+    <script src="https://cdn.jsdelivr.net/npm/ammo.js/builds/ammo.wasm.js"></script>
+>>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
@@ -25,7 +32,11 @@
         <div class="navtop container-fluid">
             <!-- Logo -->
             <a class="logo d-block" href="/">
+<<<<<<< HEAD
                 <img src="/assets/images/logoMultigame.webp" alt="LOGO">
+=======
+                <img src="/assets/images/logo/logoMultigame.webp" alt="LOGO">
+>>>>>>> d94bbcdfb1f6a460842f69420969b9280a3d4e00
             </a>
 
             <!-- Toggle button for mobile view -->
@@ -73,8 +84,12 @@
     </div>
 </footer>
 
-    <script src="/assets/js/<?php if(isset($game)){echo $game;}?>.js"></script>
-    <script src="/assets/js/<?php if(isset($script)){echo $script;}?>.js"></script>
+    <?php if(isset($game)): ?>
+    <script type="module" src="/assets/js/<?= $game ?>.js"></script>
+    <?php endif; ?>
+    <?php if(isset($script)): ?>
+    <script src="/assets/js/<?= $script ?>.js"></script>
+    <?php endif; ?>
     <script src="/assets/js/fetchPost.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
