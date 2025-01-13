@@ -8,7 +8,7 @@ $css = 'game';
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     <div class="col">
             <div class="card custom-card">
-                <img src="/assets/images/spaceinvender/spaceinvender.png" class="card-img-top" alt="Jeu 1">
+                <img src="/assets/images/Bird.png" class="card-img-top" alt="Jeu 1">
                 <div class="card-body">
                     <h5 class="card-title text-center">Flapi Bird</h5>
                     <p class="card-text text-center">Plongez dans une aventure palpitante et relevez des défis incroyables !</p>
