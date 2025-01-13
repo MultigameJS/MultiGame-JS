@@ -21,7 +21,7 @@
     <title><?php if(isset($title)){echo $title;}?></title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg" id="navbar">
         <div class="navtop container-fluid">
             <!-- Logo -->
             <a class="logo d-block" href="/">
@@ -56,7 +56,7 @@
         <?= $contenu ?>
     </main>
 
-    <footer class="footer-gaming text-center text-white py-4">
+    <footer class="footer-gaming text-center text-white py-4" id="footer">
     <div class="container">
         <!-- Texte principal -->
         <h3>&copy; 2025 MultiGame-JS. Tous droits réservés.</h3>
