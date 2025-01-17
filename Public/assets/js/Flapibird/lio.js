@@ -1,8 +1,8 @@
 let move_speed = 5, gravity = 0.2; // Vitesse des pipes et gravité de l'oiseau
 let bird = document.querySelector(".bird");
 let img = document.getElementById("bird-1");
-let sound_point = new Audio(""); // Ajouter le chemin vers le fichier son
-let sound_die = new Audio(""); // Ajouter le chemin vers le fichier son
+let sound_point = new Audio(""); /
+let sound_die = new Audio("");
 
 let bird_props = bird.getBoundingClientRect();
 let background = document.querySelector(".background").getBoundingClientRect();
@@ -15,7 +15,7 @@ let game_state = "Start";
 img.style.display = "none";
 message.classList.add("messageStyle");
 
-let pseudo = null; // Variable pour stocker le pseudo de l'utilisateur
+let pseudo = null;
 
 // Gestion du formulaire de pseudo
 document.getElementById("pseudoForm").addEventListener("submit", function (e) {
