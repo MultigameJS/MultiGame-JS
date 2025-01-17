@@ -11,12 +11,10 @@ class FlapiService
     public function updateScore($flapiId)
     {
 
-        $score = $_POST['score'] ?? null;
+        $score = $input['score'] ?? null;
         $date = $_POST['date'] ?? null;
 
         $data =[
-
-
            'score' => $score,
            'date' => $date,
         ];
