@@ -19,45 +19,52 @@ class LioController extends Controller
     // Ajouter un score
     public function saveScore()
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Je récupère les données JSON depuis la requête
+        $input = json_decode(file_get_contents('php://input'), true);
 
-            $data = [
-                'pseudo' => $_POST['pseudo'] ?? null,
-                'score' => $_POST['score'] ?? null,
-                'date' => date('Y-m-d H:i:s'),
-            ];
+        // Les données sont validés
+        $pseudo = $input['pseudo'] ?? null;
+        $score = $input['score'] ?? null;
 
-            $FlapiRepository = new FlapiRepository();
-            $result = $FlapiRepository->createPseudo(
-                $data['pseudo'],
-                $data['score'],
-                $data['date']
-            );
-
-            if ($result) {
-                echo json_encode(['status' => 'success', 'message' => 'Score enregistré.']);
-            } else {
-                echo json_encode(['status' => 'error', 'message' => 'Erreur d\'enregistrement.']);
-            }
-            exit();
+        if (!$pseudo || !is_string($pseudo) || !is_numeric($score)) {
+            // Retourne une erreur si les données sont invalides
+            $this->sendJsonResponse(['status' => 'error', 'message' => 'Données invalides.'], 400);
         }
-        $this->render('lio/index');
+
+        // Préparation des données
+        $data = [
+            'pseudo' => htmlspecialchars($pseudo, ENT_QUOTES, 'UTF-8'),
+            'score' => (int) $score,
+            'date' => date('Y-m-d H:i:s'),
+        ];
+
+        // j'enregistre en base de données
+        $FlapiRepository = new FlapiRepository();
+        $result = $FlapiRepository->createPseudo(
+            $data['pseudo'],
+            $data['score'],
+            $data['date']
+        );
+
+        // retourne une réponse JSON en fonction du résultat
+        $status = $result ? 'success' : 'error';
+        $message = $result ? 'Score enregistré.' : 'Erreur lors de l\'enregistrement.';
+        $this->sendJsonResponse(['status' => $status, 'message' => $message]);
     }
 
-    public function updateScore($id)
+    private function sendJsonResponse(array $data, int $statusCode = 200)
     {
-        $flapiRepository = new FlapiRepository();
-        $flapiService = new FlapiService();
+        // je définit l'en-tête Content-Type pour indiquer que la réponse est en JSON
+        header('Content-Type: application/json');
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // je définit le code HTTP de la réponse (200 par défaut si non spécifié)
+        http_response_code($statusCode);
 
-            $flapiService->updateScore($id);
-        }
-        $flapiRepository = new FlapiRepository();
-        $flapi = $flapiRepository->find($id);
+        // je convertit le tableau en chaîne JSON et l'envoie au client
+        echo json_encode($data);
 
-        if (!$flapi) {
-            throw new \Exception("Score introuvable.");
-        }
+        exit();
     }
+
+    
 }

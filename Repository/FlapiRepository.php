@@ -6,25 +6,31 @@ class FlapiRepository extends DbRepository
 {
     public function __construct()
     {
-        $this->table = 'Space';
+        $this->table = 'flapi';
     }
 
-    public function createPseudo($pseudo)
-    {
-        return $this->req(
-            "INSERT INTO " . $this->table . " (pseudo)
-            VALUES (:pseudo)",
-            [
-                'pseudo' => $pseudo,
-            ]
-        );
-    }
+    public function createPseudo($pseudo, $score, $date)
+{
+    return $this->req(
+        "INSERT INTO " . $this->table . " (pseudo, score, date)
+        VALUES (:pseudo, :score, :date)",
+        [
+            'pseudo' => $pseudo,
+            'score' => $score,
+            'date' => $date,
+        ]
+    );
+}
 
+public function update($id, array $data): bool{
 
-    public function findByPseudo($pseudo)
-    {
-        $result = $this->findBy(['pseudo' => $pseudo]);
+    $sql = "UPDATE " . $this->table . " SET score = :score, date = :date WHERE id = :id";
+    return $this->req($sql, [
 
-        return $result ? $result[0] : null;
-    }
+       'score' => $data['score'],
+       'date' => $data['date'],
+       'id' => $id,
+    ]);
+}
+
 }
