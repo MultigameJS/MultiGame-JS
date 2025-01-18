@@ -4,6 +4,8 @@ use App\Autoloader;
 use App\Config\Main;
 use Dotenv\Dotenv;
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 // Define the ROOT constant to indicate the root directory of the project
 define('ROOT', dirname(__DIR__));
 
