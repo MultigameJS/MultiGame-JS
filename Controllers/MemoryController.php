@@ -6,6 +6,6 @@ class MemoryController extends Controller
 {
     public function index()
     {
-        $this->render('jeu-memory/index');
+        $this->render('jeu_memory/index');
     }
 }
