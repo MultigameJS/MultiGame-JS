@@ -61,7 +61,7 @@ $css = 'game';
 
         <div class="col">
             <div class="card custom-card h-100">
-                <img src="/assets/images/" class="card-img-top" alt="Blackjack">
+                <img src="/assets/images/blackjack.png" class="card-img-top" alt="Blackjack">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-center">Blackjack</h5>
                     <p class="card-text text-center flex-grow-1">BlackJack Blitz: Le Défi des 21 Points !</p>
