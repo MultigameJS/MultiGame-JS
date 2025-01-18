@@ -35,6 +35,7 @@ class Main
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
             $csrfToken = $_POST['csrf_token'] ?? '';
             $this->checkCsrfToken($csrfToken);
             $_POST = $this->sanitizeFormData($_POST);

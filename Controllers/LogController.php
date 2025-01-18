@@ -30,18 +30,8 @@ class LogController extends Controller
     $data = $_POST;
 
     $loginService = new LoginService();
-    $success = $loginService->login($data);
+    $loginService->login($data);
 
-    if ($success) {
-        // Redirection vers la page du dashboard
-        header("Location: /game");
-        exit();
-    } else {
-        // Message d'erreur en cas d'échec de connexion
-        $_SESSION['error_message'] = "Email ou mot de passe incorrect";
-        header("Location: /login");
-        exit();
-    }
 }
 
     public function logout()
