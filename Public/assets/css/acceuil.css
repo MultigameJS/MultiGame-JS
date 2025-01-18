@@ -1,0 +1,52 @@
+img {
+    max-width: 500px;
+    max-height: 500px;
+    height: auto;
+}
+
+h1{
+color: #ff007f;
+font-family: "Roboto Serif", serif;
+}
+
+p{
+color: #ffcc00;
+font-family: "Roboto Serif", serif;
+}
+
+.cn{
+    background: linear-gradient(90deg, #1a1a1a, #3a3a3a);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5), 0 2px 10px rgba(255, 204, 0, 0.3);
+}
+
+.cn a{
+    background: linear-gradient(90deg, #ff007f, #ffcc00);
+    border: none;
+    color: #000;
+    padding: 8px 15px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.cn a :hover{
+    background: linear-gradient(90deg, #ffcc00, #ff007f);
+    transform: translateY(-3px);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .cn a {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cn a {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+}
