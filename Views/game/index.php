@@ -66,7 +66,7 @@ $css = 'game';
                     <h5 class="card-title text-center">Blackjack</h5>
                     <p class="card-text text-center flex-grow-1">BlackJack Blitz: Le Défi des 21 Points !</p>
                     <div class="d-flex justify-content-center">
-                        <a href="#" class="btn btn-primary">Jouer</a>
+                        <a href="/Blackjack/index" class="btn btn-primary">Jouer</a>
                     </div>
                 </div>
             </div>
