@@ -1,5 +1,3 @@
-version: "3.8"  # Version de Docker Compose
-
 # Définition des services
 services:
   app:
