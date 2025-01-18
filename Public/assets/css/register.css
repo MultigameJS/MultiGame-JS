@@ -26,6 +26,9 @@ h2 {
     color: #ffcc00;
     margin-bottom: 20px;
 }
+a{
+    color: #ffcc00;
+}
 
 /* Champs de formulaire */
 .form-control {
@@ -85,7 +88,7 @@ h2 {
 /* Responsiveness pour les petits écrans */
 @media (max-width: 768px) {
     .responsive-form {
-        max-width: 90%; 
+        max-width: 90%;
         padding: 20px;
     }
 
