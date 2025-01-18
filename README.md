@@ -38,7 +38,7 @@ Avant de commencer, assurez-vous que les outils suivants sont installés sur vot
 
 **Composer :** Gestionnaire de dépendances pour PHP.
 
-### Front-and :
+### Front-end :
 **JavaScript :** Pour l'interactivité côté client.
 
 **CSS :** Pour le style et la mise en page.
