@@ -20,17 +20,29 @@ class LogController extends Controller
     }
 
     public function login()
-    {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            http_response_code(405);
-            echo json_encode(["status" => "error", "message" => "Méthode de requête non autorisée."]);
-            exit();
-        }else {
-            $data = $_POST;
-            $loginService = new LoginService();
-            $loginService->login($data);
-        }
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        echo json_encode(["status" => "error", "message" => "Méthode de requête non autorisée."]);
+        exit();
     }
+
+    $data = $_POST;
+
+    $loginService = new LoginService();
+    $success = $loginService->login($data);
+
+    if ($success) {
+        // Redirection vers la page du dashboard
+        header("Location: /game");
+        exit();
+    } else {
+        // Message d'erreur en cas d'échec de connexion
+        $_SESSION['error_message'] = "Email ou mot de passe incorrect";
+        header("Location: /login");
+        exit();
+    }
+}
 
     public function logout()
     {

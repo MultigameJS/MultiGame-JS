@@ -1,21 +1,23 @@
-/* Style général pour le formulaire */
+/* Section générale */
 section {
     min-height: 71.4vh;
-    background-color: #fff;
-    color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: 'Press Start 2P', cursive;
+    background-color: #fff;
+    color: #fff;
 }
 
-/* Container principal */
-.ct{
+/* Conteneur principal avec des limites de largeur */
+.responsive-form {
     background: rgba(0, 0, 0, 0.8);
     border: 2px solid #ff007f;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
     padding: 30px;
+    max-width: 70vw;
+    width: 100%;
 }
 
 /* Titres */
@@ -59,27 +61,13 @@ h2 {
     color: #fff;
 }
 
-/* Liens secondaires */
-.tw {
-    color: #ffcc00;
-    text-decoration: none;
-    font-size: 0.9rem;
-    margin-top: 15px;
-    display: inline-block;
-}
-
-.tw:hover {
-    text-decoration: underline;
-    color: #ff007f;
-}
-
 /* Messages d'alerte */
 #error-messages, #success-messages {
     font-size: 0.9rem;
     margin-top: 15px;
     padding: 10px;
     border-radius: 5px;
-    display: none; 
+    display: none;
 }
 
 #error-messages {
@@ -92,4 +80,20 @@ h2 {
     background: rgba(0, 255, 0, 0.2);
     color: #4dff4d;
     border: 1px solid #00ff00;
+}
+
+/* Responsiveness pour les petits écrans */
+@media (max-width: 768px) {
+    .responsive-form {
+        max-width: 90%; 
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .btn {
+        padding: 8px 16px;
+    }
 }
