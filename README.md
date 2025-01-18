@@ -28,8 +28,8 @@ Avant de commencer, assurez-vous que les outils suivants sont installés sur vot
   - [Télécharger Node.js](https://nodejs.org/)
 - **Docker** : Utilisé pour containeriser et exécuter l'application dans un environnement standardisé.
   - [Télécharger Docker](https://www.docker.com/)
-- **Composer** : Utilisé pour gérer les dépendances PHP du projet.-
-    - [Télécharger Docker](https://getcomposer.org/)
+- **Composer** : Utilisé pour gérer les dépendances PHP du projet.
+    - [Télécharger Composer](https://getcomposer.org/)
 
 
 # Tech Stack
