@@ -1,7 +1,7 @@
 let move_speed = 5, gravity = 0.2; // Vitesse des pipes et gravité de l'oiseau
 let bird = document.querySelector(".bird");
 let img = document.getElementById("bird-1");
-let sound_point = new Audio(""); /
+let sound_point = new Audio(""); 
 let sound_die = new Audio("");
 
 let bird_props = bird.getBoundingClientRect();
