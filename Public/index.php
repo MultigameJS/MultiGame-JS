@@ -2,7 +2,7 @@
 
 use App\Autoloader;
 use App\Config\Main;
-use Dotenv\Dotenv;
+
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -13,9 +13,6 @@ define('ROOT', dirname(__DIR__));
 require_once ROOT . '/Autoloader.php';
 Autoloader::register();
 
-// Load environment variables from the .env file in the root directory
-$dotenv = Dotenv::createImmutable(ROOT);
-$dotenv->load();
 
 // Start the application
 $app = new Main();
