@@ -5,12 +5,12 @@ services:
       context: .
     container_name: my-php-container  # Nom du conteneur
     ports:
-      - "8080:80"                     # Accéder à l'application via localhost:8080
+      - "8010:80"                     # Accéder à l'application via localhost:8080
     env_file:
       - .env                          # Charger les variables d'environnement
     depends_on:
       - db                            # Dépendances du service
-      - mongo                         # Dépendances du service       
+      - mongo                         # Dépendances du service
     volumes:
       - .:/var/www/html               # Montre le dossier local dans le conteneur
     networks:
@@ -18,7 +18,7 @@ services:
 
   # Configuration du service MariaDB
   db:
-    image: mariadb:10.11                            # Image de MariaDB    
+    image: mariadb:10.11                            # Image de MariaDB
     container_name: my-db-container                 # Nom du conteneur
     restart: always
     environment:
@@ -27,7 +27,7 @@ services:
       MYSQL_USER: ${MYSQL_USER}                     # Nom d'utilisateur
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}             # Mot de passe de l'utilisateur
     ports:
-      - "3307:3306"                                 # Accéder à la base de données via localhost:3307 pour éviter les conflits de port (Baylo). A changer sur la dev.
+      - "3308:3306"                                 # Accéder à la base de données via localhost:3306
     volumes:
       - db_data:/var/lib/mysql                      # Stocker les données de la base de données dans un volume
     networks:
@@ -37,12 +37,12 @@ services:
   mongo:
     image: mongo:6.0                                              # Image de MongoDB
     container_name: my-mongo-container                            # Nom du conteneur
-    restart: always                                               # Redémarrer le conteneur en cas d'erreur 
+    restart: always                                               # Redémarrer le conteneur en cas d'erreur
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}   # Nom d'utilisateur root
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}   # Mot de passe root
     ports:
-      - "27017:27017"                                             # Accéder à la base de données via localhost:27017   
+      - "27018:27017"                                             # Accéder à la base de données via localhost:27017
     volumes:
       - mongo_data:/data/db                                       # Stocker les données de la base de données dans un volume
     networks:
