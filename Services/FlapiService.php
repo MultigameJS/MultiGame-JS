@@ -8,34 +8,32 @@ use App\Repository\FlapiRepository;
 
 class FlapiService
 {
-    public function updateScore($flapiId)
+
+    public function addScore($data)
     {
-
-        $score = $input['score'] ?? null;
-        $date = $_POST['date'] ?? null;
-
-        $data =[
-           'score' => $score,
-           'date' => $date,
-        ];
-
-        // j'hydrate le model avec les nouvelle données
-
-        $flapimodel = new FlapiModel();
-        $flapimodel->hydrate($data);
-
-        // j'instancie le repository
         $flapiRepository = new FlapiRepository();
+        $FlapiModel = new FlapiModel();
 
-        // j'update le score dans la base de données
-        $success = $flapiRepository->update($flapiId, $data);
+        // Recherche des scores existants pour l'utilisateur actuel
+        $flapi = $flapiRepository->findBy(['id_user' => $_SESSION['id']]);
 
-        if (!$success) {
-            echo json_encode(['status' => 'error', 'message' => 'Erreur de mise à jour.']);
-            exit();
-        }else{
-        // j'envoie une réponse JSON
-        echo json_encode(['status' => 'success', 'message' => 'Score mis à jour.']);
+        if (!$flapi || empty($flapi)) {
+            // Si aucun score n'existe pour cet utilisateur, enregistrement d'un nouveau score
+            $FlapiModel->hydrate($data);
+            $flapiRepository->create($data);
+        } else {
+            foreach ($flapi as $f) {
+                $id = $f->id;
+                // Récupération du score existant
+                $scoreexist = $f->score;
+            }
+
+            // Mise à jour du score si le nouveau score est plus élevé
+            if ($data['score'] > $scoreexist) {
+                $FlapiModel->hydrate($data);
+                $flapiRepository->update($id, $data);
+            }
         }
     }
+
 }

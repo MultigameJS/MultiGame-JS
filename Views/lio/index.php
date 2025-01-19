@@ -1,5 +1,8 @@
 <?php
 $css = 'lio';
+
+// Vérifier si l'utilisateur est connecté
+$isUserLoggedIn = isset($_SESSION['id']);
 ?>
 
 <div class="background"></div>
@@ -13,19 +16,12 @@ $css = 'lio';
     <span class="score_val"></span>
 </div>
 
-<!-- Formulaire pour le pseudo -->
-<div id="pseudoFormModal" class="modal">
-    <div class="modal-content">
-        <h3>Bienvenue dans FlapiBird</h3>
-        <p>Veuillez entrer votre pseudo pour commencer :</p>
-        <form action="/Lio/saveScore" id="pseudoForm" method="POST">
-            <input type="text" id="playerPseudo" name="pseudo" placeholder="Entrez votre pseudo" required>
-            <input type="hidden" id="score" name="score">
-            <input type="hidden" name="_method" value="PUT">
-            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
-            <button type="submit">Commencer</button>
-        </form>
-    </div>
+<!-- Div cachée pour les données de session si l'utilisateur est connecté -->
+<?php if ($isUserLoggedIn): ?>
+<div class="d-none">
+    <div id="id"><?= htmlspecialchars($_SESSION['id'], ENT_QUOTES, 'UTF-8') ?></div>
+    <div id="csrf"><?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?></div>
 </div>
+<?php endif; ?>
 
 <script src="/assets/js/Flapibird/lio.js"></script>
