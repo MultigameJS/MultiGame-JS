@@ -22,8 +22,8 @@ $css = 'register';
             </form>
             <a href="/register" class="tw">Pas encore inscrit ?</a>
             <div>
-                <div id="error-messages" class="alert alert-danger" role="alert"></div>
-                <div id="success-messages" class="alert alert-success" role="alert"></div>
+                <div id="error-message" class="alert alert-danger" role="alert"></div>
+                <div id="success-message" class="alert alert-success" role="alert"></div>
             </div>
         </div>
     </section>
