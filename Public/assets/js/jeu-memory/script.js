@@ -1,199 +1,119 @@
-const themes = {
-    noel: [
-        { name: 'card1', img: '/assets/js/jeu-memory/images/noel_card1.jpg' },
-        { name: 'card2', img: '/assets/js/jeu-memory/images/noel_card2.jpg' },
-        { name: 'card3', img: '/assets/js/jeu-memory/images/noel_card3.jpg' },
-        { name: 'card4', img: '/assets/js/jeu-memory/images/noel_card4.jpg' },
-        { name: 'card5', img: '/assets/js/jeu-memory/images/noel_card5.jpg' },
-        { name: 'card6', img: '/assets/js/jeu-memory/images/noel_card6.jpg' },
-    ],
-    drapeau: [
-        { name: 'card7', img: '/assets/js/jeu-memory/images/drapeau_card7.jpg' },
-        { name: 'card8', img: '/assets/js/jeu-memory/images/drapeau_card8.jpg' },
-        { name: 'card9', img: '/assets/js/jeu-memory/images/drapeau_card9.jpg' },
-        { name: 'card10', img: '/assets/js/jeu-memory/images/drapeau_card10.jpg' },
-        { name: 'card11', img: '/assets/js/jeu-memory/images/drapeau_card11.jpg' },
-        { name: 'card12', img: '/assets/js/jeu-memory/images/drapeau_card12.jpg' },
-        { name: 'card13', img: '/assets/js/jeu-memory/images/drapeau_card13.jpg' },
-        { name: 'card14', img: '/assets/js/jeu-memory/images/drapeau_card14.jpg' },
-    ],
-    logo: [
-        { name: 'card15', img: '/assets/js/jeu-memory/images/logo_card15.jpg' },
-        { name: 'card16', img: '/assets/js/jeu-memory/images/logo_card16.jpg' },
-        { name: 'card17', img: '/assets/js/jeu-memory/images/logo_card17.jpg' },
-        { name: 'card18', img: '/assets/js/jeu-memory/images/logo_card18.jpg' },
-        { name: 'card19', img: '/assets/js/jeu-memory/images/logo_card19.jpg' },
-        { name: 'card20', img: '/assets/js/jeu-memory/images/logo_card20.jpg' },
-        { name: 'card21', img: '/assets/js/jeu-memory/images/logo_card21.jpg' },
-        { name: 'card22', img: '/assets/js/jeu-memory/images/logo_card22.jpg' },
-        { name: 'card23', img: '/assets/js/jeu-memory/images/logo_card23.jpg' },
-        { name: 'card24', img: '/assets/js/jeu-memory/images/logo_card24.jpg' },
-    ],
-    monument: [
-        { name: 'card25', img: '/assets/js/jeu-memory/images/monument_card25.jpg' },
-        { name: 'card26', img: '/assets/js/jeu-memory/images/monument_card26.jpg' },
-        { name: 'card27', img: '/assets/js/jeu-memory/images/monument_card27.jpg' },
-        { name: 'card28', img: '/assets/js/jeu-memory/images/monument_card28.jpg' },
-        { name: 'card29', img: '/assets/js/jeu-memory/images/monument_card29.jpg' },
-        { name: 'card30', img: '/assets/js/jeu-memory/images/monument_card30.jpg' },
-        { name: 'card31', img: '/assets/js/jeu-memory/images/monument_card31.jpg' },
-        { name: 'card32', img: '/assets/js/jeu-memory/images/monument_card32.jpg' },
-        { name: 'card33', img: '/assets/js/jeu-memory/images/monument_card33.jpg' },
-        { name: 'card34', img: '/assets/js/jeu-memory/images/monument_card34.jpg' },
-        { name: 'card35', img: '/assets/js/jeu-memory/images/monument_card35.jpg' },
-        { name: 'card36', img: '/assets/js/jeu-memory/images/monument_card36.jpg' },
-    ]
+// script.js
+import { setTheme, selectLevel, createBoard, updateTimer, resetUI, startTimer, selectedLevel } from './functions.js';
+
+// Fonction pour démarrer le jeu
+const startGame = () => {
+    resetUI();  // Réinitialiser le jeu
+    createBoard();  // Créer le plateau de jeu
+
+    // Définir le temps de chaque niveau
+    const countdowns = {
+        'easy': 60,
+        'medium': 45,
+        'hard': 30
+    };
+
+    const localCountdown = countdowns[selectedLevel];  // Récupérer le temps en fonction du niveau
+    startTimer(localCountdown);  // Utiliser startTimer pour démarrer le chronomètre
 };
 
-let selectedTheme = themes.noel;
-let selectedLevel = null; 
-let cardsChosen = [];
-let cardsChosenId = [];
-let cardsWon = [];
-let score = 0;
-let timer;
-let countdown = null;
-let audio = document.getElementById('backgroundMusic'); 
-let modal = document.getElementById("rulesModal");
-let btn = document.getElementById("rulesButton");
-let span = document.getElementsByClassName("close")[0];
+// Fonction pour envoyer le score avec le token CSRF
+export const submitScore = (score) => {
+    const csrfToken = document.getElementById('csrfToken')?.value;
+    if (!csrfToken) return console.error('Le jeton CSRF est manquant.');
 
-btn.onclick = function () {
-    modal.style.display = "block";
-}
+    const scoreData = { score };
 
-span.onclick = function () {
-    modal.style.display = "none";
-}
+    fetch('/Memory/submitScore', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': csrfToken
+        },
+        body: JSON.stringify(scoreData)
+    })
+    .then(response => response.text())
+    .then(text => {
+        try {
+            const data = JSON.parse(text);
+            console.log(data);  // Affiche la réponse du serveur
+        } catch (error) {
+            console.error('Erreur lors de l\'analyse JSON:', error);
+        }
+    })
+    .catch(error => console.error('Erreur:', error));
+};
 
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-function setTheme(theme) {
-    selectedTheme = themes[theme];
-    createBoard();
-}
-
-function selectLevel(level) {
-    selectedLevel = level;
-
-    document.getElementById('startButtonContainer').style.display = 'flex';
-}
-
-function createBoard() {
-    const gameBoard = document.querySelector('.memory-game');
-    gameBoard.innerHTML = '';
-
-    const columns = selectedTheme === themes.monument ? 6 : Math.ceil(Math.sqrt(selectedTheme.length * 2));
-    gameBoard.style.gridTemplateColumns = `repeat(${columns}, 100px)`;
-
-    const doubledCardsArray = [...selectedTheme, ...selectedTheme].sort(() => 0.5 - Math.random());
-    doubledCardsArray.forEach((item, index) => {
-        const card = document.createElement('img');
-        card.setAttribute('src', '/assets/js/jeu-memory/images/Logo.jpg');
-        card.setAttribute('data-id', index);
-        card.setAttribute('data-name', item.name);
-        card.setAttribute('data-img', item.img);
-        card.addEventListener('click', flipCard);
-        gameBoard.appendChild(card);
-    });
-}
-
-function flipCard() {
-    const cardId = this.getAttribute('data-id');
-    if (cardsChosenId.includes(cardId) || cardsChosenId.length === 2) return;
-
-    cardsChosen.push(this.getAttribute('data-name'));
-    cardsChosenId.push(cardId);
-    this.setAttribute('src', this.getAttribute('data-img'));
-
-    if (cardsChosen.length === 2) setTimeout(checkForMatch, 500);
-}
-
-function checkForMatch() {
-    const cards = document.querySelectorAll('.memory-game img');
-    const [optionOneId, optionTwoId] = cardsChosenId;
-    const [cardOne, cardTwo] = [cards[optionOneId], cards[optionTwoId]];
-
-    if (cardsChosen[0] === cardsChosen[1]) {
-        cardOne.removeEventListener('click', flipCard);
-        cardTwo.removeEventListener('click', flipCard);
-        cardsWon.push(cardsChosen);
-        score += 10;
-    } else {
-        setTimeout(() => {
-            cardOne.setAttribute('src', '/assets/js/jeu-memory/images/Logo.jpg');
-            cardTwo.setAttribute('src', '/assets/js/jeu-memory/images/Logo.jpg');
-        }, 500);
-        score -= 2;
-    }
-    updateScore(score);
-    cardsChosen = [];
-    cardsChosenId = [];
-
-    if (cardsWon.length === selectedTheme.length) {
-        clearInterval(timer);
-        setTimeout(() => alert(`Félicitations, vous avez terminé le jeu ! Votre score est ${score}`), 500);
-        if (audio) audio.pause(); 
-    }
-}
-
-function updateScore(score) {
-    document.getElementById('scoreBoard').innerHTML = `Score : ${score}`;
-}
-
-function updateTimer(countdown) {
-    document.getElementById('timer').innerHTML = countdown !== null ? countdown : '';
-}
-
-function resetUI() {
-    score = 0;
-    cardsChosen = [];
-    cardsChosenId = [];
-    cardsWon = [];
-    updateScore(score);
-    updateTimer('');
-    clearInterval(timer);
-    if (audio) audio.pause();
-}
-
-function startGame() {
-    resetUI();
-    createBoard();
-
-    if (selectedLevel === 'easy') {
-        countdown = null;
-        updateTimer('Pas de chronomètre');
-    } else if (selectedLevel === 'medium') {
-        countdown = 60;
-        updateTimer(countdown);
-    } else if (selectedLevel === 'hard') {
-        countdown = 45;
-        updateTimer(countdown);
-    }
-
-    if (countdown !== null) {
-        timer = setInterval(() => {
-            countdown -= 1;
-            updateTimer(countdown);
-            if (countdown <= 0) {
-                clearInterval(timer);
-                alert('Dommage, le temps est écoulé. Réessayez!');
-                if (audio) audio.pause(); 
-            }
-        }, 1000);
-    }
-
-    audio = new Audio('/assets/js/jeu-memory/musique/background-music.mp3');
-    audio.loop = true; 
-    audio.play();
-}
-
+// Exemple de la fonction pour commencer le jeu
 document.addEventListener('DOMContentLoaded', () => {
-    document.querySelector('.btn-easy').addEventListener('click', () => selectLevel('easy'));
-    document.querySelector('.btn-medium').addEventListener('click', () => selectLevel('medium'));
-    document.querySelector('.btn-hard').addEventListener('click', () => selectLevel('hard'));  
+    fetch('/assets/js/jeu-memory/themes.json')
+        .then(response => response.json())
+        .then(data => {
+            window.themes = data;
+
+            const themeButtons = document.querySelectorAll('.btn-theme');
+            const easyBtn = document.querySelector('.btn-easy');
+            const mediumBtn = document.querySelector('.btn-medium');
+            const hardBtn = document.querySelector('.btn-hard');
+            const startBtn = document.getElementById('startButton');
+            const closeBtnEvent = document.querySelector('.close-event');
+            const closeBtnRules = document.querySelector('.close-rules');
+            const rulesBtn = document.getElementById('rulesButton');
+
+            // Associer un thème à chaque bouton
+            themeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const themeName = button.getAttribute('data-theme');
+                    setTheme(themeName, window.themes);  // Appliquer le thème choisi
+                });
+            });
+
+            // Sélectionner le niveau de difficulté
+            easyBtn.addEventListener('click', () => selectLevel('easy'));
+            mediumBtn.addEventListener('click', () => selectLevel('medium'));
+            hardBtn.addEventListener('click', () => selectLevel('hard'));
+
+            // Démarrer le jeu lorsqu'on clique sur le bouton Start
+            startBtn.addEventListener('click', () => {
+                startGame();
+            });
+
+            // Fermer la modal de l'événement
+            if (closeBtnEvent) {
+                closeBtnEvent.addEventListener('click', () => {
+                    const eventModal = document.getElementById('eventModal');
+                    if (eventModal) {
+                        eventModal.style.display = 'none';
+                    }
+                });
+            }
+
+            // Fermer la modal des règles
+            if (closeBtnRules) {
+                closeBtnRules.addEventListener('click', () => {
+                    const rulesModal = document.getElementById('rulesModal');
+                    if (rulesModal) {
+                        rulesModal.style.display = 'none';
+                    }
+                });
+            }
+
+            // Afficher les règles
+            rulesBtn.addEventListener('click', () => {
+                const rulesModal = document.getElementById('rulesModal');
+                if (rulesModal) {
+                    rulesModal.style.display = 'block';
+                }
+            });
+
+            // Script pour gérer le menu déroulant des scores
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const scoreList = document.querySelector('.score-list');
+
+            dropdownBtn.addEventListener('click', function() {
+            // Afficher ou cacher la liste de scores
+                scoreList.style.display = (scoreList.style.display === 'none' || scoreList.style.display === '') ? 'block' : 'none';
+            });
+        })
+        .catch(error => console.error('Erreur lors du chargement des thèmes :', error));
 });
