@@ -56,7 +56,7 @@
     <script type="module" src="/assets/js/<?= $game ?>.js"></script>
     <?php endif; ?>
     <?php if(isset($script)): ?>
-    <script src="/assets/js/<?= $script ?>.js"></script>
+        <script type="module" src="/assets/js/<?= $script ?>.js"></script>
     <?php endif; ?>
     <script src="/assets/js/fetchPost.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
