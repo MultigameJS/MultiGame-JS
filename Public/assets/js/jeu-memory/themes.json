@@ -1,0 +1,58 @@
+{
+    "noel": [
+        { "name": "card1", "img": "/assets/js/jeu-memory/images/noel_card1.jpg" },
+        { "name": "card2", "img": "/assets/js/jeu-memory/images/noel_card2.jpg" },
+        { "name": "card3", "img": "/assets/js/jeu-memory/images/noel_card3.jpg" },
+        { "name": "card4", "img": "/assets/js/jeu-memory/images/noel_card4.jpg" },
+        { "name": "card5", "img": "/assets/js/jeu-memory/images/noel_card5.jpg" },
+        { "name": "card6", "img": "/assets/js/jeu-memory/images/noel_card6.jpg" },
+        { "name": "card37", "img": "/assets/js/jeu-memory/images/noel_card37.jpg" },
+        { "name": "card38", "img": "/assets/js/jeu-memory/images/noel_card38.jpg" },
+        { "name": "card45", "img": "/assets/js/jeu-memory/images/noel_card45.jpg" },
+        { "name": "card46", "img": "/assets/js/jeu-memory/images/noel_card46.jpg" },
+        { "name": "card47", "img": "/assets/js/jeu-memory/images/noel_card47.jpg" },
+        { "name": "card48", "img": "/assets/js/jeu-memory/images/noel_card48.jpg" }
+    ],
+    "drapeau": [
+        { "name": "card7", "img": "/assets/js/jeu-memory/images/drapeau_card7.jpg" },
+        { "name": "card8", "img": "/assets/js/jeu-memory/images/drapeau_card8.jpg" },
+        { "name": "card9", "img": "/assets/js/jeu-memory/images/drapeau_card9.jpg" },
+        { "name": "card10", "img": "/assets/js/jeu-memory/images/drapeau_card10.jpg" },
+        { "name": "card11", "img": "/assets/js/jeu-memory/images/drapeau_card11.jpg" },
+        { "name": "card12", "img": "/assets/js/jeu-memory/images/drapeau_card12.jpg" },
+        { "name": "card13", "img": "/assets/js/jeu-memory/images/drapeau_card13.jpg" },
+        { "name": "card14", "img": "/assets/js/jeu-memory/images/drapeau_card14.jpg" },
+        { "name": "card41", "img": "/assets/js/jeu-memory/images/drapeau_card41.jpg" },
+        { "name": "card42", "img": "/assets/js/jeu-memory/images/drapeau_card42.jpg" },
+        { "name": "card43", "img": "/assets/js/jeu-memory/images/drapeau_card43.jpg" },
+        { "name": "card44", "img": "/assets/js/jeu-memory/images/drapeau_card44.jpg" }
+    ],
+    "logo": [
+        { "name": "card15", "img": "/assets/js/jeu-memory/images/logo_card15.jpg" },
+        { "name": "card16", "img": "/assets/js/jeu-memory/images/logo_card16.jpg" },
+        { "name": "card17", "img": "/assets/js/jeu-memory/images/logo_card17.jpg" },
+        { "name": "card18", "img": "/assets/js/jeu-memory/images/logo_card18.jpg" },
+        { "name": "card19", "img": "/assets/js/jeu-memory/images/logo_card19.jpg" },
+        { "name": "card20", "img": "/assets/js/jeu-memory/images/logo_card20.jpg" },
+        { "name": "card21", "img": "/assets/js/jeu-memory/images/logo_card21.jpg" },
+        { "name": "card22", "img": "/assets/js/jeu-memory/images/logo_card22.jpg" },
+        { "name": "card23", "img": "/assets/js/jeu-memory/images/logo_card23.jpg" },
+        { "name": "card24", "img": "/assets/js/jeu-memory/images/logo_card24.jpg" },
+        { "name": "card39", "img": "/assets/js/jeu-memory/images/logo_card39.jpg" },
+        { "name": "card40", "img": "/assets/js/jeu-memory/images/logo_card40.jpg" }
+    ],
+    "monument": [
+        { "name": "card25", "img": "/assets/js/jeu-memory/images/monument_card25.jpg" },
+        { "name": "card26", "img": "/assets/js/jeu-memory/images/monument_card26.jpg" },
+        { "name": "card27", "img": "/assets/js/jeu-memory/images/monument_card27.jpg" },
+        { "name": "card28", "img": "/assets/js/jeu-memory/images/monument_card28.jpg" },
+        { "name": "card29", "img": "/assets/js/jeu-memory/images/monument_card29.jpg" },
+        { "name": "card30", "img": "/assets/js/jeu-memory/images/monument_card30.jpg" },
+        { "name": "card31", "img": "/assets/js/jeu-memory/images/monument_card31.jpg" },
+        { "name": "card32", "img": "/assets/js/jeu-memory/images/monument_card32.jpg" },
+        { "name": "card33", "img": "/assets/js/jeu-memory/images/monument_card33.jpg" },
+        { "name": "card34", "img": "/assets/js/jeu-memory/images/monument_card34.jpg" },
+        { "name": "card35", "img": "/assets/js/jeu-memory/images/monument_card35.jpg" },
+        { "name": "card36", "img": "/assets/js/jeu-memory/images/monument_card36.jpg" }
+    ]
+}
