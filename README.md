@@ -82,6 +82,6 @@ docker-compose up
 
 - [@Yohann VASLOT](https://github.com/Skwady) - Racing
 - [@Lionel BLANCHET](https://github.com/kartmann17) - Flappy Bird
-- [@Joris DUPONT-ALAMO](https://github.com/Baylox) - Blackjack
+- [@Joris DUPONT-ALAMO](https://github.com/Baylox) - **Code initial de Sigmajack** : [Dépot SigmaJack](https://github.com/Baylox/SigmaJack)
 - [@Frederic LESIEUR](https://github.com/fredlesieur) - Pendu 
 - [@Suba](https://github.com/suba77340) - Memory game
