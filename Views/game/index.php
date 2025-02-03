@@ -46,5 +46,17 @@ $css = 'game';
             </div>
         </div>
 
+        <div class="col">
+            <div class="card custom-card">
+                <img src="/assets/images/jeu3-thumbnail.jpg" class="card-img-top" alt="Jeu 3">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Jeu 3 - Stratégie</h5>
+                    <p class="card-text text-center">Testez vos compétences stratégiques et menez votre équipe à la victoire.</p>
+                    <div class="d-flex justify-content-center">
+                        <a href="/jeu-memory/index" class="btn btn-primary">Jouer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>

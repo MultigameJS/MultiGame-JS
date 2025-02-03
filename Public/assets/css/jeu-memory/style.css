@@ -1,0 +1,499 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #4f89a7; 
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; 
+}
+
+.container {
+    text-align: center;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.title {
+    font-size: 2.8em;
+    color: #0e0e0e; 
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 60px;
+    background-color: #6eb3d5;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    font-size: 1.5em;
+    color: #0b0b0b;
+    margin-bottom: 10px;
+}
+
+.game-logo-container {
+    position: absolute; /* Positionner le logo de manière absolue */
+    top: 0px; /* À 10px du haut */
+    left: 0.1px; /* À 10px du bord gauche */
+}
+
+.game-logo {
+    width: 110px;  /* Ajustez la taille du logo si nécessaire */
+    height: auto;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: rgb(16, 16, 16);
+    cursor: pointer;
+    font-size: 1em;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-theme {
+    background-color: #217dab;
+}
+
+.btn-theme:hover {
+    background-color: #7398ec;
+}
+
+.btn-easy {
+    background-color: #217dab;
+}
+
+.btn-easy:hover {
+    background-color: #7398ec;
+}
+
+.btn-medium {
+    background-color: #217dab;
+}
+
+.btn-medium:hover {
+    background-color: #7398ec;
+}
+
+.btn-hard {
+    background-color: #217dab;
+}
+
+.btn-hard:hover {
+    background-color: #7398ec;
+}
+
+.btn-rules {
+    background-color: #6eb3d5;
+}
+
+.btn-rules:hover {
+    background-color: #7398ec;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px; 
+}
+
+.btn-start {
+    background-color: #6eb3d5; 
+    color: rgb(17, 17, 17);
+    margin-left: 4px;
+}
+
+.btn-start:hover {
+    background-color: #7398ec; 
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.modal-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.modal-content li {
+    margin: 10px 0;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles par défaut pour les écrans de bureau */
+.memory-game {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.memory-game img {
+    width: 140px;
+    height: 140px;
+    object-fit: fill;
+}
+
+
+
+/* Media query pour les écrans de largeur maximale de 768px (tablettes et mobiles) */
+@media (max-width: 768px) {
+    .memory-game {
+        gap: 5px;
+        grid-template-columns: repeat(3, 1fr); /* 3 cartes par ligne */
+        padding: 5px;
+    }
+
+    .memory-game img {
+        max-width: 90px; /* Ajustez la largeur maximale pour s'adapter à l'écran mobile */
+        max-height: 90px; /* Ajustez la hauteur maximale pour s'adapter à l'écran mobile */
+    }
+}
+
+/* Media query pour les écrans de largeur maximale de 480px (mobiles) */
+@media (max-width: 480px) {
+    .memory-game {
+        gap: 5px;
+        grid-template-columns: repeat(4, 1fr); /* 4 cartes par ligne */
+        padding: 5px;
+    }
+
+    .memory-game img {
+        max-width: 70px; /* Ajustez la largeur maximale pour s'adapter à l'écran mobile */
+        max-height: 70px; /* Ajustez la hauteur maximale pour s'adapter à l'écran mobile */
+    }
+}
+
+/* Ajustements pour mobile */
+@media (max-width: 768px) {
+    .menu {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .section {
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        margin-bottom: 5px;
+        font-size: 1em; /* Taille de la police réduite */
+    }
+
+    .btn {
+        width: 50%;
+        padding: 5px 5px; /* Padding réduit */
+        margin: 5px 0;
+        font-size: 0.9em; /* Taille de la police réduite */
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .container {
+        margin-top: 10px;
+        margin-bottom: 5px;
+        padding: 0 5px;
+        width: 80%;
+        max-width: 100%; /* Ensuring it takes the full width on mobile */
+    }
+}
+
+/* Mobile adjustments for 768px and below */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 10px;
+        width: 95%;
+        max-width: 90%;
+        font-size: 0.9em;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2em;
+    }
+
+    .modal-content ul {
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+
+    .modal-content li {
+        margin: 5px 0;
+    }
+
+    .close {
+        font-size: 24px;
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .container {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 0 5px;
+        width: 80%;
+        max-width: 100%;
+    }
+
+    .title {
+        font-size: 2em; /* Reduce the title size for smaller screens */
+    }
+
+    .section-title {
+        font-size: 0.9em; /* Reduce the section title size for smaller screens */
+    }
+
+    .btn {
+        padding: 5px; /* Further reduce button padding */
+        font-size: 0.8em; /* Reduce button font size */
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2em; /* Slightly smaller font size for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.8em; /* Even smaller font size for mobile phones */
+        margin-bottom: 15px; /* Reduce margin for better spacing */
+        padding-top: 15px;
+    }
+}
+
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 10px;
+        width: 95%;
+        max-width: 90%;
+        font-size: 0.9em;
+    }
+
+    .modal-content h2 {
+        font-size: 1.2em;
+    }
+
+    .modal-content ul {
+        padding-left: 10px;
+        margin-bottom: 0;
+    }
+
+    .modal-content li {
+        margin: 5px 0;
+    }
+
+    .close {
+        font-size: 24px;
+    }
+
+}
+
+/* Pour les écrans de 768px et moins (tablettes et petits ordinateurs portables) */
+@media (max-width: 768px) {
+    .game-logo {
+        width: 80px; /* Réduit la taille du logo pour les tablettes */
+    }
+}
+
+/* Pour les écrans de 480px et moins (smartphones) */
+@media (max-width: 480px) {
+    .game-logo {
+        width: 60px; 
+    }
+}
+
+/* Style du conteneur du menu déroulant */
+.dropdown {
+    position: relative; /* Fixe le conteneur par rapport à la fenêtre */
+    left: 43%; /* Aligne le conteneur à gauche de l'écran */
+    display: inline-block;
+    width: 350px;
+    margin-top: 30px;
+    margin-bottom: 180px;
+    
+}
+/* Style du bouton */
+.dropdown-btn {
+    background-color: #6eb3d5; /* Couleur du bouton */
+    color: rgb(253, 249, 249);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Style de la liste déroulante (cachée par défaut) */
+ul.score-list {
+    display: none; /* Cacher la liste par défaut */
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+    background-color: #d4d2d2;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Style pour chaque élément de score dans la liste */
+li.score-item {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 5px 0;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+/* Style des points et de la date */
+span.score-points {
+    font-weight: bold;
+    color: #0c0c0c;
+}
+
+span.score-date {
+    font-style: italic;
+    color: #555;
+}
+
+/* Style pour le message "Aucun score à afficher" */
+li.no-scores {
+    color: #050505;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Media query pour les écrans de largeur maximale de 768px (tablettes et petits écrans) */
+@media (max-width: 768px) {
+    /* Style du conteneur du menu déroulant */
+    .dropdown {
+        left: 30%; /* Décaler le conteneur un peu à gauche pour un alignement meilleur */
+        width: 79%; /* Réduire la largeur pour les écrans de taille moyenne */
+        margin-top: 20px; /* Ajuster l'espace au-dessus */
+        margin-bottom: 150px; /* Ajuster l'espace en bas */
+    }
+
+    /* Style du bouton */
+    .dropdown-btn {
+        padding: 5px; /* Ajuster la taille du bouton pour les tablettes */
+        font-size: 0.9em; /* Ajuster la taille du texte */
+        width: 50%;
+    }
+
+    /* Style de la liste déroulante */
+    ul.score-list {
+        width: 70%; /* La liste prend toute la largeur disponible */
+    }
+
+    /* Style des éléments de score */
+    li.score-item {
+        padding: 8px; /* Ajuster le padding des éléments */
+        font-size: 0.9em;
+    }
+
+    /* Style pour le message "Aucun score à afficher" */
+    li.no-scores {
+        font-size: 0.9em; /* Ajuster la taille de la police du message */
+        padding: 8px;
+    }
+}
+
+/* Media query pour les écrans de largeur maximale de 480px (mobiles) */
+@media (max-width: 480px) {
+    /* Style du conteneur du menu déroulant */
+    .dropdown {
+        left: 30%; /* Décaler le conteneur un peu à gauche pour plus d'espace */
+        width: 79%; /* Réduire la largeur pour mieux s'adapter aux petits écrans */
+        margin-top: 20px; /* Réduire l'espace au-dessus */
+        margin-bottom: 150px; /* Ajuster la marge en bas */
+    }
+
+    /* Style du bouton */
+    .dropdown-btn {
+        padding: 5px; /* Réduire la taille du bouton pour les petits écrans */
+        font-size: 0.8em; /* Réduire la taille du texte */
+    }
+
+    /* Style de la liste déroulante */
+    ul.score-list {
+        width: 70%; /* La liste prend toute la largeur disponible */
+    }
+
+    /* Style des éléments de score */
+    li.score-item {
+        padding: 8px; /* Réduire la taille du padding des éléments */
+    }
+
+    /* Style pour le message "Aucun score à afficher" */
+    li.no-scores {
+        font-size: 0.8em; /* Réduire la taille de la police du message */
+    }
+}
