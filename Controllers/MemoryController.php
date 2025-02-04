@@ -29,7 +29,7 @@ class MemoryController extends Controller
         $dbMongo = new DbMongo();
         // Récupérer le dernier événement inséré
         $event = $dbMongo->getCollection('memory')->findOne([], ['sort' => ['_id' => -1]]);
-        $this->render('jeu-memory/index', ['scores' => $scores, 'event' => $event]);
+        $this->render('jeu_memory/index', ['scores' => $scores, 'event' => $event]);
     }
 
     // Méthode pour soumettre le score

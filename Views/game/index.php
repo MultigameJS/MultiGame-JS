@@ -47,13 +47,26 @@ $css = 'game';
         </div>
 
         <div class="col">
-            <div class="card custom-card">
-                <img src="/assets/images/jeu3-thumbnail.jpg" class="card-img-top" alt="Jeu 3">
-                <div class="card-body">
-                    <h5 class="card-title text-center">Jeu 3 - Stratégie</h5>
-                    <p class="card-text text-center">Testez vos compétences stratégiques et menez votre équipe à la victoire.</p>
+            <div class="card custom-card h-100">
+                <img src="/assets/images/logosite.png" class="card-img-top" alt="Memory">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">Memory</h5>
+                    <p class="card-text text-center flex-grow-1">Testez votre mémoire avec ce jeu intéractif !</p>
                     <div class="d-flex justify-content-center">
-                        <a href="/jeu-memory/index" class="btn btn-primary">Jouer</a>
+                        <a href="/Memory/index" class="btn btn-primary">Jouer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card custom-card h-100">
+                <img src="/assets/images/blackjack.png" class="card-img-top" alt="Blackjack">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">Blackjack</h5>
+                    <p class="card-text text-center flex-grow-1">BlackJack Blitz: Le Défi des 21 Points !</p>
+                    <div class="d-flex justify-content-center">
+                        <a href="/Blackjack/index" class="btn btn-primary">Jouer</a>
                     </div>
                 </div>
             </div>

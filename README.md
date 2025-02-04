@@ -28,8 +28,8 @@ Avant de commencer, assurez-vous que les outils suivants sont installés sur vot
   - [Télécharger Node.js](https://nodejs.org/)
 - **Docker** : Utilisé pour containeriser et exécuter l'application dans un environnement standardisé.
   - [Télécharger Docker](https://www.docker.com/)
-- **Composer** : Utilisé pour gérer les dépendances PHP du projet.-
-    - [Télécharger Docker](https://getcomposer.org/)
+- **Composer** : Utilisé pour gérer les dépendances PHP du projet.
+    - [Télécharger Composer](https://getcomposer.org/)
 
 
 # Tech Stack
@@ -38,7 +38,7 @@ Avant de commencer, assurez-vous que les outils suivants sont installés sur vot
 
 **Composer :** Gestionnaire de dépendances pour PHP.
 
-### Front-and :
+### Front-end :
 **JavaScript :** Pour l'interactivité côté client.
 
 **CSS :** Pour le style et la mise en page.
@@ -82,6 +82,6 @@ docker-compose up
 
 - [@Yohann VASLOT](https://github.com/Skwady) - Racing
 - [@Lionel BLANCHET](https://github.com/kartmann17) - Flappy Bird
-- [@Joris DUPONT-ALAMO](https://github.com/Baylox) - Blackjack
+- [@Joris DUPONT-ALAMO](https://github.com/Baylox) - **Code initial de Sigmajack** : [Dépot SigmaJack](https://github.com/Baylox/SigmaJack)
 - [@Frederic LESIEUR](https://github.com/fredlesieur) - Pendu 
 - [@Suba](https://github.com/suba77340) - Memory game

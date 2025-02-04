@@ -1,0 +1,353 @@
+/* Variables de couleurs et thème */
+:root {
+    --primary-color: #1a472a;
+    --secondary-color: #2c3e50;
+    --accent-color: #c0392b;
+    --gold: #f1c40f;
+    --background-color: #2d7742;
+    --card-color: #fff;
+    --red-suit-color: #e74c3c;
+    --black-suit-color: #2c3e50;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Styles généraux */
+.blackjack {
+    font-family: 'Playfair Display', serif;
+    background: radial-gradient(circle at center, var(--background-color) 0%, var(--primary-color) 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Titre principal */
+h1 {
+    text-align: center;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+h1::after {
+    content: '♠ ♣ ♥ ♦';
+    display: block;
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-top: 0.5rem;
+}
+
+/* Zone de jeu */
+.game-area {
+    background: linear-gradient(135deg, #234e52 0%, #1a472a 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--gold);
+}
+
+/* Zones joueur/croupier */
+.dealer-area, .player-area {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+.player-title {
+    color: var(--gold);
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.player-title i {
+    margin-right: 10px;
+    color: var(--gold);
+}
+
+/* Cartes */
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    min-height: 160px;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.card {
+    width: 120px;
+    height: 160px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card.red { color: var(--red-suit-color); }
+.card.black { color: var(--black-suit-color); }
+
+.card-value {
+    position: absolute;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.card-value.top-left {
+    top: 0.8rem;
+    left: 0.8rem;
+}
+
+.card-value.bottom-right {
+    bottom: 0.8rem;
+    right: 0.8rem;
+    transform: rotate(180deg);
+}
+
+.card-suit {
+    font-size: 2.5rem;
+}
+
+.card.hidden .card-back {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #2c3e50 25%, #34495e 25%, #34495e 50%, #2c3e50 50%, #2c3e50 75%, #34495e 75%);
+    background-size: 20px 20px;
+    border-radius: 10px;
+    border: 8px solid white;
+    box-sizing: border-box;
+    animation: cardFlip 0.3s ease-out;
+}
+
+/* Score */
+.score {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--gold);
+    padding: 0.8rem 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+/* Contrôles */
+.controls {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    min-width: 180px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Playfair Display', serif;
+}
+
+button i {
+    margin-right: 8px;
+}
+
+#hit-button, #stand-button {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    border: 2px solid #c0392b;
+}
+
+#new-game-button {
+    background: linear-gradient(135deg, #27ae60 0%, #219a52 100%);
+    border: 2px solid #219a52;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+    background: #7f8c8d;
+    border-color: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Message */
+.message {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--gold);
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(241, 196, 15, 0.3);
+}
+
+/* Messages stylisés */
+.message {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    animation: messageAppear 0.5s ease-out;
+}
+
+.message-icon {
+    font-size: 2rem;
+}
+
+.message-text {
+    flex-grow: 1;
+}
+
+/* Styles spécifiques pour chaque type de message */
+.message-win {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+    border: 2px solid #27ae60;
+    box-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
+}
+
+.message-dealer {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    color: white;
+    border: 2px solid #c0392b;
+    box-shadow: 0 0 20px rgba(192, 57, 43, 0.3);
+}
+
+.message-tie {
+    background: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%);
+    color: white;
+    border: 2px solid #f39c12;
+    box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
+}
+
+.message-lose {
+    background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+    color: white;
+    border: 2px solid #c0392b;
+    box-shadow: 0 0 20px rgba(192, 57, 43, 0.3);
+}
+
+@keyframes messageAppear {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Animations */
+@keyframes cardFlip {
+    from {
+        transform: rotateY(180deg);
+        opacity: 0;
+    }
+    to {
+        transform: rotateY(0);
+        opacity: 1;
+    }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .card {
+        width: 90px;
+        height: 120px;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .game-area {
+        padding: 1rem;
+    }
+
+    .card {
+        width: 70px;
+        height: 105px;
+    }
+
+    .player-title {
+        font-size: 1.4rem;
+    }
+
+    .score {
+        font-size: 1.2rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+    }
+}

@@ -4,28 +4,27 @@ namespace App\Models;
 
 class FlapiModel extends Model{
     protected $id;
-    protected $pseudo;
     protected $score;
     protected $date;
-
+    protected $id_user;
 
 
     /**
-     * Get the value of pseudo
+     * Get the value of id
      */
-    public function getPseudo()
+    public function getId()
     {
-        return $this->pseudo;
+        return $this->id;
     }
 
     /**
-     * Set the value of pseudo
+     * Set the value of id
      *
      * @return  self
      */
-    public function setPseudo($pseudo)
+    public function setId($id)
     {
-        $this->pseudo = $pseudo;
+        $this->id = $id;
 
         return $this;
     }
@@ -66,6 +65,26 @@ class FlapiModel extends Model{
     public function setDate($date)
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id_user
+     */
+    public function getId_user()
+    {
+        return $this->id_user;
+    }
+
+    /**
+     * Set the value of id_user
+     *
+     * @return  self
+     */
+    public function setId_user($id_user)
+    {
+        $this->id_user = $id_user;
 
         return $this;
     }

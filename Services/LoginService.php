@@ -34,7 +34,7 @@ class LoginService
             $_SESSION['role'] = $user->role;
 
             http_response_code(200);
-            echo json_encode(["status" => "success", "redirect" => "/"]);
+            echo json_encode(["status" => "success", "redirect" => "/game"]);
         } else {
             http_response_code(401);
             echo json_encode(["status" => "error", "message" => "Email ou Mot de passe incorrect."]);

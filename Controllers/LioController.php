@@ -4,67 +4,76 @@ namespace App\Controllers;
 
 use App\Repository\FlapiRepository;
 use App\Services\FlapiService;
+use App\Repository\UserRepository;
 
 class LioController extends Controller
 {
     // Affichage du jeu
     public function index()
     {
-        $FlapiRepository = new FlapiRepository();
-        $scores = $FlapiRepository->findAll();
+        if(isset($_SESSION['id'])){
+        $id = $_SESSION['id'];
+        $FlapiRepository = new FlapiREpository();
+        $flapi = $FlapiRepository->findBy(['id_user' => $id]);
+        $this->render('lio/index', compact('flapi'));
+        } else {
+            $this->render('lio/index');
+        }
 
-        $this->render('lio/index', compact('scores'));
     }
 
     // Ajouter un score
     public function saveScore()
-    {
-        // Je récupère les données JSON depuis la requête
-        $input = json_decode(file_get_contents('php://input'), true);
-
-        // Les données sont validés
-        $pseudo = $input['pseudo'] ?? null;
-        $score = $input['score'] ?? null;
-
-        if (!$pseudo || !is_string($pseudo) || !is_numeric($score)) {
-            // Retourne une erreur si les données sont invalides
-            $this->sendJsonResponse(['status' => 'error', 'message' => 'Données invalides.'], 400);
-        }
-
-        // Préparation des données
-        $data = [
-            'pseudo' => htmlspecialchars($pseudo, ENT_QUOTES, 'UTF-8'),
-            'score' => (int) $score,
-            'date' => date('Y-m-d H:i:s'),
-        ];
-
-        // j'enregistre en base de données
-        $FlapiRepository = new FlapiRepository();
-        $result = $FlapiRepository->createPseudo(
-            $data['pseudo'],
-            $data['score'],
-            $data['date']
-        );
-
-        // retourne une réponse JSON en fonction du résultat
-        $status = $result ? 'success' : 'error';
-        $message = $result ? 'Score enregistré.' : 'Erreur lors de l\'enregistrement.';
-        $this->sendJsonResponse(['status' => $status, 'message' => $message]);
+{
+    if ($_SERVER['REQUEST_METHOD'] !== 'PUT') {
+        echo json_encode(['status' => 'error', 'message' => 'Méthode non autorisée.']);
+        return;
     }
 
-    private function sendJsonResponse(array $data, int $statusCode = 200)
-    {
-        // je définit l'en-tête Content-Type pour indiquer que la réponse est en JSON
-        header('Content-Type: application/json');
+    // Récupérer les données brutes
+    $rawInput = file_get_contents('php://input');
+    $data = json_decode($rawInput, true);
 
-        // je définit le code HTTP de la réponse (200 par défaut si non spécifié)
-        http_response_code($statusCode);
-
-        // je convertit le tableau en chaîne JSON et l'envoie au client
-        echo json_encode($data);
-
-        exit();
+    // Je vérifie  si les données sont valides
+    if (!$data || !is_array($data)) {
+        echo json_encode(['status' => 'error', 'message' => 'Données invalides.']);
+        return;
     }
 
-    
+    // Je vérifie les champs
+    if (!isset($data['score'], $data['csrf_token'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Champs requis manquants.']);
+        return;
+    }
+
+    // verification si l'utilisateur et connecté
+    if (!isset($_SESSION['id'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Utilisateur non authentifié.']);
+        return;
+    }
+
+    // Vérification du token CSRF
+    if (!isset($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $data['csrf_token'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Jeton CSRF invalide.']);
+        return;
+    }
+
+    try {
+        // Ajouter l'utilisateur connecté aux données
+        $data['id_user'] = $_SESSION['id'];
+
+        // Exclure le token CSRF avant d'enregistrer dans la base de données
+        unset($data['csrf_token']);
+
+        // Utilisation du service pour ajouter le score
+        $flapiService = new FlapiService();
+        $flapiService->addScore($data);
+
+        echo json_encode(['status' => 'success', 'message' => 'Score enregistré.']);
+    } catch (\Exception $e) {
+        // Gestion des erreurs interne
+        error_log('Erreur interne : ' . $e->getMessage());
+        echo json_encode(['status' => 'error', 'message' => 'Erreur lors de l\'enregistrement.', 'details' => $e->getMessage()]);
+    }
+}
 }
