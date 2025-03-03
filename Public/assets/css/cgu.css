@@ -1,0 +1,46 @@
+/* Conteneur principal des CGU */
+.cgu-content {
+    background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+    border: 2px solid rgba(255, 0, 127, 0.6);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    color: #bfbfbf;
+    margin-top: 20px;
+}
+
+h1{
+    color: #ff007f;
+}
+
+/* Titre principal des CGU */
+.cgu-content h1 {
+    color: #ff007f;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Titres des sections */
+.cgu-content h2 {
+    color: #ffcc00;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.8);
+    margin-top: 20px;
+}
+
+/* Paragraphe */
+.cgu-content p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #bfbfbf;
+}
+
+
+
+/* Texte centré pour la note finale */
+.cgu-content .text-center {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 1.1rem;
+    color: #bfbfbf;
+}

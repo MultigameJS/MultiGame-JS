@@ -1,0 +1,79 @@
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex-grow: 1; 
+}
+
+
+.custom-card {
+    max-width: 20rem;
+    margin: 0 auto;
+
+}
+
+h1{
+    color: #ff007f;
+}
+.custom-card {
+    background: linear-gradient(135deg, #1a1a1a, #3a3a3a);
+    border: 2px solid rgba(255, 0, 127, 0.6);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #fff;
+
+}
+
+/* Effet lumineux au survol */
+.custom-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(255, 0, 127, 0.8);
+    border-color: #ff007f;
+}
+
+/* Style pour le titre des cards */
+.custom-card .card-title {
+    font-family: 'Press Start 2P', cursive;
+    color: #ffcc00;
+    text-shadow: 0 0 5px rgba(255, 204, 0, 0.8);
+}
+
+/* Style pour le texte des cards */
+.custom-card .card-text {
+    font-size: 0.9rem;
+    color: #bfbfbf;
+}
+
+/* Boutons des cards */
+.custom-card .btn-primary {
+    background: linear-gradient(90deg, #ff007f, #ffcc00);
+    border: none;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-family: 'Press Start 2P', cursive;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.card-body button {
+    display: inline-block;
+}
+.custom-card .btn-primary:hover {
+    background: linear-gradient(90deg, #ffcc00, #ff007f);
+    transform: translateY(-3px);
+    color: #fff;
+}
+
+/* Ajustement de l'image */
+.custom-card img {
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+}
