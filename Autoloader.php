@@ -14,7 +14,7 @@ class Autoloader
     static function register()
     {
         // Register Composer's autoload
-        require_once __DIR__ . '/vendor/autoload.php';
+        require_once __DIR__ . './vendor/autoload.php';
 
         // Register the custom autoloader function
         spl_autoload_register([
