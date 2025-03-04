@@ -15,30 +15,22 @@ if (file_exists($jsonFile)) {
 ?>
 <!-- Menu horizontal -->
 <section class="container-game">
-    <nav class="navbar navbar-expand-lg ">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/main/index">
-                <img src="/assets/images/hack_my_world/logo.jpg" alt="Hack My Word" width="80" height="80" class="d-inline-block align-text-top">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
+            <div class="my-custom-header">
+                <ul class="my-menu">
+                    <li >
                         <button id="show-score-btn" class="btn btn-link nav-link">Voir mon score</button>
                     </li>
                     <!-- Bouton pour ouvrir la modale "Règles du jeu" -->
-                    <li class="nav-item">
+                    <li >
                         <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#rulesModal">Règles du jeu</a>
                     </li>
                     <!-- Bouton pour ouvrir la modale "Règles des Points" -->
-                    <li class="nav-item">
+                    <li >
                         <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#pointsModal">Règles des Points</a>
                     </li>
                     <!-- Menu déroulant pour Thèmes (généré dynamiquement) -->
-                    <li class="nav-item dropdown">
+                    <li class="my-menu dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="themesDropdown" role="button" 
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Thèmes
@@ -60,7 +52,6 @@ if (file_exists($jsonFile)) {
                 </ul>
             </div>
         </div>
-    </nav>
     
     <!-- Zone des instructions -->
     <input type="hidden" id="csrf_token" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">

@@ -1,13 +1,14 @@
 /* Général */
-body {
+section {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    max-width: 1400px;
+    max-width: 1600px;
     margin-left: auto ;
     margin-right: auto ;
 
 }
+
 .container-game{
     border: 4px solid #0d365c;
     border-radius: 15px;
@@ -17,42 +18,48 @@ body {
 #animated-title {
     text-align: center;
 }
-/* Navbar styles */
-.navbar {
-    padding: 10px 20px;
-    background-color: #0d365c; /* Couleur de fond */
-}
 
-.navbar-nav .nav-link {
-    padding: 10px 15px;
+/* Conteneur principal : fond, marges, etc. */
+.my-custom-header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    justify-content: space-between;
+    align-content: stretch;
+    flex-wrap: wrap;
+    flex-direction: column
+  }
+  
+  /* Liste de liens en ligne */
+  .my-custom-header .my-menu {
+    display: flex;       /* Les <li> s'alignent en ligne */
+    list-style: none;    /* Supprime les puces */
+    margin: 0;
+    padding: 0;
+    gap: 1rem;           /* Espace horizontal entre les liens */
+  }
+  
+  /* Style des liens et boutons */
+  .my-custom-header .my-menu li a,
+  .my-custom-header .my-menu li button {
+    background: none;    /* Pas de fond par défaut */
+    border: none;        /* Pas de bordure pour le <button> */
+    color: #333;         /* Couleur du texte */
+    text-decoration: none;
     font-size: 1rem;
-    text-transform: uppercase;
-    color: white;
-}
-.navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
-    color: white;
-}
-.navbar .navbar-brand {
-    color: white;
-}
-.navbar-nav .nav-link:hover {
-    background-color: #058682;
-    color: white;
-    border-radius: 5px;
-}
-/*bordure icone blanc*/
-.navbar .navbar-toggler {
-    border: 1px solid white;
-}
-/* icône blanc */
-.navbar .navbar-toggler-icon {
-    filter: invert(1); 
-}
-
-/*centrer les liens dans la navbar */
-.navbar-nav {
-    margin: auto;
-}
+    cursor: pointer;     /* Petit pointeur main */
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  
+  /* Au survol */
+  .my-custom-header .my-menu li a:hover,
+  .my-custom-header .my-menu li button:hover {
+    color: #058682; /* Couleur de survol */
+  }
+  
+  
 /*sous titre */
 .dropdown-item {
     font-size: 0.8rem;
@@ -475,4 +482,23 @@ label {
     .restart-btn {
        margin: 6px auto
     }
+    @media (max-width: 768px) {
+        .my-custom-header {
+          flex-direction: column;
+          align-items: flex-start;  /* Aligne à gauche */
+          gap: 1rem;
+        }
+        
+        .my-menu {
+          flex-direction: column;   /* Les liens s'empilent verticalement */
+          width: 100%;
+        }
+        
+        .my-menu li a,
+        .my-menu li button {
+          width: 100%;
+          text-align: left;
+        }
+      }
+      
 }

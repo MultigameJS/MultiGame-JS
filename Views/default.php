@@ -26,7 +26,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-custom" id="navbar">
         <div class="navtop container-fluid">
             <!-- Logo -->
             <a class="logo d-block" href="/">

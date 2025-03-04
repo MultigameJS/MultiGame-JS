@@ -30,7 +30,6 @@ const errorMessages = [
 ];
 
 document.addEventListener("DOMContentLoaded", () => {
-
     // Gestion des liens de thèmes dans le menu
     document.querySelectorAll("[data-theme-index]").forEach((link) => {
         link.addEventListener("click", (event) => {
@@ -103,7 +102,7 @@ document.getElementById("show-score-btn").addEventListener("click", function () 
         });
 });
 
-//afficher les themes avec le theme actuel grisé
+// Afficher les thèmes avec le thème actuel grisé
 function displayThemesWithGrayedOut() {
     const themesContainer = document.getElementById("themes-container");
 
@@ -112,7 +111,8 @@ function displayThemesWithGrayedOut() {
         return;
     }
 
-    themesContainer.innerHTML = ""; // Nettoyage des thèmes
+    // Vider le conteneur de manière sécurisée
+    themesContainer.replaceChildren();
 
     themes.forEach((theme, index) => {
         const button = document.createElement("button");
@@ -136,7 +136,8 @@ function displayThemesWithGrayedOut() {
 // Afficher les thèmes disponibles
 function displayThemes() {
     const themesContainer = document.querySelector(".theme-buttons-container");
-    themesContainer.innerHTML = ""; // Vide le conteneur avant d'ajouter les thèmes
+    // Vider le conteneur de manière sécurisée
+    themesContainer.replaceChildren();
 
     themes.forEach((theme, index) => {
         const button = document.createElement("button"); // Crée un bouton pour chaque thème
@@ -187,7 +188,7 @@ function initializeGame(word) {
     generateWordCubes(word); // Génère les cubes pour afficher le mot à deviner
     generateAlphabetButtons(); // Génère les boutons pour chaque lettre de l'alphabet
     updateScore(); // Met à jour l'affichage des points
-    updateMessage(`Thème : ${currentTheme}. Choisir une lettre !`, "info");// message de bienvenue
+    updateMessage(`Thème : ${currentTheme}. Choisir une lettre !`, "info"); // message de bienvenue
 }
 
 // Réinitialisation du sablier
@@ -219,7 +220,8 @@ function resetAlphabetButtons() {
 // Fonction pour réinitialiser l'affichage des mots
 function resetWordDisplay() {
     const wordDisplay = document.getElementById("word-display");
-    wordDisplay.innerHTML = ""; // Vide le conteneur des mots (les cubes)
+    // Vider le conteneur de manière sécurisée
+    wordDisplay.replaceChildren();
 }
 
 // Mise à jour du sablier en cas d'erreur
@@ -240,7 +242,8 @@ function updateHourglass() {
 // Générer les cubes pour le mot à deviner
 function generateWordCubes(word) {
     const wordDisplay = document.getElementById("word-display");
-    wordDisplay.innerHTML = ""; // Réinitialise l'affichage
+    // Vider le conteneur de manière sécurisée
+    wordDisplay.replaceChildren();
 
     // Calcule la taille des cubes en fonction de la largeur disponible
     const containerWidth = wordDisplay.offsetWidth;
@@ -284,7 +287,8 @@ function generateWordCubes(word) {
 // Générer les boutons de l'alphabet
 function generateAlphabetButtons() {
     const lettersContainer = document.querySelector(".letters");
-    lettersContainer.innerHTML = ""; // Réinitialise les lettres
+    // Vider le conteneur de manière sécurisée
+    lettersContainer.replaceChildren();
 
     for (let i = 65; i <= 90; i++) {
         const letter = String.fromCharCode(i);
@@ -306,10 +310,10 @@ function handleLetterClick(letter, button) {
     stopCurrentSounds(); // Arrête les sons en cours
 
     if (isLetterInWord(letter)) {
-       
         score += 10; // Ajoute 10 points pour une lettre correcte
         updateScore(); // Met à jour l'affichage des points
-         // Lettre correcte
+
+        // Lettre correcte
         revealLetterInWord(letter);
         successSound.currentTime = 0;
         successSound.play(); // Joue le son de réussite
@@ -317,7 +321,6 @@ function handleLetterClick(letter, button) {
         // Affiche un message de réussite aléatoire
         const randomSuccessMessage = successMessages[Math.floor(Math.random() * successMessages.length)];
         updateMessage(randomSuccessMessage, "success");
-
     } else {
         // Lettre incorrecte
         updateHourglass(); // Met à jour le sablier
@@ -397,7 +400,7 @@ function endGame(isWin) {
         updateMessage(`Félicitations ! Série : ${streak} mots trouvés. Bonus : ${streakBonus} points.`, "success");
 
         // Ajout du message pour choisir un nouveau thème
-        updateMessage("Choisissez un nouveau thème pour continuer à jouer.", "info");  // <-- Nouveau message
+        updateMessage("Choisissez un nouveau thème pour continuer à jouer.", "info");
 
         // Affiche la modale pour continuer ou arrêter
         const continueModal = new bootstrap.Modal(document.getElementById("continueModal"));
@@ -408,41 +411,32 @@ function endGame(isWin) {
         const continueButton = document.getElementById("continue-btn");
         const stopButton = document.getElementById("stop-btn");
 
-        continueButton.replaceWith(continueButton.cloneNode(true));  // Clone les boutons pour supprimer les anciens événements
-        stopButton.replaceWith(stopButton.cloneNode(true));  // Clone les boutons pour supprimer les anciens événements
+        continueButton.replaceWith(continueButton.cloneNode(true));
+        stopButton.replaceWith(stopButton.cloneNode(true));
 
         // Gestion des boutons dans la modale
         document.getElementById("continue-btn").addEventListener("click", () => {
             console.log("Bouton 'Continuer' cliqué.");
             continueModal.hide(); // Cache la modale
-        
-            // Affiche le message une fois la modale fermée
             updateMessage("Choisissez un nouveau thème pour continuer à jouer.", "info");
-        
             displayThemesWithGrayedOut(); // Réaffiche les thèmes avec les boutons grisés si nécessaire
         });
         
         document.getElementById("stop-btn").addEventListener("click", () => {
             console.log("Bouton 'Arrêter' cliqué. Score :", score, "Streak :", streak);
             continueModal.hide(); // Cache la modale
-        
-            // Enregistre le score et réinitialise la série si nécessaire
             saveScoreToServer(score, streak);
         });
 
         continueModal.show();  // Affiche la modale pour continuer ou arrêter
-    }
-    else {
+    } else {
         // Si la partie est perdue
         streak = 0;  // Réinitialise la série
         console.log("Défaite : série réinitialisée.");
         updateScore();  // Met à jour le score
-        updateMessage(`Vous avez perdu... Le mot était : "${currentWord}".`, "error");  // Affiche le message de défaite
+        updateMessage(`Vous avez perdu... Le mot était : "${currentWord}".`, "error");
     }
 }
-
-
-
 
 // Désactiver tous les boutons des lettres
 function disableAllLetters() {
@@ -491,15 +485,15 @@ function resetGame() {
 function updateMessage(text, type = "info") {
     const messages = document.getElementById("messages");
     messages.textContent = text;
-    messages.className = `messages ${type} message-animated`;  // Ajouter la classe d'animation
+    messages.className = `messages ${type} message-animated`;
 
     // Réinitialiser l'animation après qu'elle soit terminée
     setTimeout(() => {
-        messages.classList.remove('message-animated');  // Supprimer l'animation après 1.5 secondes
-    }, 1500); // Durée totale de l'animation (1 seconde pour l'animation de fondu et 0.5 seconde pour le rebond)
+        messages.classList.remove('message-animated');
+    }, 1500);
 }
 
 function updateScore() {
     const scoreElement = document.getElementById("player-score");
-    scoreElement.textContent = score; // Met à jour le score affiché
+    scoreElement.textContent = score;
 }
