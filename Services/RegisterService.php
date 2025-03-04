@@ -57,7 +57,8 @@ class RegisterService
             // Contenu de l'email
             $to = $email;
             $Subject = 'Confirmation de votre inscription';
-            $confirmationLink = "https://multigamejs-0cc46e53c884.herokuapp.com/register/confirm/" . $token;
+            $confirmationLink = "http://localhost:8080/register/confirm/" . $token;
+            //$confirmationLink = "https://multigamejs-0cc46e53c884.herokuapp.com/register/confirm/" . $token;
             $Body = "Bonjour,<br>
                 <br>
                 Merci pour votre inscription.<br>
