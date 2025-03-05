@@ -71,5 +71,19 @@ $css = 'game';
                 </div>
             </div>
         </div>
+
+        <div class="col">
+            <div class="card custom-card h-100">
+                <img src="/assets/images/justprice/justpricecard.jpg" class="card-img-top" alt="JustPrice">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">Just Price</h5>
+                    <p class="card-text text-center flex-grow-1">Devinez, misez, remportez la victoire ! 🎯💰</p>
+                    <div class="d-flex justify-content-center">
+                        <a href="/JustPrice/index" class="btn btn-primary">Jouer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </section>
