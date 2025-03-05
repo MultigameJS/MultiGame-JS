@@ -9,6 +9,7 @@ private $id;
 private $create_time;
 private $idUsers;
 private $score;
+private $time;
 
 /**
  * Get the value of score
@@ -67,6 +68,21 @@ return $this->id;
  */
 public function setId($id): self {
 $this->id = $id;
+return $this;
+}
+
+/**
+ * Get the value of time
+ */
+public function getTime() {
+return $this->time;
+}
+
+/**
+ * Set the value of time
+ */
+public function setTime($time): self {
+$this->time = $time;
 return $this;
 }
 }
