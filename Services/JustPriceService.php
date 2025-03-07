@@ -20,18 +20,22 @@ class JustPriceService
 
         $score = floatval($_POST["score"]); // definie dans une variable pour indiquer que c est un float
         $time = floatval($_POST["time"]);
-        $data = [
+        $userId = $_SESSION["id"];
 
-            "idUsers" => $_SESSION["id"],
+        if ($score <= 0) {
+            echo json_encode(["status" => "error", "message" => "Le score doit être supérieur à 0 "]); }
+
+            $data = [
+
+            "idUsers" => $userId,  
             "score" => $score,
             "time" => $time
         ];
 
-        if (!$score <= 0) {
-
             $justPriceModel->hydrate($data); // car model qui hydrate
             $justPriceRepository->create($data); // car crud dans dbrepo
-            echo json_encode(["status" => "success", "message" => "Votre Score est enregistré"]); // enregistrer en BDD
-        }
+            $justPriceRepository->update($userId, ["score" => $score, "time" => $time]);
+
+            echo json_encode(["status" => "success", "message" => "Votre Score est enregistré"]);
     }
 }
