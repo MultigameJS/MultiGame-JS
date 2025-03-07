@@ -66,12 +66,12 @@ function addScore() {
         });
       }
     })
-    /*.then(function (jsonResponse) {
+    .then(function (jsonResponse) {
       alert("Score enregistré !");
     })
     .catch(function (error) {
       console.error("Erreur :", error);
-    }); */
+    }); 
 }
 
 const button1 = document.getElementById("button1");
