@@ -1,8 +1,11 @@
+import { gameMoyen, gameDifficile, gameFacile } from "./games.js";
+import { verifJustePrix } from "./verifJustPrice.js";
+
 // CREATION DE MON OJBET QUI VA COMPORTE MES 3 CARDS LEUR PRIX
 let justPriceGame = {
-  card1: { prix: null, min: 300, max: 2000 }, 
-  card2: { prix: null, min: 20000, max: 150000 }, 
-  card3: { prix: null, min: 75, max: 250 }, 
+  card1: { prix: null, min: 300, max: 2000 },
+  card2: { prix: null, min: 20000, max: 150000 },
+  card3: { prix: null, min: 75, max: 250 },
 };
 
 // PRIX ALEATOIRE
@@ -14,48 +17,17 @@ justPriceGame.card1.prix = prix1;
 justPriceGame.card2.prix = prix2;
 justPriceGame.card3.prix = prix3;
 
-// Fonction de vérification (en dehors du listener pour éviter la répétition)
-function verifJustePrix(cards, valeur) {
-  if (valeur === "" || isNaN(valeur)) {
-    alert("Entrez un prix valide !");
-    return;
-  }
-
-  let card = justPriceGame[cards]; // JE RECUPERE MA CARTE DANS L OBJET DEFINI DE DEPART
-  let proposition = parseInt(valeur);
-
-  if (proposition === card.prix) {
-    alert("Bravo, vous avez trouvé le juste prix !");
-  } else if (proposition < card.prix) {
-    alert("Trop bas, retentez votre chance");
-  } else {
-    alert("Trop haut, retentez votre chance");
-  }
-}
-
-// LES TROIS FONCTION POUR LES NIVEAUS DE DIFFICULTES
-function verifIphone(valeur) {
-  verifJustePrix("card1", valeur);
-}
-
-function verifCyberTruck(valeur) {
-  verifJustePrix("card2", valeur);
-}
-
-function verifConverse(valeur) {
-  verifJustePrix("card3", valeur);
-}
+verifJustePrix(); // VOIR YO si je mets les parametres cards et valeur ça ne marche pas ! mais là j ai le prompt
 
 function addScore() {
+  // rajouter le formulaire dans le htlm et le placer ici avant de le mettre dans un objet
   let formData = new FormData(); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
-  formData.append("score"); // AJOUT DES DATA
-  formData.append("time"); 
+  formData.append("score"); // AJOUT DES DATA // pas besoin de cette ligne
+  formData.append("time"); // pas besoin de cette ligne
 
-  fetch(
-    "/JustPrice/SaveScore", {
-
+  fetch("/JustPrice/SaveScore", {
     method: "POST",
-    body: formData, // VOIR YOYO CAR VU BODY : JSON STRINGIFY  ????
+    body: formData, // VOIR YOYO CAR VU BODY : JSON STRINGIFY  -> GERE LA REPONSE JSON EN CHAINE DE CARACTERE
   })
     .then(function (response) {
       if (response.ok) {
@@ -71,75 +43,26 @@ function addScore() {
     })
     .catch(function (error) {
       console.error("Erreur :", error);
-    }); 
+    });
 }
 
-const button1 = document.getElementById("button1");
-const button2 = document.getElementById("button2");
-const button3 = document.getElementById("button3");
-
-button1.addEventListener("click", function (e) {
+const game1 = document.getElementById("card1"); // je vias chercher ma CARD
+game1.addEventListener("click", function (e) {
+  // AU CLIC  enlever le rechargement de page
   e.preventDefault();
-  let valeur = document.getElementById("play1").value;
-  verifIphone(valeur);
+  gameMoyen(game1); // on vient apporter le contenu qui se toruve dans le fichier game.js pour gagner en ligne de code et en logique (seulement au click)
 });
 
-button2.addEventListener("click", function (e) {
+const game2 = document.getElementById("card2"); // je vias chercher ma CARD
+game2.addEventListener("click", function (e) {
+  // AU CLIC  enlever le rechargement de page
   e.preventDefault();
-  let valeur = document.getElementById("play2").value;
-  verifCyberTruck(valeur);
+  gameDifficile(game2); // on vient apporter le contenu qui se toruve dans le fichier game.js pour gagner en ligne de code et en logique (seulement au click)
 });
 
-button3.addEventListener("click", function (e) {
+const game3 = document.getElementById("card3"); // je vias chercher ma CARD
+game3.addEventListener("click", function (e) {
+  // AU CLIC  enlever le rechargement de page
   e.preventDefault();
-  let valeur = document.getElementById("play3").value;
-  verifConverse(valeur);
+  gameFacile(game3); // on vient apporter le contenu qui se toruve dans le fichier game.js pour gagner en ligne de code et en logique (seulement au click)
 });
-
-/*const mainButton = document.getElementById("button"); // recuperer le formulaire au click du bouton + faire la meme avec un fetch POST
-mainButton.addEventListener("click", function (e) {
-  // evenement de click
-  e.preventDefault(); // pas de rechargement de page
-
-    const mainForm = document.getElementById("form"); // recup du formulaire
-
-  let formData = new FormData(mainForm); // création d'un objet
-
-  fetch(
-    "/JustPrice/SaveScore", // j envoi ma requete FETCH EN POST au controller et à sa fonction (car url ou chemin en fetch)
-    {
-      method: "POST", // les methode se passent en STRING
-      body: formData, // formData car c est l'objet creer qu on met dans le body en method POST
-    }
-  )
-    .then(function(response) {
-      if (response.ok) {
-        return response.json().then(jsonResponse => jsonResponse);
-      } else {
-        return response.json().then(err => {
-          throw err;
-        }); // throw pour lever l exception donc j ai une erreur je la stock et l affiche dans le catch
-      } // throw fonctionne pas directement dans une expression simple il doit être placé à dans d’une fonction fléchée sinon le moteur JS s'attend à une valeur de retour
-    }) // là on définie juste jsonResponce qui est la valeur retourner avec une écriture simplifier mais sa marche pas avec throw + parce que throw n'est pas une valeur mais une méthode pour lever une exception
-
-    .then(function(jsonResponse) {
-      // je reprends la reponse convertie precedement
-        mainForm.reset(); // Réinitialise le formulaire après envoi réussi
-      let successDiv = document.getElementById("div"); // Récupération de la div de succès
-
-      successDiv.classList.remove("d-none"); // Affiche la div de succès (d none = classe qui cache...)
-
-      let successParam = document.getElementById("successParam");
-
-      successParam.textContent = jsonResponse.message; // Affiche le message de succès reçu depuis le back-end 
-    })
-    .catch(function (error) {
-      let errorDiv = document.getElementById("error"); // Récupération de la div d'erreur
-
-      errorDiv.classList.remove("d-none"); // Affiche la div de succès
-
-      let errorParam = document.getElementById("errorParam");
-
-      errorParam.textContent = error.message || "Une erreur est survenue"; // error car on affiche le parametre de la function definie soit error et son message
-    });
-}); */
