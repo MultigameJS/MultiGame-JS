@@ -1,50 +1,78 @@
-import { verifJustePrix } from "./verifJustPrice.js"; // game comportera fetch et verif car verif comporte le fetch...
+import { startTimer, stopTimer } from "./time.js";
+import { addScore } from "./main.js";
+// AJOUTER AU BON ENDROIT L APPEL DE LA FUNCTION CONCERNEE 
+export function initGame() {
+  // FAIRE UN BOUCLE POUR ALLER CHERCHER LES CLASS AU LIEU DES ID (avec queryselectorall)
+  document.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("click", function () {
+      // MASQUER LES AUTRES CARDS SAUF CELLE CLIQUÉE
+      document.querySelectorAll(".card").forEach((otherCard) => {
+        if (otherCard !== card) {
+          otherCard.classList.add("hidden");
+          otherCard.classList.remove("expanded");
+        }
+      });
 
-export function gameMoyen(game1, prix1) {
-    let game2 = document.getElementById("card2");
-    let game3 = document.getElementById("card3");
-    let play = document.getElementById("play1"); // recup l input
-    play.addEventListener("click", function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        verifJustePrix(play, prix1);
+      // ADD LA CLASS POUR GRANDIRE LA CARTE SELECTIONNEE
+      card.classList.add("expanded");
+
+      // RECUP L INPUT LE BUTTON ET LA DIV POUR AFFICHER UN MESSAGE
+      let input = card.querySelector("input");
+      let button = card.querySelector("button");
+      let textPlay = card.querySelector(".textPlay");
+
+      // AFFICHER L INPUT ET LE BUTTON
+      input.classList.remove("hidden");
+      button.classList.remove("hidden");
+
+      // Supprimer tout ancien événement du bouton avant d'en ajouter un nouveau
+      let newButton = button.cloneNode(true); // REVOIR AVEC YOYO  Cloner le bouton pour supprimer l'ancien événement
+      button.parentNode.replaceChild(newButton, button); // Remplacer l'ancien bouton
+      button = card.querySelector("button"); // Re-sélectionner le nouveau bouton
+
+      // DEMARRAGE DU TIMER
+      startTimer(card);
+
+      // DEFINIR UN PRIX ALEATOIRE AVEC MATH FLOOR ET MATH RANDOM
+      let justPriceGame = {
+        card1: { prix: Math.floor(Math.random() * (2000 - 300 + 1)) + 300 },
+        card2: { prix: Math.floor(Math.random() * (150000 - 20000 + 1)) + 20000 },
+        card3: { prix: Math.floor(Math.random() * (250 - 75 + 1)) + 75 },
+      };
+
+      // ADD UN SEUL EVENT AU BOUTTON
+      button.addEventListener("click", function () {
+        let userValue = parseInt(input.value);
+        let correctPrice = justPriceGame[card.id].prix;
+
+        // Vérifier si un message existe déjà et le supprimer proprement
+        let oldMessage = textPlay.querySelector("p");
+        if (oldMessage) {
+          oldMessage.remove(); // Supprimer le message précédent
+        }
+
+        // MESSAGES DE REPONSES
+        let resultMessage = document.createElement("p");
+        resultMessage.style.fontWeight = "bold";
+
+        if (isNaN(userValue)) {
+          resultMessage.textContent = "Veuillez entrer un prix valide.";
+          resultMessage.style.color = "red";
+        } else if (userValue === correctPrice) {
+          resultMessage.textContent = "Bravo, vous avez trouvé le juste prix !";
+          resultMessage.style.color = "green";
+            stopTimer(card); // STOP TIMER SI OK
+            addScore(userValue); // ENVOYER LE SCORE
+        } else if (userValue < correctPrice) {
+          resultMessage.textContent = "Trop bas, essayez encore.";
+          resultMessage.style.color = "blue";
+        } else {
+          resultMessage.textContent = "Trop haut, essayez encore.";
+          resultMessage.style.color = "blue";
+        }
+
+        textPlay.appendChild(resultMessage);
+      });
     });
-
-    game2.classList.add("d-none"); // utilisation de bootstrap pour le style mais possible avec .style (css directement) on eneleve le 2
-    game3.classList.add("d-none"); // on enleve le 3
-    game1.classList.add("game"); // on affiche le 1 "game" n existe qu'ici !! on le recupere juste en css
-    play.classList.remove("d-none"); // je lui enleve d none pour afficher mon input
-    game1.classList.remove("card");
-}
-
-export function gameDifficile(game2, prix2) {
-    let game1 = document.getElementById("card1");
-    let game3 = document.getElementById("card3");
-    let play = document.getElementById("play2");
-    play.addEventListener("submit", function (e) {
-        e.preventDefault();
-        verifJustePrix(play, prix2);
-    });
-
-    game1.classList.add("d-none"); // utilisation de bootstrap pour le style mais possible avec .style (css directement)
-    game3.classList.add("d-none");
-    game2.classList.add("game");
-    play.classList.remove("d-none");
-    game2.classList.remove("card");
-}
-
-export function gameFacile(game3, prix3) {
-    let game2 = document.getElementById("card2");
-    let game1 = document.getElementById("card1");
-    let play = document.getElementById("play3");
-    play.addEventListener("submit", function (e) {
-        e.preventDefault();
-        verifJustePrix(play, prix3);
-    });
-
-    game1.classList.add("d-none"); // utilisation de bootstrap pour le style mais possible avec .style (css directement)
-    game2.classList.add("d-none");
-    game3.classList.add("game");
-    play.classList.remove("d-none");
-    game3.classList.remove("card");
+  });
 }
