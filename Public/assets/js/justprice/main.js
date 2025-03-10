@@ -5,40 +5,69 @@ import { addScore } from "./addScore.js";
 // TOUT PLACER AU BON ENDROIT CAR LA ON DEFINIT LE PRIX ALORS QUE IL A RIEN CHOISI 
 // METTRE CETTE PARTIE APRES LA SELECTION DU JEU DEJA AU CLICK...
 let justPriceGame = {
-  card1: { prix: null, min: 300, max: 2000 },
-  card2: { prix: null, min: 20000, max: 150000 },
-  card3: { prix: null, min: 75, max: 250 },
+  card1: { prix: Math.floor(Math.random() * (2000 - 300 + 1)) + 300 },
+  card2: { prix: Math.floor(Math.random() * (150000 - 20000 + 1)) + 20000 },
+  card3: { prix: Math.floor(Math.random() * (250 - 75 + 1)) + 75 }
 };
 
-// PRIX ALEATOIRE
-let prix1 = Math.floor(Math.random() * (justPriceGame.card1.max - justPriceGame.card1.min)) + justPriceGame.card1.min;
-let prix2 = Math.floor(Math.random() * (justPriceGame.card2.max - justPriceGame.card2.min)) + justPriceGame.card2.min;
-let prix3 = Math.floor(Math.random() * (justPriceGame.card3.max - justPriceGame.card3.min)) + justPriceGame.card3.min;
+document.querySelectorAll(".card").forEach(card => {
+  card.addEventListener("click", function () {
+      // Masquer toutes les autres cartes sauf celle cliquée
+      document.querySelectorAll(".card").forEach(otherCard => {
+          if (otherCard !== card) {
+              otherCard.classList.add("hidden");
+              otherCard.classList.remove("expanded");
+          }
+      });
+      
 
-justPriceGame.card1.prix = prix1;
-justPriceGame.card2.prix = prix2;
-justPriceGame.card3.prix = prix3;
+      // Ajouter la classe pour agrandir la carte sélectionnée
+      card.classList.add("expanded");
 
+      // Récupérer l'input, le bouton et la div pour afficher le message
+      let input = card.querySelector("input");
+      let button = card.querySelector("button");
+      let textPlay = card.querySelector(".textPlay");
 
-const game1 = document.getElementById("card1"); // je vias chercher ma CARD
-game1.addEventListener("click", function (e) {
-  // AU CLIC  enlever le rechargement de page
-  e.preventDefault();
-  gameMoyen(game1, prix1); // on vient apporter le contenu qui se toruve dans le fichier game.js pour gagner en ligne de code et en logique (seulement au click)
+      // Afficher l'input et le bouton
+      input.classList.remove("hidden");
+      button.classList.remove("hidden");
+
+      // Supprimer tout ancien événement du bouton avant d'en ajouter un nouveau
+      let newButton = button.cloneNode(true); // Cloner le bouton pour supprimer l'ancien événement
+      button.parentNode.replaceChild(newButton, button); // Remplacer l'ancien bouton
+      button = card.querySelector("button"); // Re-sélectionner le nouveau bouton
+
+      // Ajouter un seul événement au bouton
+      button.addEventListener("click", function () {
+          let userValue = parseInt(input.value);
+          let correctPrice = justPriceGame[card.id].prix;
+
+          // Vérifier si un message existe déjà et le supprimer proprement
+          let oldMessage = textPlay.querySelector("p"); 
+          if (oldMessage) {
+              oldMessage.remove(); // Supprimer le message précédent
+          }
+
+          // Création du message de réponse
+          let resultMessage = document.createElement("p");
+          resultMessage.style.fontWeight = "bold";
+
+          if (isNaN(userValue)) {
+              resultMessage.textContent = "Veuillez entrer un prix valide.";
+              resultMessage.style.color = "red";
+          } else if (userValue === correctPrice) {
+              resultMessage.textContent = "Bravo, vous avez trouvé le juste prix !";
+              resultMessage.style.color = "green";
+          } else if (userValue < correctPrice) {
+              resultMessage.textContent = "Trop bas, essayez encore.";
+              resultMessage.style.color = "blue";
+          } else {
+              resultMessage.textContent = "Trop haut, essayez encore.";
+              resultMessage.style.color = "blue";
+          }
+
+          textPlay.appendChild(resultMessage);
+      });
+  });
 });
-
-const game2 = document.getElementById("card2"); // je vias chercher ma CARD
-game2.addEventListener("click", function (e) {
-  // AU CLIC  enlever le rechargement de page
-  e.preventDefault();
-  gameDifficile(game2, prix2); // on vient apporter le contenu qui se toruve dans le fichier game.js pour gagner en ligne de code et en logique (seulement au click)
-});
-
-const game3 = document.getElementById("card3"); // je vias chercher ma CARD
-game3.addEventListener("click", function (e) {
-  // AU CLIC  enlever le rechargement de page
-  e.preventDefault();
-  gameFacile(game3, prix3); // on vient apporter le contenu qui se toruve dans le fichier game.js pour gagner en ligne de code et en logique (seulement au click)
-});
-
-// addScore(); // mettre uen condition : dabord il choisi un jeu / il rentre son prix / le timer et le sore sont arretés enregistré et ensuite on envoi fetch
