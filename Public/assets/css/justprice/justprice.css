@@ -183,3 +183,27 @@ h1 {
 #play3 {
   height : 20px;
 }
+
+.hidden {
+  display: none;
+}
+
+/* Quand une carte est sélectionnée */
+.expanded {
+  width: 350px;  /* Taille plus grande */
+  height: 450px;
+  transition: all 0.3s ease-in-out; /* Animation fluide */
+}
+
+/* Centrage et meilleure mise en page de l'input et du bouton */
+.expanded input[type="number"], 
+.expanded button {
+  display: block;
+  width: 80%;
+  margin: 10px auto;
+}
+
+.expanded .price-button {
+  font-size: 14px;
+  padding: 12px;
+}
