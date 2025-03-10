@@ -8,8 +8,12 @@
 
 <!-- CARDS ITEMS JUST PRICE -->
 <div class="cards-container">
+<form id="gameTimer">
+    <input type="hidden" id="timer" name="timer" value="0"> <!-- VALIDER AVEC YOYO TIMER CACHE QUI DEMARRE A 0 ??  -->
+</form>
+    <input type="hidden" id="csrf" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>"> <!-- VALIDER AVEC YOYO -->
     <div class="card" id="card1">
-        <img src="/assets/images/justprice/iPhone.jpg" class="card-img-top" alt="iphone">
+        <img src="/assets/images/justprice/iphoneia.jpg" class="card-img-top" alt="iphone">
         <p class="heading">iPhone</p>
         <input type="number" name="play1" id="play1" placeholder="Votre prix" class="d-none">
         <button id="button1" class="price-button">JOUER</button>
