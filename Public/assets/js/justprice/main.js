@@ -19,7 +19,6 @@ document.querySelectorAll(".card").forEach(card => {
               otherCard.classList.remove("expanded");
           }
       });
-      
 
       // Ajouter la classe pour agrandir la carte sélectionnée
       card.classList.add("expanded");
