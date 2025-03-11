@@ -1,11 +1,12 @@
 import { startTimer, stopTimer } from "./time.js";
-import { addScore } from "./main.js";
-// AJOUTER AU BON ENDROIT L APPEL DE LA FUNCTION CONCERNEE 
+
 export function initGame() {
-  // FAIRE UN BOUCLE POUR ALLER CHERCHER LES CLASS AU LIEU DES ID (avec queryselectorall)
   document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", function () {
-      // MASQUER LES AUTRES CARDS SAUF CELLE CLIQUÉE
+      if (card.dataset.active === "true") return;
+      card.dataset.active = "true";
+
+      // Masquer les autres cartes sauf celle cliquée
       document.querySelectorAll(".card").forEach((otherCard) => {
         if (otherCard !== card) {
           otherCard.classList.add("hidden");
@@ -13,65 +14,67 @@ export function initGame() {
         }
       });
 
-      // ADD LA CLASS POUR GRANDIRE LA CARTE SELECTIONNEE
+      // Agrandir la carte sélectionnée
       card.classList.add("expanded");
 
-      // RECUP L INPUT LE BUTTON ET LA DIV POUR AFFICHER UN MESSAGE
+      // Récupérer les éléments
       let input = card.querySelector("input");
       let button = card.querySelector("button");
       let textPlay = card.querySelector(".textPlay");
 
-      // AFFICHER L INPUT ET LE BUTTON
+      // Afficher les champs nécessaires
       input.classList.remove("hidden");
       button.classList.remove("hidden");
 
-      // Supprimer tout ancien événement du bouton avant d'en ajouter un nouveau
-      let newButton = button.cloneNode(true); // REVOIR AVEC YOYO  Cloner le bouton pour supprimer l'ancien événement
-      button.parentNode.replaceChild(newButton, button); // Remplacer l'ancien bouton
-      button = card.querySelector("button"); // Re-sélectionner le nouveau bouton
-
-      // DEMARRAGE DU TIMER
+      // Démarrer le timer correctement
       startTimer(card);
 
-      // DEFINIR UN PRIX ALEATOIRE AVEC MATH FLOOR ET MATH RANDOM
+      // Définir un prix aléatoire
       let justPriceGame = {
         card1: { prix: Math.floor(Math.random() * (2000 - 300 + 1)) + 300 },
         card2: { prix: Math.floor(Math.random() * (150000 - 20000 + 1)) + 20000 },
         card3: { prix: Math.floor(Math.random() * (250 - 75 + 1)) + 75 },
       };
 
-      // ADD UN SEUL EVENT AU BOUTTON
+      // Éviter l'accumulation d'événements bouton
+      let newButton = button.cloneNode(true);
+      button.parentNode.replaceChild(newButton, button);
+      button = card.querySelector("button");
+
+      // Ajouter l'événement de validation
       button.addEventListener("click", function () {
         let userValue = parseInt(input.value);
         let correctPrice = justPriceGame[card.id].prix;
 
-        // Vérifier si un message existe déjà et le supprimer proprement
-        let oldMessage = textPlay.querySelector("p");
-        if (oldMessage) {
-          oldMessage.remove(); // Supprimer le message précédent
+        // Vérifier s'il existe déjà un message
+        let resultMessage = card.querySelector(".result-message");
+        if (!resultMessage) {
+          resultMessage = document.createElement("p");
+          resultMessage.classList.add("result-message");
+          textPlay.appendChild(resultMessage);
         }
 
-        // MESSAGES DE REPONSES
-        let resultMessage = document.createElement("p");
-        resultMessage.style.fontWeight = "bold";
-
+        // Mettre à jour le message
         if (isNaN(userValue)) {
           resultMessage.textContent = "Veuillez entrer un prix valide.";
           resultMessage.style.color = "red";
         } else if (userValue === correctPrice) {
           resultMessage.textContent = "Bravo, vous avez trouvé le juste prix !";
           resultMessage.style.color = "green";
-            stopTimer(card); // STOP TIMER SI OK
-            addScore(userValue); // ENVOYER LE SCORE
-        } else if (userValue < correctPrice) {
-          resultMessage.textContent = "Trop bas, essayez encore.";
-          resultMessage.style.color = "blue";
+          stopTimer(card); // Arrêter le timer
+          card.dataset.active = "false";
         } else {
-          resultMessage.textContent = "Trop haut, essayez encore.";
+          resultMessage.textContent = userValue < correctPrice 
+            ? "Trop bas, essayez encore." 
+            : "Trop haut, essayez encore.";
           resultMessage.style.color = "blue";
         }
 
-        textPlay.appendChild(resultMessage);
+        // Garder le message affiché 5 secondes avant suppression
+        clearTimeout(card.messageTimeout);
+        card.messageTimeout = setTimeout(() => {
+          resultMessage.remove();
+        }, 1500);
       });
     });
   });
