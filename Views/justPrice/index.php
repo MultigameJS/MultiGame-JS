@@ -1,12 +1,12 @@
 <section class="bodys">
 
-<h1>JUST PRICE</h1>
+    <h1>JUST PRICE</h1>
 
-<!-- BACKGROUND MAIN -->
-<div class="container justp"></div>
+    <!-- BACKGROUND MAIN -->
+    <div class="container justp"></div>
 
-<!-- CARDS ITEMS JUST PRICE -->
-<div class="cards-container">
+    <!-- CARDS ITEMS JUST PRICE -->
+    <div class="cards-container">
         <div class="card" id="card1">
             <img src="/assets/images/justprice/iphoneia.jpg" class="card-img-top" alt="iphone">
             <p class="heading">iPhone</p>
@@ -29,7 +29,17 @@
             <div class="textPlay"></div>
         </div>
     </div>
-</div>
+    </div>
+
+    <form action="/JustPrice/SaveScore" class="hidden form">
+
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token']; ?>">
+        <input type="number" id="scoretimer" name="score">
+        <div id="messages">
+            <div id="error-message" class="alert alert-danger" role="alert"></div>
+            <div id="success-message" class="alert alert-success" role="alert"></div>
+        </div>
+    </form>
 
 </section>
 
