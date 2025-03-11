@@ -1,13 +1,13 @@
 import { initGame } from "./games.js";
 
-// Attendre que la page soit complètement chargée avant d’exécuter le script (INITIALISATION)
+// ATTENDRE QUE LA PAGE SOIT COMPLÈTEMENT CHARGÉE AVANT D’EXÉCUTER LE SCRIPT (INITIALISATION)
 document.addEventListener("DOMContentLoaded", () => {
     initGame();
 });
 
 // FETCH
 export function addScore() {
-  // rajouter le formulaire dans le htlm et le placer ici avant de le mettre dans un objet
+  // RAJOUTER LE FORMULAIRE DANS LE HTLM ET LE PLACER ICI AVANT DE LE METTRE DANS UN OBJET
   let formData = new FormData(); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
   formData.append("score", score); // AJOUT DES DATA
 
