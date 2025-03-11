@@ -41,8 +41,26 @@
         </div>
     </form>
 
+    <!-- COMMENTAIRES -->
+    <div class="comments-section">
+        <h2>Qu'avez-vous pensé du jeu ? </h2>
+
+        <div class="comment-form">
+            <input type="text" id="pseudo" placeholder="Votre pseudo : ">
+            <textarea id="comment" placeholder="Votre commentaire : "></textarea>
+            <button id="submitComment">Envoyer</button>
+        </div>
+
+        <!-- LISTE COMMENTAIRES -->
+        <div class="comments-container">
+            <h3>Commentaires</h3>
+            <ul id="commentsList"></ul>
+        </div>
+    </div>
+
 </section>
 
 <?php
 $game = "justprice/main";
+$script = "justprice/comments";
 $css = "justprice/justprice";
