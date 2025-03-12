@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\CommentJustPriceRepository;
+use App\Models\CommentJustPriceModel;
 
 class CommentJustPriceService
 {
@@ -13,15 +14,22 @@ class CommentJustPriceService
         $this->repository = new CommentJustPriceRepository();
     }
 
-    public function saveComment(string $pseudo, string $comment): bool
+    public function saveComment(array $data): bool
     {
         $data = [
-            "pseudo" => $pseudo,
-            "comment" => $comment,
-            "created_at" => new \MongoDB\BSON\UTCDateTime() // VOIR YOYO pour le debgu dans le repo
+            "pseudo" => $data["pseudo"],
+            "comment" => $data["comment"],
         ];
 
-        return (bool) $this->repository->save($data);
+        $commentJustPriceModel = new CommentJustPriceModel();
+        $commentJustPriceModel-> hydrate($data);
+
+        $alias = "justpriceComments";
+        $commentJustPriceRepository = new CommentJustPriceRepository();
+
+        return $commentJustPriceRepository->create($alias, $data);
+
+        echo json_encode($data);
     }
 
     public function getAllComments(): array
