@@ -1,4 +1,5 @@
 import { initGame } from "./games.js";
+// import { startTimer } from "./time.js";
 
 // ATTENDRE QUE LA PAGE SOIT COMPLÈTEMENT CHARGÉE AVANT D’EXÉCUTER LE SCRIPT (INITIALISATION)
 document.addEventListener("DOMContentLoaded", () => {
@@ -6,28 +7,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // FETCH
-export function addScore() {
-  // RAJOUTER LE FORMULAIRE DANS LE HTLM ET LE PLACER ICI AVANT DE LE METTRE DANS UN OBJET
-  let formData = new FormData(); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
-  formData.append("score", score); // AJOUT DES DATA
+export function addScore(time) {
 
-  fetch("/JustPrice/SaveScore", {
-    method: "POST",
-    body: formData, // VOIR YOYO CAR VU BODY : JSON STRINGIFY  -> GERE LA REPONSE JSON EN CHAINE DE CARACTERE
-  })
-    .then(function (response) {
-      if (response.ok) {
-        return response.json().then((jsonResponse) => jsonResponse);
-      } else {
-        return response.json().then((err) => {
-          throw err;
-        });
-      }
-    })
-    .then(function (jsonResponse) {
-      alert("Score enregistré !");
-    })
-    .catch(function (error) {
-      console.error("Erreur :", error);
-    });
+  let formData = new FormData(); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
+  formData.append("csrf_token", document.querySelector("input[name='csrf_token']").value);
+  formData.append("score", finalTime); // AJOUT DES DATA -> CLE / VALEUR 
+ 
+// startTimer();
+
+fetch("/JustPrice/SaveScore", {
+  method: "POST",
+  body: formData,
+})
+.then(response => {
+  if (!response.ok)
+    throw new Error("Erreur de réponse serveur");
+  return response.json();
+})
+.then(jsonResponse => {
+  alert("Score enregistré !"); // VOIR YO CAR LE PROMPT NE S AFFICHE PAS ! 
+})
+.catch(error => console.error("Erreur :", error));
 }

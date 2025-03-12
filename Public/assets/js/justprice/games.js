@@ -1,5 +1,5 @@
 import { startTimer, stopTimer } from "./time.js";
-// import { addScore } from "./main.js";
+import { addScore } from "./main.js";
 
 export function initGame() {
      // FAIRE UN BOUCLE POUR ALLER CHERCHER LES CLASS AU LIEU DES ID (avec queryselectorall)
@@ -8,7 +8,7 @@ export function initGame() {
       if (card.dataset.active === "true") return;
       card.dataset.active = "true";
 
-    // MASQUER LES AUTRES CARDS SAUF CELLE CLIQUÉE
+      // MASQUER LES AUTRES CARDS SAUF CELLE CLIQUÉE
       document.querySelectorAll(".card").forEach((otherCard) => {
         if (otherCard !== card) {
           otherCard.classList.add("hidden");
@@ -28,19 +28,25 @@ export function initGame() {
       input.classList.remove("hidden");
       button.classList.remove("hidden");
 
-      // DÉMARRER LE TIMER CORRECTEMENT
-      startTimer(card);
-
+            // LANCER LE TIMER UNIQUEMENT LORSQUE L'UTILISATEUR COMMENCE À ÉCRIRE
+            input.addEventListener("input", function () {
+              if (!card.timer) {
+                  startTimer(card);
+              }
+            });
+      
       // DÉFINIR UN PRIX ALÉATOIRE AVMATH FLOOR ET MATH RANDOMEC 
       let justPriceGame = {
         card1: { prix: Math.floor(Math.random() * (2000 - 300 + 1)) + 300 },
         card2: { prix: Math.floor(Math.random() * (150000 - 20000 + 1)) + 20000 },
         card3: { prix: Math.floor(Math.random() * (250 - 75 + 1)) + 75 },
+    
       };
-
+      console.log(justPriceGame.card1);
+      
       // ÉVITER L'ACCUMULATION D'ÉVÉNEMENTS BOUTON
       let newButton = button.cloneNode(true);
-      button.parentNode.replaceChild(newButton, button);
+      button.parentNode.replaceChild(newButton, button); 
       button = card.querySelector("button");
 
       // ADD L'ÉVÉNEMENT DE VALIDATION
@@ -63,11 +69,17 @@ export function initGame() {
         } else if (userValue === correctPrice) {
           resultMessage.textContent = "Bravo, vous avez trouvé le juste prix !";
           resultMessage.style.color = "green";
-          stopTimer(card); // STOP LE TIMER
+
+          let finalTime = stopTimer(card); // RECUP LE TEMPS FINAL
+          if (finalTime !== undefined) {
+              addScore(finalTime); // ENVOIE LE SCORE ET RECUP LA VALEUR DANS MON FETCH
+          }
+
           card.dataset.active = "false";
+
         } else {
           resultMessage.textContent = userValue < correctPrice 
-            ? "Trop bas, essayez encore." 
+            ? "Trop bas, essayez encore."  // VOIR YO PK A T IL MIS ? ET : 
             : "Trop haut, essayez encore.";
           resultMessage.style.color = "blue";
         }
