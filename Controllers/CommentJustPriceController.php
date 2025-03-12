@@ -18,9 +18,15 @@ class CommentJustPriceController
     {
         $data = json_decode(file_get_contents("php://input"), true);
 
+        // Vérification du token CSRF
+        if (!isset($data['csrf_token']) || $data['csrf_token'] !== $_SESSION['csrf_token']) {
+            echo json_encode(["success" => false, "error" => "Jeton CSRF invalide"]);
+            return;
+        }
+    
         if (isset($data['pseudo']) && isset($data['comment'])) {
-            $result = $this->service->saveComment($data['pseudo'], $data['comment']); // VOIR YO SI UTILISATION DE REQUETES OK
-
+            $result = $this->service->saveComment($data['pseudo'], $data['comment']);
+    
             echo json_encode(["success" => $result]);
         } else {
             echo json_encode(["success" => false, "error" => "Données invalides"]);
