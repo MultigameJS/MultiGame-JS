@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Services\CommentJustPriceService;
+use App\Services\JustPriceService;
 
 class CommentJustPriceController
 {
@@ -16,20 +17,12 @@ class CommentJustPriceController
     // AJOUT D UN COMMENTAIRE
     public function addComment()
     {
-        $data = json_decode(file_get_contents("php://input"), true);
-
-        // Vérification du token CSRF
-        if (!isset($data['csrf_token']) || $data['csrf_token'] !== $_SESSION['csrf_token']) {
-            echo json_encode(["success" => false, "error" => "Jeton CSRF invalide"]);
-            return;
-        }
-    
-        if (isset($data['pseudo']) && isset($data['comment'])) {
-            $result = $this->service->saveComment($data['pseudo'], $data['comment']);
-    
-            echo json_encode(["success" => $result]);
-        } else {
-            echo json_encode(["success" => false, "error" => "Données invalides"]);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = $_POST;
+            $justpriceService = new CommentJustPriceService();
+            $justpriceService->saveComment($data);
+        }else{
+            echo json_encode(["status" => "error", "message" => "Méthode non authoriser"]);
         }
     }
 

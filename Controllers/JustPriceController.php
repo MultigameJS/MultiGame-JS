@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Services\CommentJustPriceService;
 use App\Services\JustPriceService;
 
 class JustPriceController extends Controller
@@ -9,7 +10,9 @@ class JustPriceController extends Controller
 
     public function Index()
     {
-        $this->render("justPrice/index");
+        $comment = new CommentJustPriceService();
+        $comments = $comment->getAllComments();
+        $this->render("justPrice/index", compact("comments"));
     }
 
     public function SaveScore() // verification du champ test1 et 2 (name dans mon input dans html)

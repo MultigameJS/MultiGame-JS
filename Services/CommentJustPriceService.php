@@ -2,38 +2,28 @@
 
 namespace App\Services;
 
-use App\Repository\CommentJustPriceRepository;
-use App\Models\CommentJustPriceModel;
+use App\Repository\DbMongo;
 
 class CommentJustPriceService
 {
-    private CommentJustPriceRepository $repository;
-
-    public function __construct()
-    {
-        $this->repository = new CommentJustPriceRepository();
-    }
-
-    public function saveComment(array $data): bool
+    public function saveComment(array $data)
     {
         $data = [
             "pseudo" => $data["pseudo"],
             "comment" => $data["comment"],
         ];
 
-        $commentJustPriceModel = new CommentJustPriceModel();
-        $commentJustPriceModel-> hydrate($data);
+        $commentJustPriceRepository = new DbMongo();
 
-        $alias = "justpriceComments";
-        $commentJustPriceRepository = new CommentJustPriceRepository();
+        $commentJustPriceRepository->create("justpriceComments", $data);
 
-        return $commentJustPriceRepository->create($alias, $data);
-
-        echo json_encode($data);
+        echo json_encode(["status" => "success", "message" => "Comentaire envoyer"]);
     }
 
-    public function getAllComments(): array
+    public function getAllComments()
     {
-        return $this->repository->getAll();
+        $CommentJustPrice = new DbMongo();
+        $comment = $CommentJustPrice->findAll("justpriceComments");
+        return $comment;
     }
 }

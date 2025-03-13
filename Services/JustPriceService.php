@@ -26,11 +26,10 @@ class JustPriceService
             echo json_encode(["status" => "error", "message" => "Le score doit être supérieur à 0 "]); }
 
             $data = [
-
-            "idUsers" => $userId,  
-            "score" => $score,
-            "time" => $time
-        ];
+                "idUsers" => $userId,  
+                "score" => $score,
+                "time" => $time
+            ];
 
             $justPriceModel->hydrate($data); // car model qui hydrate
             $justPriceRepository->create($data); // car crud dans dbrepo

@@ -7,11 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // FETCH
-export function addScore(time) {
+export function addScore(form) {
 
-  let formData = new FormData(); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
-  formData.append("csrf_token", document.querySelector("input[name='csrf_token']").value);
-  formData.append("score", finalTime); // AJOUT DES DATA -> CLE / VALEUR 
+  let formData = new FormData(form); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
  
 // startTimer();
 

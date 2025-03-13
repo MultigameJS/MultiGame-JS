@@ -71,8 +71,13 @@ export function initGame() {
           resultMessage.style.color = "green";
 
           let finalTime = stopTimer(card); // RECUP LE TEMPS FINAL
-          if (finalTime !== undefined) {
-              addScore(finalTime); // ENVOIE LE SCORE ET RECUP LA VALEUR DANS MON FETCH
+          let idUsers = document.getElementById('idUsers');
+
+          if (finalTime !== undefined && idUsers.value !== undefined) {
+            let scoretimer = document.getElementById('scoretimer');
+            let saveScore = document.getElementById('saveScore');
+            scoretimer.value = finalTime;
+              addScore(saveScore); // ENVOIE LE SCORE ET RECUP LA VALEUR DANS MON FETCH
           }
 
           card.dataset.active = "false";
