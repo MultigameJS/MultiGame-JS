@@ -36,7 +36,6 @@ export function stopTimer(card) {
     let timerDisplay = card.querySelector(".timePlay"); 
     if (timerDisplay) {
         let finalTime = parseInt(timerDisplay.innerText.replace("Temps : ", "").replace(" sec", ""), 10);
-        console.log("Temps final enregistré :", finalTime); // OK FONCTIONNE
         return finalTime;
     }
 }
