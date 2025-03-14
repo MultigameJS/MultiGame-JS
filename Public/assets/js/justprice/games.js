@@ -73,7 +73,7 @@ export function initGame() {
           let finalTime = stopTimer(card); // RECUP LE TEMPS FINAL
           let idUsers = document.getElementById('idUsers');
 
-          if (finalTime !== undefined && idUsers.value !== undefined) {
+          if (finalTime !== undefined && idUsers.value !== null) {
             let scoretimer = document.getElementById('scoretimer');
             let saveScore = document.getElementById('saveScore');
             scoretimer.value = finalTime;
@@ -84,7 +84,7 @@ export function initGame() {
 
         } else {
           resultMessage.textContent = userValue < correctPrice 
-            ? "Trop bas, essayez encore."  //  ? ET : 
+            ? "Trop bas, essayez encore."  // REMPLACE IF ELSE (ternaire)
             : "Trop haut, essayez encore.";
           resultMessage.style.color = "blue";
         }

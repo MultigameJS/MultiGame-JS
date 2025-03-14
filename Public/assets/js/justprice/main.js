@@ -1,5 +1,4 @@
 import { initGame } from "./games.js";
-// import { startTimer } from "./time.js";
 
 // ATTENDRE QUE LA PAGE SOIT COMPLÈTEMENT CHARGÉE AVANT D’EXÉCUTER LE SCRIPT (INITIALISATION)
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,13 +10,12 @@ export function addScore(form) {
 
   let formData = new FormData(form); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
 
-  let scoretimer = document.getElementById("scoretimer").value; // VOIR YO !! VERIF SI SCORE EST BIEN DEFINIE AVANT DE L ENVOYER AU BACK
+  let scoretimer = document.getElementById("scoretimer").value;
   if (!scoretimer || isNaN(scoretimer)) {
     console.error("Erreur : Score non défini ou invalide !");
     return;
   }
 
-// startTimer();
 
 fetch("/JustPrice/SaveScore", {
   method: "POST",
@@ -30,7 +28,7 @@ fetch("/JustPrice/SaveScore", {
   return response.json();
 })
 .then(jsonResponse => {
-  if (jsonResponse.status === "success") { // VOIR SI YO OK 
+  if (jsonResponse.status === "success") { 
     alert("Score enregistré !");
   } else {
     console.error("Erreur : ", jsonResponse.message);

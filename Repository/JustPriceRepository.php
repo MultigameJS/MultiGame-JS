@@ -8,5 +8,4 @@ class JustPriceRepository extends DbRepository
     {
         $this->table = "justPrice"; // appel de la table du jeu
     }
-
-}
+}    
