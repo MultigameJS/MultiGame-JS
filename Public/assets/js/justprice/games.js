@@ -84,7 +84,7 @@ export function initGame() {
 
         } else {
           resultMessage.textContent = userValue < correctPrice 
-            ? "Trop bas, essayez encore."  // VOIR YO PK A T IL MIS ? ET : 
+            ? "Trop bas, essayez encore."  //  ? ET : 
             : "Trop haut, essayez encore.";
           resultMessage.style.color = "blue";
         }

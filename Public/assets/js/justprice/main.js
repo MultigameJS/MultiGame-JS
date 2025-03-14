@@ -10,7 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
 export function addScore(form) {
 
   let formData = new FormData(form); // CREA OBJET POUR ENVOYER LES DATA AU SERVEUR
- 
+
+  let scoretimer = document.getElementById("scoretimer").value; // VOIR YO !! VERIF SI SCORE EST BIEN DEFINIE AVANT DE L ENVOYER AU BACK
+  if (!scoretimer || isNaN(scoretimer)) {
+    console.error("Erreur : Score non défini ou invalide !");
+    return;
+  }
+
 // startTimer();
 
 fetch("/JustPrice/SaveScore", {
@@ -19,11 +25,16 @@ fetch("/JustPrice/SaveScore", {
 })
 .then(response => {
   if (!response.ok)
-    throw new Error("Erreur de réponse serveur");
+    throw new Error
+      ("Erreur de réponse serveur");
   return response.json();
 })
 .then(jsonResponse => {
-  alert("Score enregistré !"); // VOIR YO CAR LE PROMPT NE S AFFICHE PAS ! 
+  if (jsonResponse.status === "success") { // VOIR SI YO OK 
+    alert("Score enregistré !");
+  } else {
+    console.error("Erreur : ", jsonResponse.message);
+  }
 })
 .catch(error => console.error("Erreur :", error));
 }
