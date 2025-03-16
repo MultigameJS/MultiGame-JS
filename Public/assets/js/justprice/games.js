@@ -42,7 +42,6 @@ export function initGame() {
         card3: { prix: Math.floor(Math.random() * (250 - 75 + 1)) + 75 },
     
       };
-      console.log(justPriceGame.card1);
       
       // ÉVITER L'ACCUMULATION D'ÉVÉNEMENTS BOUTON
       let newButton = button.cloneNode(true);
