@@ -11,6 +11,7 @@
                 <p class="heading">Converse Chuck 70 <br> Niveau Facile</p>
                 <input type="number" id="play3" placeholder="Votre prix" class="hidden">
                 <button id="button3" class="price-button hidden">Envoyer</button>
+                <div class="textPlay"></div>
             </div>
 
             <div class="card" id="card1">
@@ -19,6 +20,7 @@
                 <p class="heading">iPhone <br> Niveau Moyen</p>
                 <input type="number" id="play1" placeholder="Votre prix" class="hidden">
                 <button id="button1" class="price-button hidden">Envoyer</button>
+                <div class="textPlay"></div>
             </div>
 
             <div class="card" id="card2">
@@ -27,6 +29,7 @@
                 <p class="heading">Tesla Cybertruck <br> Niveau Difficile</p>
                 <input type="number" id="play2" placeholder="Votre prix" class="hidden">
                 <button id="button2" class="price-button hidden">Envoyer</button>
+                <div class="textPlay"></div>
             </div>
         </div>
     </div>
