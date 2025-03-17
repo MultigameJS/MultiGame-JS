@@ -3,6 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* POUR ENLEVER LA BARRE DE SCROLL A LA CHUTE DES PIECES */
 }
 
 /* BACKGROUND MAIN : SOURCE UIVERSE */
@@ -136,16 +137,6 @@ h1 {
   border-radius: 6px;
 }
 
-.card .click-text {
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
-  color: black;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
-  margin-bottom: 10px;
-  font-family: "Press Start 2P", cursive;
-}
-
 .price-button {
   background: linear-gradient(90deg, #ff007f, #ffcc00);
   border: none;
@@ -166,6 +157,36 @@ h1 {
   color: #fff;
 }
 
+/*BUTTON RETURN*/
+.btn-back {
+  background: linear-gradient(90deg, #ff007f, #ffcc00);
+  border: none;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 20px;
+  font-family: "Press Start 2P";
+}
+
+.btn-back:hover {
+  background: linear-gradient(90deg, #ffcc00, #ff007f);
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
 .game {
   position: relative;
