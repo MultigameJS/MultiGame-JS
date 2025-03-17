@@ -13,13 +13,13 @@ class JustPriceService
         $justPriceModel = new JustPriceModel();
         $justPriceRepository = new JustPriceRepository();
 
-
+        // VÉRIFICATION DE LA PRÉSENCE DU SCORE DANS LA REQUÊTE POST
         if (empty($_POST["score"])) { 
             echo json_encode(["status" => "error", "message" => "veuillez compléter tous les champs"]); 
             exit;
         }
 
-        $score = floatval($_POST["score"]); // DEFINIE DANS UNE VARIABLE POUR INDIQUER QUE C EST UN FLOAT
+        $score = floatval($_POST["score"]); // CONVERSION DU SCORE EN FLOAT POUR S'ASSURER DU BON TYPE DE DONNÉE
         $userId = $_SESSION["id"];
 
         if ($score <= 0) {
@@ -27,6 +27,7 @@ class JustPriceService
             exit;
         }
 
+        // RÉCUPÉRATION DU SCORE EXISTANT DE L'UTILISATEUR EN BDD
         $justPriceFind = $justPriceRepository->findOneBy(["idUsers" => $userId]);
         
         $data = [
@@ -34,13 +35,14 @@ class JustPriceService
             "score" => $score,
         ];
 
+        // HYDRATATION DU MODEL AVEC LES NOUVELLES DATA
         $justPriceModel->hydrate($data);
         
-        if ($justPriceFind->score > $score) {
-            
+        if ($justPriceFind->score > $score) { // VÉRIFICATION SI L'UTILISATEUR A DEJA UN SCORE ENREGISTRÉ
+            // SI LE SCORE ACTUEL EST SUP AU NOUVEAU SCORE, ON MAJ EN BDD
             $justPriceRepository->update($justPriceFind->id, $data);
             
-        } else { // SI DEJA UN SCORE ET QUE LE SCORE EN BDD EST + GRAND QUE LE SCORE REALISER ON UDPATE LE SCORE
+        } else { // SI AUCUN SCORE N'EST ENREGISTRÉ POUR L'UTILISATEUR, ON CRÉE UNE NOUVELLE ENTRÉE
             $justPriceRepository->create($data);
         }
 
