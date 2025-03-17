@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Services\CommentJustPriceService;
-use App\Services\JustPriceService;
 
 class CommentJustPriceController
 {
@@ -19,8 +18,7 @@ class CommentJustPriceController
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
-            $justpriceService = new CommentJustPriceService();
-            $justpriceService->saveComment($data);
+            $this->service->saveComment($data);
         }else{
             echo json_encode(["status" => "error", "message" => "Méthode non authoriser"]);
         }
