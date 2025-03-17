@@ -27,18 +27,21 @@ class JustPriceService
             exit;
         }
 
-        $justPriceFind = $justPriceRepository->find($userId);
+        $justPriceFind = $justPriceRepository->findOneBy(["idUsers" => $userId]);
+        
+        $data = [
+            "idUsers" => $userId,
+            "score" => $score,
+        ];
 
-        if (!$justPriceFind) {
-            // ON VA CREER L UTILISATEUR S IL N EXISTE PAS EN BDD AVEC SON ID ET SONS CORE HYDRATER ET CREER
-            $data = [
-                "idUsers" => $userId,
-                "score" => $score,
-            ];
-            $justPriceModel->hydrate($data);
+        $justPriceModel->hydrate($data);
+        
+        if ($justPriceFind->score > $score) {
+            
+            $justPriceRepository->update($justPriceFind->id, $data);
+            
+        } else { // SI DEJA UN SCORE ET QUE LE SCORE EN BDD EST + GRAND QUE LE SCORE REALISER ON UDPATE LE SCORE
             $justPriceRepository->create($data);
-        } elseif ($justPriceFind->score > $score) { // SI DEJA UN SCORE ET QUE LE SCORE EN BDD EST + GRAND QUE LE SCORE REALISER ON UDPATE LE SCORE
-            $justPriceRepository->update($userId, ["score" => $score]);
         }
 
         echo json_encode(["status" => "success", "message" => "Votre Score est enregistré"]);

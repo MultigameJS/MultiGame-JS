@@ -105,7 +105,7 @@ h1 {
 }
 
 .card p:last-child {
-  color: #e81cff;
+  color: #000000;
   font-weight: 600;
 }
 
@@ -168,7 +168,6 @@ h1 {
 
 
 .game {
-
   position: relative;
   background-color: #ffcc00;
   display: flex;
