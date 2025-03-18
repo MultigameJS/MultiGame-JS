@@ -37,4 +37,6 @@ $css = 'blackjack';
         </div>
     </div>
 </section>
-<script type="module" src="/js/main.js"></script>
+
+<?php
+$game = "blackjack/main";
