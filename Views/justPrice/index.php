@@ -71,10 +71,9 @@
 
 </section>
 
-<script src="/assets/js/justprice/fallingCoins.js"></script>
-
 <?php
 $game = "justprice/main";
 $script = "justprice/comments";
+$scripts = "justprice/fallingCoins";
 $css = "justprice/justprice";
 ?>
