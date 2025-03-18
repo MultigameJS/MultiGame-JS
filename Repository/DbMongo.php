@@ -23,7 +23,8 @@ class DbMongo extends Mongo
         // Configuration des collections
         $this->collections = [
             'actu' => 'actu',
-            'memory' => 'memory'
+            'memory' => 'memory',
+            'justpriceComments' => 'justpriceComments'
         ];
     }
 

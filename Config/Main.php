@@ -80,7 +80,7 @@ class Main
         if (!isset($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
             // Retourner une erreur 403 si le jeton CSRF est invalide ou manquant
             http_response_code(403);
-            echo json_encode(['error' => 'Jeton CSRF invalide.']);
+            echo json_encode(['status'=> 'error', 'message' => 'Jeton CSRF invalide.']);
             exit();
         }
     }
