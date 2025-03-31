@@ -85,3 +85,4 @@ docker-compose up
 - [@Joris DUPONT-ALAMO](https://github.com/Baylox) - **Code initial de Sigmajack** : [Dépot SigmaJack](https://github.com/Baylox/SigmaJack)
 - [@Frederic LESIEUR](https://github.com/fredlesieur) - Pendu 
 - [@Suba](https://github.com/suba77340) - Memory game
+- [@Mélissa OULD YOUCEF](https://github.com/Oume59) - Just Price
